@@ -1,16 +1,10 @@
 # The URL where your site will be live
 base_url = "https://aliHOZA.github.io"
 title = "وبلاگ جدید" # "My New Blog" in Arabic
-description = "فارسی RTL."
+description = "بصورت RTL."
 
 # The theme to use
 theme = "tabi"
-
-# --- IMPORTANT RTL SETTINGS ---
-# Set this to true to enable Right-to-Left support
-rtl = true
-# Set the primary language code for your content
-language_code = "fa" # Use "ar" for Arabic, "fa" for Persian, "he" for Hebrew
 
 # Generate a feed for your posts
 generate_feeds = true
@@ -26,8 +20,17 @@ taxonomies = [
 highlight_code = true
 highlight_theme = "css"
 
+# --- IMPORTANT ---
+# All settings specific to the 'tabi' theme go under [extra]
 [extra]
-# These are settings specific to the 'tabi' theme
+# Set this to true to enable Right-to-Left support
+rtl = true
+
+# Set the primary language code for your content
+# Note: Zola's default language is set at the top level if you have multiple languages.
+# For a single language site, putting it here is fine for the theme.
+language_code = "fa" # Use "ar" for Arabic, "fa" for Persian, "he" for Hebrew
+
 # Put the links to your social profiles here
 author = "aliHOZA"
 links = [
