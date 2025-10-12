@@ -5,7 +5,7 @@ description = "تست."
 
 [taxonomies] 
     tags = ["زولا", "تست"]
-    categories = ["یادداشت"],
+    categories = ["یادداشت"]
 +++
 
 اولین پست در وبلاگ با Zola!
