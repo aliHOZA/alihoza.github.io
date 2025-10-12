@@ -1,7 +1,7 @@
 # The URL where your site will be live
 base_url = "https://aliHOZA.github.io"
-title = "مدونتي الجديدة" # "My New Blog" in Arabic
-description = "مدونة شخصية بتصميم عصري ودعم RTL."
+title = "وبلاگ جدید" # "My New Blog" in Arabic
+description = "فارسی RTL."
 
 # The theme to use
 theme = "tabi"
@@ -10,7 +10,7 @@ theme = "tabi"
 # Set this to true to enable Right-to-Left support
 rtl = true
 # Set the primary language code for your content
-language_code = "ar" # Use "ar" for Arabic, "fa" for Persian, "he" for Hebrew
+language_code = "fa" # Use "ar" for Arabic, "fa" for Persian, "he" for Hebrew
 
 # Generate a feed for your posts
 generate_feeds = true
