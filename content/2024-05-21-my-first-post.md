@@ -2,10 +2,10 @@
 title = "نخستین پست"
 date = 2025-10-12
 description = "تست."
-taxonomies = [
-    {tags = ["زولا", "تست"]},
-    {categories = ["یادداشت"]},
-]
+
+[taxonomies] 
+    tags = ["زولا", "تست"]
+    categories = ["یادداشت"],
 +++
 
 اولین پست در وبلاگ با Zola!
