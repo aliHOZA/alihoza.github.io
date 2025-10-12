@@ -17,7 +17,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: true
+          submodules: 'recursive' # Using 'recursive' is even better
       - name: Setup Zola
         uses: taiki-e/install-action@v2
         with:
