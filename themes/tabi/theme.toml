@@ -1,0 +1,10 @@
+name = "tabi"
+description = "A fast, responsive, and feature-rich blog theme for Zola"
+license = "MIT"
+homepage = "https://github.com/welpo/tabi"
+min_version = "0.17.0"
+demo = "https://welpo.github.io/tabi"
+
+[author]
+name = "welpo"
+homepage = "https://github.com/welpo"
