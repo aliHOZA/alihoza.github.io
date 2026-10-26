@@ -6,6 +6,7 @@ on:
     paths:
       - ".github/workflows/import-virgool.yml"
       - "scripts/import_virgool.py"
+      - "scripts/repair_truncated_virgool.py"
       - "virgool-export-2026-01-06--ZtG.zip"
   workflow_dispatch:
 
@@ -24,8 +25,14 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      # CHATGPT: recover the user-provided archive from the commit before it was removed from the working tree.
+      - name: Recover original Virgool archive from Git history
+        run: git show 9542d4364048ac3529145753c0eca6b25d1c02d2:virgool-export-2026-01-06--ZtG.zip > virgool-export-2026-01-06--ZtG.zip
       - name: Import published articles only
         run: python scripts/import_virgool.py --archive virgool-export-2026-01-06--ZtG.zip
+      # CHATGPT: repair existing stub posts using the original HTML bodies, without overwriting full articles.
+      - name: Restore truncated existing article bodies
+        run: python scripts/repair_truncated_virgool.py --archive virgool-export-2026-01-06--ZtG.zip
       - name: Set up Hugo
         uses: peaceiris/actions-hugo@v3
         with:
@@ -37,11 +44,11 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git rm -- virgool-export-2026-01-06--ZtG.zip
-          git add content/posts reports/virgool-import-report.md
+          git rm --ignore-unmatch -- virgool-export-2026-01-06--ZtG.zip
+          git add content/posts reports/virgool-import-report.md reports/virgool-body-repair.md
           if git diff --cached --quiet; then
             echo "No new published posts or archive changes to commit."
             exit 0
           fi
-          git commit -m "Import published Virgool posts"
+          git commit -m "Import and repair published Virgool posts [CHATGPT]"
           git push origin HEAD:main
