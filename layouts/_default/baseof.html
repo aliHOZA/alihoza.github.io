@@ -37,8 +37,8 @@
         <a href="{{ .Site.Home.RelPermalink }}">خانه</a>
         <a href="{{ "search/" | relURL }}">جستجو</a>
         <a href="{{ "categories/" | relURL }}">دسته‌بندی‌ها</a>
-        <a href="{{ "tags/" | relURL }}">برچسب‌ها</a>
         <a href="{{ "keywords/" | relURL }}">ابر واژه‌ها</a>
+        <a href="{{ "history/" | relURL }}">تاریخچه</a>
       </nav>
     </header>
     <main class="site-main">
@@ -49,6 +49,8 @@
       <span>· ساخته‌شده با Hugo</span>
     </footer>
   </div>
+  <!-- CHATGPT: format all post dates with the Persian calendar while retaining ISO dates for machines and archive filtering. -->
+  <script src="{{ "js/date-format.js" | relURL }}" defer></script>
   {{ partial "analytics.html" . }}
 </body>
 </html>
