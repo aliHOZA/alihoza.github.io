@@ -17,11 +17,12 @@
     if (!Number.isNaN(date.getTime())) node.textContent = formatter.format(date);
   });
 
+  const toLatinDigits = (value) => value.replace(/[۰-۹]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit)));
   const solarDateParts = (isoDate) => {
     const date = new Date(isoDate + "T12:00:00Z");
     if (Number.isNaN(date.getTime())) return null;
     const parts = formatter.formatToParts(date);
-    const numeric = (type) => Number(parts.find((part) => part.type === type)?.value.replace(/[^0-9]/g, ""));
+    const numeric = (type) => Number(toLatinDigits(parts.find((part) => part.type === type)?.value || ""));
     return { year: numeric("year"), month: parts.find((part) => part.type === "month")?.value, day: numeric("day") };
   };
 
