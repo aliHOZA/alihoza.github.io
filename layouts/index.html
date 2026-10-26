@@ -1,9 +1,34 @@
+{{ define "title" }}{{ .Site.Title }}{{ end }}
 {{ define "main" }}
-<h2>آخرین نوشته‌ها</h2>
-{{ range first 20 .Site.RegularPages }}
-  <article>
-    <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
-    <div class="meta">{{ .Date.Format "2 January 2006" }}</div>
-  </article>
+<section class="home-intro">
+  <h1 class="page-heading">یادداشت‌ها و جستارها</h1>
+  <p class="page-intro">نوشته‌هایی دربارهٔ تاریخ، سیاست، اقتصاد و موضوعات مورد علاقه‌ام.</p>
+</section>
+{{ $paginator := .Paginate (where .Site.RegularPages "Section" "posts").ByDate.Reverse 12 }}
+<section class="post-list" aria-label="آخرین نوشته‌ها">
+  {{ range $paginator.Pages }}
+    <article class="post-card">
+      <h2 class="post-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+      <div class="post-meta">
+        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time>
+        {{ with .ReadingTime }}<span>{{ . }} دقیقه مطالعه</span>{{ end }}
+      </div>
+      {{ with .Summary }}<p class="post-summary">{{ . | plainify | htmlUnescape | truncate 190 }}</p>{{ end }}
+      {{ with .Params.tags }}
+        <div class="tag-row">
+          {{ range first 3 . }}<a class="tag-chip" href="{{ printf "tags/%s/" (. | urlize) | relURL }}">{{ . }}</a>{{ end }}
+        </div>
+      {{ end }}
+    </article>
+  {{ else }}
+    <p class="empty-state">هنوز نوشته‌ای برای نمایش وجود ندارد.</p>
+  {{ end }}
+</section>
+{{ if gt $paginator.TotalPages 1 }}
+  <nav class="pagination" aria-label="صفحه‌بندی">
+    {{ if $paginator.HasPrev }}<a href="{{ $paginator.Prev.URL }}">← نوشته‌های جدیدتر</a>{{ else }}<span></span>{{ end }}
+    <span class="post-meta">صفحه {{ $paginator.PageNumber }} از {{ $paginator.TotalPages }}</span>
+    {{ if $paginator.HasNext }}<a href="{{ $paginator.Next.URL }}">نوشته‌های قدیمی‌تر →</a>{{ end }}
+  </nav>
 {{ end }}
 {{ end }}
