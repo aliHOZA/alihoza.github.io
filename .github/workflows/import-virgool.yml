@@ -1,0 +1,47 @@
+name: Import published Virgool posts
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - ".github/workflows/import-virgool.yml"
+      - "scripts/import_virgool.py"
+      - "virgool-export-2026-01-06--ZtG.zip"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: virgool-import
+  cancel-in-progress: false
+
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Import published articles only
+        run: python scripts/import_virgool.py --archive virgool-export-2026-01-06--ZtG.zip
+      - name: Set up Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.134.3"
+          extended: true
+      - name: Verify Hugo build before committing
+        run: hugo --minify --baseURL "https://aliHOZA.github.io/"
+      - name: Commit imported posts and remove public archive
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -- virgool-export-2026-01-06--ZtG.zip
+          git add content/posts reports/virgool-import-report.md
+          if git diff --cached --quiet; then
+            echo "No new published posts or archive changes to commit."
+            exit 0
+          fi
+          git commit -m "Import published Virgool posts"
+          git push origin HEAD:main
