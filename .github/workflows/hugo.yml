@@ -15,10 +15,6 @@ concurrency:
   group: "pages"
   cancel-in-progress: false
 
-defaults:
-  run:
-    shell: bash
-
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -28,7 +24,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
         with:
-          submodules: recursive
           fetch-depth: 0
 
       - name: Setup Hugo
@@ -37,10 +32,14 @@ jobs:
           hugo-version: ${{ env.HUGO_VERSION }}
           extended: true
 
+      - name: Install PaperMod theme
+        run: |
+          mkdir -p themes
+          git clone --depth 1 https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod
+
       - name: Build with Hugo
         env:
           HUGO_ENVIRONMENT: production
-          HUGO_ENV: production
         run: |
           hugo --minify --baseURL "https://aliHOZA.github.io/"
 
