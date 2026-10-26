@@ -3,16 +3,16 @@
   "quality": 90,
   "minimum_saving_ratio": 0.1,
   "inventory": {
-    "large_supported": 6,
+    "large_supported": 1,
     "excluded_large": 0,
     "animated_large": 0,
     "conversion_errors": 0,
     "output_collisions": 0
   },
-  "converted_count": 5,
-  "before_bytes": 3704490,
-  "after_bytes": 338196,
-  "saved_bytes": 3366294,
+  "converted_count": 0,
+  "before_bytes": 0,
+  "after_bytes": 0,
+  "saved_bytes": 0,
   "rejected": [
     {
       "source": "static/images/virgool/a598c3090b51de98b750.jpeg",
@@ -21,36 +21,6 @@
       "reason": "WebP is not at least 10% smaller"
     }
   ],
-  "files": [
-    {
-      "source": "static/images/virgool/413a14c72aa38ce4459c.png",
-      "before_bytes": 742442,
-      "webp": "static/images/virgool/413a14c72aa38ce4459c.webp",
-      "after_bytes": 59074
-    },
-    {
-      "source": "static/images/virgool/4f35ebe7ab018c93441f.png",
-      "before_bytes": 751718,
-      "webp": "static/images/virgool/4f35ebe7ab018c93441f.webp",
-      "after_bytes": 73358
-    },
-    {
-      "source": "static/images/virgool/5516ee5c1472a9a0a3b2.png",
-      "before_bytes": 734644,
-      "webp": "static/images/virgool/5516ee5c1472a9a0a3b2.webp",
-      "after_bytes": 85770
-    },
-    {
-      "source": "static/images/virgool/7d0addb628e67070cf65.png",
-      "before_bytes": 743318,
-      "webp": "static/images/virgool/7d0addb628e67070cf65.webp",
-      "after_bytes": 75790
-    },
-    {
-      "source": "static/images/virgool/e0192274766cd6cc32c6.png",
-      "before_bytes": 732368,
-      "webp": "static/images/virgool/e0192274766cd6cc32c6.webp",
-      "after_bytes": 44204
-    }
-  ]
+  "repaired_previous_non_saving": [],
+  "files": []
 }
