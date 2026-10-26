@@ -4,7 +4,7 @@ on:
   pull_request:
     branches: ["main"]
   push:
-    branches: ["theme/editorial-refresh"]
+    branches: ["theme/editorial-refresh", "feature/tfidf-related-posts"]
 
 permissions:
   contents: read
@@ -24,8 +24,18 @@ jobs:
           hugo-version: "0.134.3"
           extended: true
 
-      - name: Build site
+      - name: Build source index
         run: hugo --minify --baseURL "https://aliHOZA.github.io/"
 
-      - name: Verify search index was generated
-        run: test -s public/index.json && test -s public/random-index.json && test -s public/search/index.html
+      - name: Generate TF-IDF related-post rankings
+        run: python scripts/build_related_posts.py --index public/index.json --output data/related-posts.json
+
+      - name: Build site with related-post rankings
+        run: hugo --minify --baseURL "https://aliHOZA.github.io/"
+
+      - name: Verify generated indexes and related-post rankings
+        run: |
+          test -s public/index.json
+          test -s public/random-index.json
+          test -s public/search/index.html
+          test -s data/related-posts.json
