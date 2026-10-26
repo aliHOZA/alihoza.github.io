@@ -1,12 +1,12 @@
 # SEO taxonomy report
 
 - Markdown posts scanned: 310
-- Files updated with taxonomy: 0
+- Files updated with taxonomy: 1
 - Exactly five category labels are used; assignments are refreshed using weighted title, summary, and body matches.
 
 ## Category distribution
 
-- جامعه، فرهنگ و اندیشه: 169
+- جامعه، فرهنگ و اندیشه: 168
 - سیاست و روابط بین‌الملل: 88
 - اقتصاد، نفت و انرژی: 62
 - سفر، فناوری و محیط‌زیست: 22
