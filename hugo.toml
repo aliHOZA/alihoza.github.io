@@ -23,7 +23,7 @@ enableRobotsTXT = true
   tag = 'tags'
 
 [outputs]
-  home = ['HTML', 'JSON', 'RANDOMINDEX']
+  home = ['HTML', 'RSS', 'JSON', 'RANDOMINDEX']
 
 [outputFormats.JSON]
   mediaType = 'application/json'

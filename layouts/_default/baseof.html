@@ -6,6 +6,7 @@
   {{ $metaDescription := .Params.summary | default .Description | default .Summary | plainify | htmlUnescape | truncate 160 }}
   <meta name="description" content="{{ $metaDescription }}">
   <link rel="canonical" href="{{ .Permalink }}">
+  {{ with .Site.Home.OutputFormats.Get "RSS" }}<link rel="alternate" type="application/rss+xml" title="{{ $.Site.Title }} — خوراک RSS" href="{{ .Permalink }}">{{ end }}
   <meta property="og:locale" content="fa_IR">
   <meta property="og:site_name" content="{{ .Site.Title }}">
   <meta property="og:title" content="{{ .Title }} | {{ .Site.Title }}">
@@ -49,6 +50,7 @@
     <footer class="site-footer">
       <span>© {{ now.Year }} {{ .Site.Params.author | default .Site.Title }}</span>
       <span>· ساخته‌شده با Hugo</span>
+      <span>· <a href="{{ "index.xml" | relURL }}">خوراک RSS</a></span>
       <span>· <a href="https://alihoza.goatcounter.com/" target="_blank" rel="noopener noreferrer">آمار بازدید</a></span>
     </footer>
   </div>
