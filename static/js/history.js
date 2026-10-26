@@ -32,5 +32,5 @@
   form.addEventListener("submit",e=>{e.preventDefault();currentPage=0;render();}); calendar.addEventListener("change",()=>{refreshYears();currentPage=0;render();});
   yearSelect.addEventListener("change",()=>{currentPage=0;render();}); monthSelect.addEventListener("change",()=>{currentPage=0;render();});
   prevButton.addEventListener("click",()=>{currentPage--;render();}); nextButton.addEventListener("click",()=>{currentPage++;render();});
-  fetch(new URL("index.json",document.baseURI).toString()).then(r=>{if(!r.ok)throw Error("Archive index unavailable");return r.json();}).then(data=>{pages=(Array.isArray(data)?data:[]).sort((a,b)=>b.date.localeCompare(a.date));refreshYears();render();}).catch(()=>{status.textContent="بارگذاری آرشیو ناموفق بود. لطفاً صفحه را تازه‌سازی کنید.";});
+  fetch(form.dataset.indexUrl).then(r=>{if(!r.ok)throw Error("Archive index unavailable");return r.json();}).then(data=>{pages=(Array.isArray(data)?data:[]).sort((a,b)=>b.date.localeCompare(a.date));refreshYears();render();}).catch(()=>{status.textContent="بارگذاری آرشیو ناموفق بود. لطفاً صفحه را تازه‌سازی کنید.";});
 })();
