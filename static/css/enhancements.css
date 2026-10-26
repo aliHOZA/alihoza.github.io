@@ -44,3 +44,11 @@
 .history-filter .search-button { min-height: 47px; white-space: nowrap; }
 @media (max-width: 700px) { .history-filter { grid-template-columns: 1fr 1fr; } .history-filter .search-button { grid-column: 1 / -1; width: 100%; } }
 @media (max-width: 420px) { .history-filter { grid-template-columns: 1fr; } }
+
+/* CHATGPT: localized, compact taxonomy indexes. */
+.taxonomy-terms { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px 16px; margin-top: 28px; }
+.taxonomy-term { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 13px 15px; border: 1px solid var(--line); border-radius: 9px; background: var(--surface); text-decoration: none; }
+.taxonomy-term:hover { border-color: var(--accent); background: var(--soft); }
+.taxonomy-count { color: var(--muted); font-size: .8rem; font-variant-numeric: tabular-nums; }
+[hidden] { display: none !important; }
+@media (max-width: 620px) { .taxonomy-terms { grid-template-columns: minmax(0, 1fr); } }
