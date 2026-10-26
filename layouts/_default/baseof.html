@@ -36,6 +36,7 @@
       <nav class="site-nav" aria-label="ناوبری اصلی">
         <a href="{{ .Site.Home.RelPermalink }}">خانه</a>
         <a href="{{ "search/" | relURL }}">جستجو</a>
+        <a href="{{ "random/" | relURL }}" id="random-post-link" data-index-url="{{ "index.json" | relURL }}">یک مطلب شانسی</a>
         <a href="{{ "categories/" | relURL }}">دسته‌بندی‌ها</a>
         <a href="{{ "tags/" | relURL }}">برچسب‌ها</a>
         <a href="{{ "keywords/" | relURL }}">ابر واژه‌ها</a>
@@ -54,6 +55,7 @@
   <!-- CHATGPT: format all post dates with the Persian calendar while retaining ISO dates for machines and archive filtering. -->
   <script src="{{ "js/date-format.js" | relURL }}" defer></script>
   <script src="{{ "js/persian-digits.js" | relURL }}" defer></script>
+  <script src="{{ "js/random-post.js" | relURL }}" defer></script>
   {{ partial "analytics.html" . }}
 </body>
 </html>
