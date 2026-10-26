@@ -1,3 +1,8 @@
-# Disabled - replaced by hugo.yml
-# name: Build and deploy Zola site
-# This file is intentionally left empty to stop the old Zola builds.
+name: disabled
+on:
+  workflow_dispatch:
+jobs:
+  noop:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Old Zola workflow disabled"

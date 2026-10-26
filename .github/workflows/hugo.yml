@@ -2,8 +2,7 @@ name: Deploy Hugo site to Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -13,13 +12,13 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: false
+  cancel-in-progress: true
 
 jobs:
   build:
     runs-on: ubuntu-latest
     env:
-      HUGO_VERSION: 0.139.4
+      HUGO_VERSION: 0.134.3
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -32,14 +31,12 @@ jobs:
           hugo-version: ${{ env.HUGO_VERSION }}
           extended: true
 
-      - name: Install PaperMod theme
+      - name: Install PaperMod
         run: |
-          mkdir -p themes
-          git clone --depth 1 https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod
+          rm -rf themes/PaperMod
+          git clone --depth=1 https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod
 
-      - name: Build with Hugo
-        env:
-          HUGO_ENVIRONMENT: production
+      - name: Build
         run: |
           hugo --minify --baseURL "https://aliHOZA.github.io/"
 
@@ -49,12 +46,12 @@ jobs:
           path: ./public
 
   deploy:
+    needs: build
+    runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
     steps:
-      - name: Deploy to GitHub Pages
+      - name: Deploy
         id: deployment
         uses: actions/deploy-pages@v4
