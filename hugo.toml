@@ -1,5 +1,5 @@
 baseURL = 'https://aliHOZA.github.io/'
-languageCode = 'fa-ir'
+languageCode = 'fa'
 title = 'وبلاگ علی حسین‌زاده'
 theme = 'PaperMod'
 
@@ -49,7 +49,7 @@ defaultContentLanguage = 'fa'
     weight = 40
 
 [outputs]
-  home = ['HTML', 'RSS', 'JSON']
+  home = ["HTML", "RSS", "JSON"]
 
 [markup]
   [markup.goldmark]
@@ -57,5 +57,5 @@ defaultContentLanguage = 'fa'
       unsafe = true
 
 [taxonomies]
-  tag = 'tags'
-  category = 'categories'
+  tag = "tags"
+  category = "categories"

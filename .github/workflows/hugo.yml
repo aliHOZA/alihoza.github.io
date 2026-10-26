@@ -17,8 +17,6 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
-    env:
-      HUGO_VERSION: 0.134.3
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -28,22 +26,21 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: ${{ env.HUGO_VERSION }}
+          hugo-version: '0.134.3'
           extended: true
 
-      - name: Install PaperMod
+      - name: Install PaperMod theme
         run: |
-          rm -rf themes/PaperMod
-          git clone --depth=1 https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod
+          mkdir -p themes
+          git clone --depth 1 https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod
 
-      - name: Build
-        run: |
-          hugo --minify --baseURL "https://aliHOZA.github.io/"
+      - name: Build site
+        run: hugo --minify --baseURL "https://aliHOZA.github.io/"
 
-      - name: Upload artifact
+      - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./public
+          path: public
 
   deploy:
     needs: build
@@ -52,6 +49,6 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Deploy
+      - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
