@@ -48,7 +48,7 @@ def read_scalar(front: str, key: str) -> str:
     try:
         return str(json.loads(m.group(1)))
     except (json.JSONDecodeError, TypeError):
-        return m.group(1).strip('"\\'')
+        return m.group(1).strip('"').strip("'")
 
 def score_terms(terms, title, summary, body):
     score = 0
