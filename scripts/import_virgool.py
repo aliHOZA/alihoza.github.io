@@ -37,7 +37,7 @@ class ArticleParser(HTMLParser):
         if tag == "a" and "p-canonical" in a.get("class", "").split():
             self.canonical = a.get("href", "")
         content_classes = set(a.get("class", "").lower().split())
-        if not self.in_section and content_classes.intersection({"e-content", "article-content", "post-content", "article-body", "post-body", "article__content", "post__content"}):
+        if not self.in_section and (content_classes.intersection({"e-content", "article-content", "post-content", "article-body", "post-body", "article__content", "post__content"}) or ("mb-6" in content_classes and "css-or5hou" in content_classes)):
             self.in_section = True
             self.content_tag = tag
             self.depth = 1
