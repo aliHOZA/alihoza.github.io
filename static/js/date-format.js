@@ -36,11 +36,11 @@
   const monthGroup = related.querySelector(".same-month-posts");
   if (!dayGroup && !monthGroup) return;
 
-  const shown = new Set(Array.from(related.querySelectorAll(".post-neighbor a"))
+  const shown = new Set([window.location.href, ...Array.from(related.querySelectorAll(".post-neighbor a"))
     .map((anchor) => {
       try { return new URL(anchor.href, window.location.origin).href; }
       catch { return ""; }
-    }).filter(Boolean));
+    }).filter(Boolean)]);
 
   const makeRecommendation = (post, date, includeYearsAgo = false) => {
     const item = document.createElement("li");
@@ -52,7 +52,8 @@
     if (includeYearsAgo) {
       const years = document.createElement("span");
       years.className = "years-ago";
-      years.textContent = (current.year - date.year) + " سال قبل";
+      const difference = current.year - date.year;
+      years.textContent = difference > 0 ? difference + " سال قبل" : Math.abs(difference) + " سال بعد";
       item.append(years);
     }
 
@@ -66,7 +67,7 @@
     return item;
   };
 
-  const appendMatches = (group, posts, matches, limit, includeYearsAgo = false) => {
+  const appendMatches = (group, posts, matches, limit, includeYearsAgo = false, includeFutureYears = false) => {
     if (!group) return;
     const list = group.querySelector(".related-list");
     if (!list) return;
@@ -76,7 +77,7 @@
     for (const post of posts) {
       if (count >= limit) break;
       const date = solarDateParts(post.date);
-      if (!date || date.year >= current.year || !matches(date)) continue;
+      if (!date || (includeFutureYears ? date.year === current.year : date.year >= current.year) || !matches(date)) continue;
 
       let url;
       try { url = new URL(post.url, window.location.origin).href; }
@@ -97,7 +98,7 @@
     })
     .then((posts) => {
       if (!Array.isArray(posts)) throw new Error("Invalid date index");
-      appendMatches(dayGroup, posts, (date) => date.month === current.month && date.day === current.day, 4, true);
+      appendMatches(dayGroup, posts, (date) => date.month === current.month && date.day === current.day, 4, true, true);
       appendMatches(monthGroup, posts, (date) => date.month === current.month, 4);
     })
     .catch(() => {
