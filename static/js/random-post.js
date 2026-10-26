@@ -11,10 +11,10 @@
       const posts = await response.json();
       if (!Array.isArray(posts) || posts.length === 0) throw new Error("No posts found");
 
-      const currentPath = window.location.pathname.replace(/\\/$/, "");
+      const currentPath = window.location.pathname.replace(/\/$/, "");
       let candidates = posts.filter((post) => {
         try {
-          return new URL(post.url, window.location.origin).pathname.replace(/\\/$/, "") !== currentPath;
+          return new URL(post.url, window.location.origin).pathname.replace(/\/$/, "") !== currentPath;
         } catch {
           return true;
         }
@@ -25,7 +25,7 @@
       window.location.href = post.url;
     } catch (error) {
       // Keep the landing page usable if the post index is unavailable.
-      const isRandomPage = window.location.pathname.replace(/\\/$/, "").endsWith("/random");
+      const isRandomPage = window.location.pathname.replace(/\/$/, "").endsWith("/random");
       if (isRandomPage) {
         const message = document.querySelector("main p");
         if (message) message.textContent = "انتخاب خودکار ممکن نشد. لطفاً دوباره تلاش کنید یا به صفحهٔ اصلی وبلاگ برگردید.";
@@ -44,7 +44,7 @@
   });
 
   // The static /random/ page also works as a direct entry point or fallback.
-  if (window.location.pathname.replace(/\\/$/, "").endsWith("/random")) {
+  if (window.location.pathname.replace(/\/$/, "").endsWith("/random")) {
     chooseRandomPost();
   }
 })();
