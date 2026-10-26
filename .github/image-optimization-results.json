@@ -1,26 +1,329 @@
 {
-  "threshold_bytes": 716800,
+  "threshold_bytes": 500000,
   "quality": 90,
-  "minimum_saving_ratio": 0.1,
+  "minimum_saving_ratio": 0.3,
   "inventory": {
-    "large_supported": 1,
+    "large_supported": 44,
     "excluded_large": 0,
     "animated_large": 0,
     "conversion_errors": 0,
     "output_collisions": 0
   },
-  "converted_count": 0,
-  "before_bytes": 0,
-  "after_bytes": 0,
-  "saved_bytes": 0,
+  "converted_count": 39,
+  "before_bytes": 23188298,
+  "after_bytes": 3446098,
+  "saved_bytes": 19742200,
+  "saved_percent": 85.14,
   "rejected": [
+    {
+      "source": "static/images/virgool/a3656180d25b264256a7.jpeg",
+      "source_bytes": 517690,
+      "candidate_bytes": 438022,
+      "saving_percent": 15.39,
+      "reason": "WebP is not at least 30% smaller"
+    },
     {
       "source": "static/images/virgool/a598c3090b51de98b750.jpeg",
       "source_bytes": 732219,
       "candidate_bytes": 880100,
-      "reason": "WebP is not at least 10% smaller"
+      "saving_percent": -20.2,
+      "reason": "WebP is not at least 30% smaller"
+    },
+    {
+      "source": "static/images/virgool/a846e495b3dc91764e05.jpeg",
+      "source_bytes": 665543,
+      "candidate_bytes": 1092982,
+      "saving_percent": -64.22,
+      "reason": "WebP is not at least 30% smaller"
+    },
+    {
+      "source": "static/images/virgool/b25ae4d92f9868f766dc.jpeg",
+      "source_bytes": 634642,
+      "candidate_bytes": 689920,
+      "saving_percent": -8.71,
+      "reason": "WebP is not at least 30% smaller"
+    },
+    {
+      "source": "static/images/virgool/ba0110350d10d3965452.jpeg",
+      "source_bytes": 536781,
+      "candidate_bytes": 378272,
+      "saving_percent": 29.53,
+      "reason": "WebP is not at least 30% smaller"
     }
   ],
-  "repaired_previous_non_saving": [],
-  "files": []
+  "files": [
+    {
+      "source": "static/images/virgool/067e26953fb09dc8c2ab.png",
+      "before_bytes": 698339,
+      "webp": "static/images/virgool/067e26953fb09dc8c2ab.webp",
+      "after_bytes": 80750,
+      "saving_percent": 88.44
+    },
+    {
+      "source": "static/images/virgool/13a9b7d7118f83105aac.png",
+      "before_bytes": 513385,
+      "webp": "static/images/virgool/13a9b7d7118f83105aac.webp",
+      "after_bytes": 53246,
+      "saving_percent": 89.63
+    },
+    {
+      "source": "static/images/virgool/1d0c7ca1a60d0cf664c3.png",
+      "before_bytes": 592635,
+      "webp": "static/images/virgool/1d0c7ca1a60d0cf664c3.webp",
+      "after_bytes": 57188,
+      "saving_percent": 90.35
+    },
+    {
+      "source": "static/images/virgool/277de7896ccbfb0129c2.png",
+      "before_bytes": 521696,
+      "webp": "static/images/virgool/277de7896ccbfb0129c2.webp",
+      "after_bytes": 72650,
+      "saving_percent": 86.07
+    },
+    {
+      "source": "static/images/virgool/278788bb8001e3f8a10c.png",
+      "before_bytes": 527329,
+      "webp": "static/images/virgool/278788bb8001e3f8a10c.webp",
+      "after_bytes": 62734,
+      "saving_percent": 88.1
+    },
+    {
+      "source": "static/images/virgool/3813994d771b2dcded37.png",
+      "before_bytes": 590438,
+      "webp": "static/images/virgool/3813994d771b2dcded37.webp",
+      "after_bytes": 42402,
+      "saving_percent": 92.82
+    },
+    {
+      "source": "static/images/virgool/466db50ad3a915d5372e.png",
+      "before_bytes": 513460,
+      "webp": "static/images/virgool/466db50ad3a915d5372e.webp",
+      "after_bytes": 53866,
+      "saving_percent": 89.51
+    },
+    {
+      "source": "static/images/virgool/530bbc286f1c5e30f241.png",
+      "before_bytes": 547134,
+      "webp": "static/images/virgool/530bbc286f1c5e30f241.webp",
+      "after_bytes": 35324,
+      "saving_percent": 93.54
+    },
+    {
+      "source": "static/images/virgool/55c6aa6630925533a156.png",
+      "before_bytes": 686025,
+      "webp": "static/images/virgool/55c6aa6630925533a156.webp",
+      "after_bytes": 108582,
+      "saving_percent": 84.17
+    },
+    {
+      "source": "static/images/virgool/626a4f8cedb50e35d0b6.png",
+      "before_bytes": 525888,
+      "webp": "static/images/virgool/626a4f8cedb50e35d0b6.webp",
+      "after_bytes": 58498,
+      "saving_percent": 88.88
+    },
+    {
+      "source": "static/images/virgool/6435a240d4213dd021ed.png",
+      "before_bytes": 643650,
+      "webp": "static/images/virgool/6435a240d4213dd021ed.webp",
+      "after_bytes": 68880,
+      "saving_percent": 89.3
+    },
+    {
+      "source": "static/images/virgool/67cb4fd083a5187fcc43.png",
+      "before_bytes": 580029,
+      "webp": "static/images/virgool/67cb4fd083a5187fcc43.webp",
+      "after_bytes": 79002,
+      "saving_percent": 86.38
+    },
+    {
+      "source": "static/images/virgool/6e814648ebd313858ae2.jpeg",
+      "before_bytes": 516963,
+      "webp": "static/images/virgool/6e814648ebd313858ae2.webp",
+      "after_bytes": 282578,
+      "saving_percent": 45.34
+    },
+    {
+      "source": "static/images/virgool/8227d097a4cfa6be51c1.png",
+      "before_bytes": 526169,
+      "webp": "static/images/virgool/8227d097a4cfa6be51c1.webp",
+      "after_bytes": 36410,
+      "saving_percent": 93.08
+    },
+    {
+      "source": "static/images/virgool/95c4d5191d5b54acd082.png",
+      "before_bytes": 542728,
+      "webp": "static/images/virgool/95c4d5191d5b54acd082.webp",
+      "after_bytes": 35136,
+      "saving_percent": 93.53
+    },
+    {
+      "source": "static/images/virgool/9775688d94443505d8d9.png",
+      "before_bytes": 623739,
+      "webp": "static/images/virgool/9775688d94443505d8d9.webp",
+      "after_bytes": 99548,
+      "saving_percent": 84.04
+    },
+    {
+      "source": "static/images/virgool/9a63302584306f67569c.png",
+      "before_bytes": 573863,
+      "webp": "static/images/virgool/9a63302584306f67569c.webp",
+      "after_bytes": 85360,
+      "saving_percent": 85.13
+    },
+    {
+      "source": "static/images/virgool/9b95d835967e45257821.png",
+      "before_bytes": 602678,
+      "webp": "static/images/virgool/9b95d835967e45257821.webp",
+      "after_bytes": 25494,
+      "saving_percent": 95.77
+    },
+    {
+      "source": "static/images/virgool/9efd938432294f35caf0.png",
+      "before_bytes": 549793,
+      "webp": "static/images/virgool/9efd938432294f35caf0.webp",
+      "after_bytes": 76490,
+      "saving_percent": 86.09
+    },
+    {
+      "source": "static/images/virgool/9f8b737e637771564f9c.png",
+      "before_bytes": 624257,
+      "webp": "static/images/virgool/9f8b737e637771564f9c.webp",
+      "after_bytes": 39030,
+      "saving_percent": 93.75
+    },
+    {
+      "source": "static/images/virgool/a3d374a42aad27b8e16e.png",
+      "before_bytes": 545977,
+      "webp": "static/images/virgool/a3d374a42aad27b8e16e.webp",
+      "after_bytes": 28050,
+      "saving_percent": 94.86
+    },
+    {
+      "source": "static/images/virgool/a63f484ce52439c2c6fc.png",
+      "before_bytes": 650165,
+      "webp": "static/images/virgool/a63f484ce52439c2c6fc.webp",
+      "after_bytes": 180402,
+      "saving_percent": 72.25
+    },
+    {
+      "source": "static/images/virgool/b5af795803546946c3af.png",
+      "before_bytes": 687583,
+      "webp": "static/images/virgool/b5af795803546946c3af.webp",
+      "after_bytes": 74670,
+      "saving_percent": 89.14
+    },
+    {
+      "source": "static/images/virgool/cf32ffc9a05d73df4db0.png",
+      "before_bytes": 710193,
+      "webp": "static/images/virgool/cf32ffc9a05d73df4db0.webp",
+      "after_bytes": 117054,
+      "saving_percent": 83.52
+    },
+    {
+      "source": "static/images/virgool/d0bcfaa803b564fb4b21.png",
+      "before_bytes": 542106,
+      "webp": "static/images/virgool/d0bcfaa803b564fb4b21.webp",
+      "after_bytes": 56946,
+      "saving_percent": 89.5
+    },
+    {
+      "source": "static/images/virgool/d98fbf255a127f9932a6.png",
+      "before_bytes": 536078,
+      "webp": "static/images/virgool/d98fbf255a127f9932a6.webp",
+      "after_bytes": 46460,
+      "saving_percent": 91.33
+    },
+    {
+      "source": "static/images/virgool/dbb608dd15a250711a28.png",
+      "before_bytes": 590994,
+      "webp": "static/images/virgool/dbb608dd15a250711a28.webp",
+      "after_bytes": 44876,
+      "saving_percent": 92.41
+    },
+    {
+      "source": "static/images/virgool/dd6d3dfc3ac6d9f35067.png",
+      "before_bytes": 685962,
+      "webp": "static/images/virgool/dd6d3dfc3ac6d9f35067.webp",
+      "after_bytes": 117648,
+      "saving_percent": 82.85
+    },
+    {
+      "source": "static/images/virgool/de9b0949112a917b307b.png",
+      "before_bytes": 529240,
+      "webp": "static/images/virgool/de9b0949112a917b307b.webp",
+      "after_bytes": 72152,
+      "saving_percent": 86.37
+    },
+    {
+      "source": "static/images/virgool/e2d24ae894739c32e3b3.png",
+      "before_bytes": 604333,
+      "webp": "static/images/virgool/e2d24ae894739c32e3b3.webp",
+      "after_bytes": 90590,
+      "saving_percent": 85.01
+    },
+    {
+      "source": "static/images/virgool/e4ec878ad9ce92e07bd3.png",
+      "before_bytes": 653164,
+      "webp": "static/images/virgool/e4ec878ad9ce92e07bd3.webp",
+      "after_bytes": 65740,
+      "saving_percent": 89.94
+    },
+    {
+      "source": "static/images/virgool/e6e8fd657dbfcac01875.png",
+      "before_bytes": 680892,
+      "webp": "static/images/virgool/e6e8fd657dbfcac01875.webp",
+      "after_bytes": 84348,
+      "saving_percent": 87.61
+    },
+    {
+      "source": "static/images/virgool/e7092b48fb49e3303278.png",
+      "before_bytes": 703503,
+      "webp": "static/images/virgool/e7092b48fb49e3303278.webp",
+      "after_bytes": 137672,
+      "saving_percent": 80.43
+    },
+    {
+      "source": "static/images/virgool/e74b749f97c4f1d51683.jpeg",
+      "before_bytes": 566417,
+      "webp": "static/images/virgool/e74b749f97c4f1d51683.webp",
+      "after_bytes": 362144,
+      "saving_percent": 36.06
+    },
+    {
+      "source": "static/images/virgool/f13ffef0295f13b2c49d.png",
+      "before_bytes": 584125,
+      "webp": "static/images/virgool/f13ffef0295f13b2c49d.webp",
+      "after_bytes": 87170,
+      "saving_percent": 85.08
+    },
+    {
+      "source": "static/images/virgool/f14b79ae7368305cb8cf.png",
+      "before_bytes": 588019,
+      "webp": "static/images/virgool/f14b79ae7368305cb8cf.webp",
+      "after_bytes": 122306,
+      "saving_percent": 79.2
+    },
+    {
+      "source": "static/images/virgool/f2cdca29898a6ce51492.png",
+      "before_bytes": 639605,
+      "webp": "static/images/virgool/f2cdca29898a6ce51492.webp",
+      "after_bytes": 131922,
+      "saving_percent": 79.37
+    },
+    {
+      "source": "static/images/virgool/f525589fbee21101769d.png",
+      "before_bytes": 560211,
+      "webp": "static/images/virgool/f525589fbee21101769d.webp",
+      "after_bytes": 41978,
+      "saving_percent": 92.51
+    },
+    {
+      "source": "static/images/virgool/fca4663ad5315786510e.png",
+      "before_bytes": 629533,
+      "webp": "static/images/virgool/fca4663ad5315786510e.webp",
+      "after_bytes": 130802,
+      "saving_percent": 79.22
+    }
+  ]
 }
