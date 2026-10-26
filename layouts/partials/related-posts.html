@@ -2,10 +2,17 @@
 {{- $all := where .Site.RegularPages "Section" "posts" -}}
 {{- $previous := .PrevInSection -}}
 {{- $next := .NextInSection -}}
-{{- /* CHATGPT: Solar Hijri month/day matching happens client-side; shuffle all published posts so each page gets a varied shortlist. */ -}}
-{{- /* CHATGPT: score candidates by overlap with editorial keyword-cloud terms and existing tags/categories. */ -}}
+{{- /* Normalize common Persian/Arabic letter variants and whitespace before matching. */ -}}
 {{- $keywords := slice "اقتصاد ایران" "نفت و انرژی" "تاریخ معاصر ایران" "سیاست ایران" "روابط ایران و آمریکا" "بازار سرمایه" "صادرات نفت" "فساد اقتصادی" "تورم" "تحریم‌ها" "توسعه اقتصادی" "اقتصاد نفتی" "تجارت خارجی" "روسیه" "چین" "جنگ و صلح" "دوران قاجار" "دوران پهلوی" "انقلاب مشروطه" "بودجه و یارانه" "بانک مرکزی" "آب و محیط زیست" "رود کارون و سد گتوند" "مغالطه و تفکر نقاد" "جامعه و فرهنگ" "حقوق و عدالت" "سفرنامه" -}}
-{{- $currentText := lower (printf "%s %s" $current.Title $current.Plain) -}}
+{{- $currentText := printf "%s %s" $current.Title $current.Plain | lower | replaceRE "[يى]" "ی" | replaceRE "ك" "ک" | replaceRE "[[:space:]‌]+" " " -}}
+{{- $currentTags := slice -}}
+{{- range ($current.Params.tags | default (slice)) -}}
+  {{- $currentTags = $currentTags | append (lower . | replaceRE "[يى]" "ی" | replaceRE "ك" "ک" | replaceRE "[[:space:]‌]+" " ") -}}
+{{- end -}}
+{{- $currentCategories := slice -}}
+{{- range ($current.Params.categories | default (slice)) -}}
+  {{- $currentCategories = $currentCategories | append (lower . | replaceRE "[يى]" "ی" | replaceRE "ك" "ک" | replaceRE "[[:space:]‌]+" " ") -}}
+{{- end -}}
 {{- $similar := slice -}}
 {{- $similarExcluded := slice $current.RelPermalink -}}
 {{- with $previous -}}{{- $similarExcluded = $similarExcluded | append .RelPermalink -}}{{- end -}}
@@ -13,17 +20,25 @@
 {{- range $all -}}
   {{- if not (in $similarExcluded .RelPermalink) -}}
     {{- $candidate := . -}}
-    {{- $candidateText := lower (printf "%s %s" .Title .Plain) -}}
+    {{- $candidateText := printf "%s %s" .Title .Plain | lower | replaceRE "[يى]" "ی" | replaceRE "ك" "ک" | replaceRE "[[:space:]‌]+" " " -}}
     {{- $score := 0 -}}
     {{- range $keywords -}}
-      {{- $term := lower . -}}
+      {{- $term := lower . | replaceRE "[يى]" "ی" | replaceRE "ك" "ک" -}}
       {{- if and (strings.Contains $currentText $term) (strings.Contains $candidateText $term) -}}
         {{- $score = add $score 4 -}}
       {{- end -}}
     {{- end -}}
-    {{- $sharedTags := intersect ($current.Params.tags | default (slice)) ($candidate.Params.tags | default (slice)) -}}
-    {{- $sharedCategories := intersect ($current.Params.categories | default (slice)) ($candidate.Params.categories | default (slice)) -}}
-    {{- $score = add $score (mul (len $sharedTags) 3) (mul (len $sharedCategories) 2) -}}
+    {{- $candidateTags := slice -}}
+    {{- range ($candidate.Params.tags | default (slice)) -}}
+      {{- $candidateTags = $candidateTags | append (lower . | replaceRE "[يى]" "ی" | replaceRE "ك" "ک" | replaceRE "[[:space:]‌]+" " ") -}}
+    {{- end -}}
+    {{- $candidateCategories := slice -}}
+    {{- range ($candidate.Params.categories | default (slice)) -}}
+      {{- $candidateCategories = $candidateCategories | append (lower . | replaceRE "[يى]" "ی" | replaceRE "ك" "ک" | replaceRE "[[:space:]‌]+" " ") -}}
+    {{- end -}}
+    {{- $sharedTags := intersect $currentTags $candidateTags -}}
+    {{- $sharedCategories := intersect $currentCategories $candidateCategories -}}
+    {{- $score = add $score (mul (len $sharedTags) 5) (mul (len $sharedCategories) 2) -}}
     {{- if gt $score 0 -}}
       {{- $similar = $similar | append (dict "page" $candidate "score" $score) -}}
     {{- end -}}
