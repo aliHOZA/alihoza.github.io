@@ -7,6 +7,7 @@ on:
       - ".github/workflows/import-virgool.yml"
       - "scripts/import_virgool.py"
       - "scripts/repair_truncated_virgool.py"
+      - "scripts/enrich_taxonomy.py"
       - "virgool-export-2026-01-06--ZtG.zip"
   workflow_dispatch:
 
@@ -33,6 +34,9 @@ jobs:
       # CHATGPT: repair existing stub posts using the original HTML bodies, without overwriting full articles.
       - name: Restore truncated existing article bodies
         run: python scripts/repair_truncated_virgool.py --archive virgool-export-2026-01-06--ZtG.zip
+      # CHATGPT: assign SEO categories and tags to existing and newly imported published articles.
+      - name: Enrich article taxonomy for SEO
+        run: python scripts/enrich_taxonomy.py
       - name: Set up Hugo
         uses: peaceiris/actions-hugo@v3
         with:
@@ -45,10 +49,10 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git rm --ignore-unmatch -- virgool-export-2026-01-06--ZtG.zip
-          git add content/posts reports/virgool-import-report.md reports/virgool-body-repair.md
+          git add content/posts reports/virgool-import-report.md reports/virgool-body-repair.md reports/seo-taxonomy-report.md
           if git diff --cached --quiet; then
             echo "No new published posts or archive changes to commit."
             exit 0
           fi
-          git commit -m "Import and repair published Virgool posts [CHATGPT]"
+          git commit -m "Import, repair, and categorize published Virgool posts [CHATGPT]"
           git push origin HEAD:main

@@ -1,0 +1,22 @@
+{{- with .Site.Params.giscus -}}
+  {{- if and .repo .repoId .categoryId -}}
+    <!-- CHATGPT: Giscus uses GitHub Discussions; set repoId and categoryId in hugo.toml to activate. -->
+    <section class="comments-area" id="comments">
+      <h2>دیدگاه‌ها</h2>
+      <script src="https://giscus.app/client.js"
+        data-repo="{{ .repo }}"
+        data-repo-id="{{ .repoId }}"
+        data-category="{{ .category | default "General" }}"
+        data-category-id="{{ .categoryId }}"
+        data-mapping="pathname"
+        data-strict="0"
+        data-reactions-enabled="1"
+        data-emit-metadata="0"
+        data-input-position="bottom"
+        data-theme="preferred_color_scheme"
+        data-lang="fa"
+        crossorigin="anonymous"
+        async></script>
+    </section>
+  {{- end -}}
+{{- end -}}

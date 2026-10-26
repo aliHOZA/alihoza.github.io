@@ -1,0 +1,52 @@
+{{- $current := . -}}
+{{- $all := where .Site.RegularPages "Section" "posts" -}}
+{{- $previous := .PrevInSection -}}
+{{- $sameMonth := slice -}}
+{{- range $all.ByDate.Reverse -}}
+  {{- if and (ne .RelPermalink $current.RelPermalink) (eq .Date.Month $current.Date.Month) (ne .Date.Year $current.Date.Year) -}}
+    {{- if or (not $previous) (ne .RelPermalink $previous.RelPermalink) -}}
+      {{- $sameMonth = $sameMonth | append . -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- $excluded := slice $current.RelPermalink -}}
+{{- with $previous -}}{{- $excluded = $excluded | append .RelPermalink -}}{{- end -}}
+{{- range $sameMonth -}}{{- $excluded = $excluded | append .RelPermalink -}}{{- end -}}
+{{- $randomPosts := slice -}}
+{{- range shuffle $all -}}
+  {{- if and (lt (len $randomPosts) 2) (not (in $excluded .RelPermalink)) -}}
+    {{- $randomPosts = $randomPosts | append . -}}
+    {{- $excluded = $excluded | append .RelPermalink -}}
+  {{- end -}}
+{{- end -}}
+<section class="related-posts" aria-label="نوشته‌های پیشنهادی">
+  <h2>برای مطالعهٔ بیشتر</h2>
+  {{ with $previous }}
+    <section class="related-group">
+      <h3>نوشتهٔ پیشین</h3>
+      <ul class="related-list">
+        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li>
+      </ul>
+    </section>
+  {{ end }}
+  {{ if gt (len $sameMonth) 0 }}
+    <section class="related-group">
+      <h3>در همین ماه، در سال‌های دیگر</h3>
+      <ul class="related-list">
+        {{ range first 4 $sameMonth }}
+          <li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li>
+        {{ end }}
+      </ul>
+    </section>
+  {{ end }}
+  {{ if gt (len $randomPosts) 0 }}
+    <section class="related-group">
+      <h3>شاید این نوشته‌ها هم برایتان جالب باشند</h3>
+      <ul class="related-list">
+        {{ range $randomPosts }}
+          <li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li>
+        {{ end }}
+      </ul>
+    </section>
+  {{ end }}
+</section>

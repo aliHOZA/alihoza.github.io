@@ -1,0 +1,44 @@
+{{ define "title" }}ابر واژه‌ها | {{ .Site.Title }}{{ end }}
+{{ define "main" }}
+<div class="breadcrumbs"><a href="{{ .Site.Home.RelPermalink }}">خانه</a> /</div>
+<section class="search-page">
+  <h1 class="page-heading">ابر واژه‌ها</h1>
+  <p class="page-intro">این کلیدواژه‌ها بر اساس موضوعات محوری نوشته‌ها انتخاب شده‌اند. روی هر عبارت کلیک کنید تا در متن کامل نوشته‌ها جست‌وجو شود.</p>
+  {{ $keywords := slice
+    (dict "term" "اقتصاد ایران" "weight" 5)
+    (dict "term" "نفت و انرژی" "weight" 5)
+    (dict "term" "تاریخ معاصر ایران" "weight" 5)
+    (dict "term" "سیاست ایران" "weight" 5)
+    (dict "term" "روابط ایران و آمریکا" "weight" 4)
+    (dict "term" "بازار سرمایه" "weight" 4)
+    (dict "term" "صادرات نفت" "weight" 4)
+    (dict "term" "فساد اقتصادی" "weight" 4)
+    (dict "term" "سرمایه‌داری مافیایی" "weight" 3)
+    (dict "term" "تورم" "weight" 3)
+    (dict "term" "تحریم‌ها" "weight" 3)
+    (dict "term" "توسعه اقتصادی" "weight" 3)
+    (dict "term" "اقتصاد نفتی" "weight" 3)
+    (dict "term" "تجارت خارجی" "weight" 3)
+    (dict "term" "روسیه" "weight" 3)
+    (dict "term" "چین" "weight" 3)
+    (dict "term" "جنگ و صلح" "weight" 3)
+    (dict "term" "دوران قاجار" "weight" 3)
+    (dict "term" "دوران پهلوی" "weight" 3)
+    (dict "term" "انقلاب مشروطه" "weight" 2)
+    (dict "term" "بودجه و یارانه" "weight" 2)
+    (dict "term" "بانک مرکزی" "weight" 2)
+    (dict "term" "آب و محیط زیست" "weight" 2)
+    (dict "term" "رود کارون و سد گتوند" "weight" 2)
+    (dict "term" "مغالطه و تفکر نقاد" "weight" 2)
+    (dict "term" "جامعه و فرهنگ" "weight" 2)
+    (dict "term" "حقوق و عدالت" "weight" 2)
+    (dict "term" "سفرنامه" "weight" 2)
+  }}
+  <div class="keyword-cloud" aria-label="ابر واژه‌های وبلاگ">
+    {{ range $keywords }}
+      <a class="keyword-chip weight-{{ .weight }}" href="{{ printf "search/?q=%s" (.term | urlquery) | relURL }}">{{ .term }}</a>
+    {{ end }}
+  </div>
+  <p class="page-intro">اندازهٔ عبارت‌ها نشان‌دهندهٔ اولویت موضوعی پیشنهادی است، نه آمار قطعی جست‌وجو یا میزان بازدید.</p>
+</section>
+{{ end }}

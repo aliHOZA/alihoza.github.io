@@ -3,10 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="{{ .Description | default .Site.Params.description }}">
+  {{ $metaDescription := .Params.summary | default .Description | default .Summary | plainify | htmlUnescape | truncate 160 }}
+  <meta name="description" content="{{ $metaDescription }}">
+  <link rel="canonical" href="{{ .Permalink }}">
+  <meta property="og:locale" content="fa_IR">
+  <meta property="og:site_name" content="{{ .Site.Title }}">
+  <meta property="og:title" content="{{ .Title }} | {{ .Site.Title }}">
+  <meta property="og:description" content="{{ $metaDescription }}">
+  <meta property="og:url" content="{{ .Permalink }}">
+  <meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="{{ .Title }} | {{ .Site.Title }}">
+  <meta name="twitter:description" content="{{ $metaDescription }}">
   <meta name="color-scheme" content="light dark">
   <title>{{ block "title" . }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
   <link rel="stylesheet" href="{{ "css/editorial.css" | relURL }}">
+  <link rel="stylesheet" href="{{ "css/enhancements.css" | relURL }}">
   <link rel="preconnect" href="https://cdn.jsdelivr.net">
   <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
   {{ block "head" . }}{{ end }}
@@ -24,8 +36,9 @@
       <nav class="site-nav" aria-label="ناوبری اصلی">
         <a href="{{ .Site.Home.RelPermalink }}">خانه</a>
         <a href="{{ "search/" | relURL }}">جستجو</a>
-        <a href="{{ "tags/" | relURL }}">برچسب‌ها</a>
         <a href="{{ "categories/" | relURL }}">دسته‌بندی‌ها</a>
+        <a href="{{ "tags/" | relURL }}">برچسب‌ها</a>
+        <a href="{{ "keywords/" | relURL }}">ابر واژه‌ها</a>
       </nav>
     </header>
     <main class="site-main">
@@ -36,5 +49,6 @@
       <span>· ساخته‌شده با Hugo</span>
     </footer>
   </div>
+  {{ partial "analytics.html" . }}
 </body>
 </html>

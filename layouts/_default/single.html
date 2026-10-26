@@ -9,7 +9,7 @@
       {{ with .ReadingTime }}<span>{{ . }} دقیقه مطالعه</span>{{ end }}
     </div>
     {{ with .Params.categories }}
-      <div class="tag-row">{{ range . }}<a class="tag-chip" href="{{ printf "categories/%s/" (. | urlize) | relURL }}">{{ . }}</a>{{ end }}</div>
+      <div class="tag-row" aria-label="دسته‌بندی‌ها">{{ range . }}<a class="tag-chip" href="{{ printf "categories/%s/" (. | urlize) | relURL }}">{{ . }}</a>{{ end }}</div>
     {{ end }}
   </header>
   <div class="article-content">
@@ -18,9 +18,9 @@
   {{ with .Params.tags }}
     <div class="tag-row" aria-label="برچسب‌ها">{{ range . }}<a class="tag-chip" href="{{ printf "tags/%s/" (. | urlize) | relURL }}">{{ . }}</a>{{ end }}</div>
   {{ end }}
-  <nav class="pagination" aria-label="نوشته‌های دیگر">
-    {{ with .PrevInSection }}<a href="{{ .RelPermalink }}">← {{ .Title }}</a>{{ else }}<span></span>{{ end }}
-    {{ with .NextInSection }}<a href="{{ .RelPermalink }}">{{ .Title }} →</a>{{ end }}
-  </nav>
+  <!-- CHATGPT: add the previous article, same-month articles from other years, and two distinct random recommendations. -->
+  {{ partial "related-posts.html" . }}
+  <!-- CHATGPT: comments render after the article only after Giscus IDs are configured in hugo.toml. -->
+  {{ partial "comments.html" . }}
 </article>
 {{ end }}

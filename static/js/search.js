@@ -3,6 +3,9 @@
   if (!form) return;
 
   const input = document.getElementById("search-query");
+  // CHATGPT: allow keyword-cloud links to prefill and execute a full-text search.
+  const initialQuery = new URLSearchParams(window.location.search).get("q");
+  if (initialQuery) input.value = initialQuery;
   const status = document.getElementById("search-status");
   const results = document.getElementById("search-results");
   let pages = [];

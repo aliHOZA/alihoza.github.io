@@ -2,10 +2,25 @@ baseURL = 'https://aliHOZA.github.io/'
 languageCode = 'fa'
 defaultContentLanguage = 'fa'
 title = 'وبلاگ علی حسین‌زاده'
+enableRobotsTXT = true
 
 [params]
-  description = 'وبلاگ شخصی علی حسین‌زاده'
+  description = 'یادداشت‌ها و تحلیل‌هایی درباره اقتصاد ایران، نفت و انرژی، سیاست، تاریخ و جامعه.'
   author = 'علی حسین‌زاده'
+
+  # CHATGPT: configure these IDs after enabling Discussions and registering a GoatCounter site.
+  [params.giscus]
+    repo = 'aliHOZA/alihoza.github.io'
+    repoId = ''
+    category = 'General'
+    categoryId = ''
+
+  [params.goatcounter]
+    code = ''
+
+[taxonomies]
+  category = 'categories'
+  tag = 'tags'
 
 [outputs]
   home = ['HTML', 'JSON']
