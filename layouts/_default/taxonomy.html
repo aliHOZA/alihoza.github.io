@@ -1,0 +1,28 @@
+{{ define "title" }}{{ if eq .Data.Singular "tag" }}برچسب: {{ .Title }}{{ else if eq .Data.Singular "category" }}دسته‌بندی: {{ .Title }}{{ else }}{{ .Title }}{{ end }} | {{ .Site.Title }}{{ end }}
+{{ define "main" }}
+<div class="breadcrumbs"><a href="{{ .Site.Home.RelPermalink }}">خانه</a> / {{ if eq .Data.Singular "tag" }}<a href="{{ "tags/" | relURL }}">برچسب‌ها</a>{{ else if eq .Data.Singular "category" }}<a href="{{ "categories/" | relURL }}">دسته‌بندی‌ها</a>{{ end }} /</div>
+{{ if eq .Data.Singular "tag" }}<p class="home-eyebrow">برچسب</p>{{ else if eq .Data.Singular "category" }}<p class="home-eyebrow">دسته‌بندی</p>{{ end }}
+<h1 class="page-heading">{{ .Title }}</h1>
+{{ $paginator := .Paginate .Pages 15 }}
+<section class="post-list">
+  {{ range $paginator.Pages }}
+    <article class="post-card">
+      <h2 class="post-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
+      <div class="post-meta">
+        <time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time>
+        {{ with .ReadingTime }}<span>{{ . }} دقیقه مطالعه</span>{{ end }}
+      </div>
+      {{ with .Summary }}<p class="post-summary">{{ . | plainify | htmlUnescape | truncate 190 }}</p>{{ end }}
+    </article>
+  {{ else }}
+    <p class="empty-state">موردی برای نمایش وجود ندارد.</p>
+  {{ end }}
+</section>
+{{ if gt $paginator.TotalPages 1 }}
+<nav class="pagination" aria-label="صفحه‌بندی">
+  {{ if $paginator.HasPrev }}<a href="{{ $paginator.Prev.URL }}">← قبلی</a>{{ else }}<span></span>{{ end }}
+  <span class="post-meta">صفحه {{ $paginator.PageNumber }} از {{ $paginator.TotalPages }}</span>
+  {{ if $paginator.HasNext }}<a href="{{ $paginator.Next.URL }}">بعدی →</a>{{ end }}
+</nav>
+{{ end }}
+{{ end }}
