@@ -1,7 +1,7 @@
 # SEO taxonomy report
 
 - Markdown posts scanned: 310
-- Files updated with taxonomy: 1
+- Files updated with taxonomy: 0
 - Exactly five category labels are used; assignments are refreshed using weighted title, summary, and body matches.
 
 ## Category distribution
