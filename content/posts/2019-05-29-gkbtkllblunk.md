@@ -6,7 +6,7 @@ virgool_id: "gkbtkllblunk"
 original_url: "https://virgool.io/@mrali/%DA%86%D8%B1%D9%86%D9%88%D8%A8%DB%8C%D9%84-gkbtkllblunk"
 draft: false
 categories: ["اقتصاد ایران و اقتصاد کلان", "سیاست و روابط بین‌الملل"]
-tags: ["بحران آب", "جنگ"]
+tags: ["جنگ"]
 ---
 
 <section class="e-content">

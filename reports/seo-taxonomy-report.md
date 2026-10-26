@@ -1,7 +1,7 @@
 # SEO taxonomy report
 
 - Markdown posts scanned: 311
-- Files updated with taxonomy: 307
+- Files updated with taxonomy: 43
 - Categories use weighted title, summary, and body matches. Weak matches use the catch-all category.
 
 ## Category distribution
@@ -21,7 +21,6 @@
 ## Most common assigned tags
 
 - جنگ: 47
-- بحران آب: 44
 - ایالات متحده: 42
 - فرهنگ: 36
 - نفت و انرژی: 23
@@ -43,26 +42,10 @@
 - حقوق بشر: 2
 - بانک مرکزی: 2
 - دوران پهلوی: 1
+- بحران آب: 1
 - رود کارون: 1
 - سد گتوند: 1
 
 ## Posts needing manual category review
 
-- 2018-07-29-uz5apjjwzvpj.md: فرمان ساختن ایران به جای زیارت رفتن
-- 2018-08-30-fqukrtpedbci.md: بحرانِ خطِ فارسی
-- 2019-06-30-aopoe2iiu3us.md: اثبات سرقت علمی از مقاله من
-- 2019-08-05-hdbvmcih3ril.md: میشه دید ولی نمیشه صداشو در آورد!
-- 2019-09-27-cvq7nqgrnfem.md: رهبری سازمان با فروتنی
-- 2020-03-04-b7jsafvdmidc.md: فعلا قصد به‌روزرسانی ندارم
-- 2020-09-05-d1zdzjrxankc.md: تکامل بشر
-- 2020-10-10-f7ermd5qugm0.md: مسابقه: حدس بزنید...
-- 2020-11-20-dfhw6likogvc.md: قابلیت متحرک بودن!!! قابلیت تاشو بودن!!!
-- 2020-11-26-a2gcsy4aj3jz.md: بایا دیگه چیه؟
-- 2021-04-22-epa2myou5yir.md: خفقان
-- 2021-05-18-imv79iyw53ak.md: درد بین‌المللی!
-- 2021-07-14-pbrjs8ufcpm8.md: خدمات متقابل ایران و کوبا :)
-- 2022-05-01-klvqsfi9tr6o.md: آش شور شرکت‌های دانش بنیان
-- 2023-06-08-onznoglt8nw5.md: فرار مغزها به دانشگاه دلفت
-- 2024-08-24-zwtizphehw9l.md: یک ویرگولی معاون رئیس جمهوری شد
-- 2025-09-08-oyk1k2kns6mt.md: سپاس و قدردانی
-- _index.md: Posts
+- None

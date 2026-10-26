@@ -6,7 +6,7 @@ virgool_id: "zfvsbrypnkgb"
 original_url: "https://virgool.io/@mrali/%DA%86%D9%87-%D9%86%D9%85%DB%8C-%D8%AE%D9%88%D8%A7%D9%87%DB%8C-%DA%A9%D8%A7%D9%81%DB%8C-%D9%86%DB%8C%D8%B3%D8%AA-zfvsbrypnkgb"
 draft: false
 categories: ["اقتصاد ایران و اقتصاد کلان"]
-tags: ["بحران آب"]
+tags: []
 ---
 
 <section class="e-content">

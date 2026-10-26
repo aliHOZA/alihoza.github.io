@@ -6,7 +6,7 @@ virgool_id: "vxvylagtmexm"
 original_url: "https://virgool.io/@mrali/%D8%A2%D9%84%D9%88%D8%AF%DA%AF%DB%8C-%D9%87%D9%88%D8%A7-%DA%86%D9%87-%D8%B1%D8%A8%D8%B7%DB%8C-%D8%A8%D9%87-%D9%82%DB%8C%D9%85%D8%AA-%D8%AF%D9%84%D8%A7%D8%B1-%D8%AF%D8%A7%D8%B1%D9%87-vxvylagtmexm"
 draft: false
 categories: ["اقتصاد ایران و اقتصاد کلان"]
-tags: ["بحران آب", "اقتصاد ایران", "روسیه", "نفت و انرژی"]
+tags: ["اقتصاد ایران", "روسیه", "نفت و انرژی"]
 ---
 
 <section class="e-content">

@@ -6,7 +6,7 @@ virgool_id: "lv6upbxxemul"
 original_url: "https://virgool.io/@mrali/%D8%B9%D9%84%D9%85-%D9%88-%D8%B4%D8%A8%D9%87-%D8%B9%D9%84%D9%85-%DA%86%D8%B1%D8%A7-%D8%A7%DB%8C%D9%86%D9%87%D8%A7-%D8%A7%D8%B2-%D8%B9%D9%84%D9%85-%D8%B3%D8%B1-%D8%AF%D8%B1-%D9%86%D9%85%DB%8C-%D8%A2%D9%88%D8%B1%D9%86%D8%AF-lv6upbxxemul"
 draft: false
 categories: ["جامعه، فرهنگ و اندیشه"]
-tags: ["بحران آب", "محیط‌زیست"]
+tags: ["محیط‌زیست"]
 ---
 
 <section class="e-content">
