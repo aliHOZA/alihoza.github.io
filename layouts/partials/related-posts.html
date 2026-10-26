@@ -2,57 +2,23 @@
 {{- $all := where .Site.RegularPages "Section" "posts" -}}
 {{- $previous := .PrevInSection -}}
 {{- $next := .NextInSection -}}
-{{- /* Normalize common Persian/Arabic letter variants and whitespace before matching. */ -}}
-{{- $keywords := slice "اقتصاد ایران" "نفت و انرژی" "تاریخ معاصر ایران" "سیاست ایران" "روابط ایران و آمریکا" "بازار سرمایه" "صادرات نفت" "فساد اقتصادی" "تورم" "تحریم‌ها" "توسعه اقتصادی" "اقتصاد نفتی" "تجارت خارجی" "روسیه" "چین" "جنگ و صلح" "دوران قاجار" "دوران پهلوی" "انقلاب مشروطه" "بودجه و یارانه" "بانک مرکزی" "آب و محیط زیست" "رود کارون و سد گتوند" "مغالطه و تفکر نقاد" "جامعه و فرهنگ" "حقوق و عدالت" "سفرنامه" -}}
-{{- $currentText := printf "%s %s" $current.Title $current.Plain | lower | replaceRE "[يى]" "ی" | replaceRE "ك" "ک" | replaceRE "[[:space:]‌]+" " " -}}
-{{- $currentTags := slice -}}
-{{- range ($current.Params.tags | default (slice)) -}}
-  {{- $currentTags = $currentTags | append (lower . | replaceRE "[يى]" "ی" | replaceRE "ك" "ک" | replaceRE "[[:space:]‌]+" " ") -}}
-{{- end -}}
-{{- $currentCategories := slice -}}
-{{- range ($current.Params.categories | default (slice)) -}}
-  {{- $currentCategories = $currentCategories | append (lower . | replaceRE "[يى]" "ی" | replaceRE "ك" "ک" | replaceRE "[[:space:]‌]+" " ") -}}
-{{- end -}}
-{{- $similar := slice -}}
-{{- $similarExcluded := slice $current.RelPermalink -}}
-{{- with $previous -}}{{- $similarExcluded = $similarExcluded | append .RelPermalink -}}{{- end -}}
-{{- with $next -}}{{- $similarExcluded = $similarExcluded | append .RelPermalink -}}{{- end -}}
-{{- range $all -}}
-  {{- if not (in $similarExcluded .RelPermalink) -}}
-    {{- $candidate := . -}}
-    {{- $candidateText := printf "%s %s" .Title .Plain | lower | replaceRE "[يى]" "ی" | replaceRE "ك" "ک" | replaceRE "[[:space:]‌]+" " " -}}
-    {{- $score := 0 -}}
-    {{- range $keywords -}}
-      {{- $term := lower . | replaceRE "[يى]" "ی" | replaceRE "ك" "ک" -}}
-      {{- if and (strings.Contains $currentText $term) (strings.Contains $candidateText $term) -}}
-        {{- $score = add $score 4 -}}
-      {{- end -}}
-    {{- end -}}
-    {{- $candidateTags := slice -}}
-    {{- range ($candidate.Params.tags | default (slice)) -}}
-      {{- $candidateTags = $candidateTags | append (lower . | replaceRE "[يى]" "ی" | replaceRE "ك" "ک" | replaceRE "[[:space:]‌]+" " ") -}}
-    {{- end -}}
-    {{- $candidateCategories := slice -}}
-    {{- range ($candidate.Params.categories | default (slice)) -}}
-      {{- $candidateCategories = $candidateCategories | append (lower . | replaceRE "[يى]" "ی" | replaceRE "ك" "ک" | replaceRE "[[:space:]‌]+" " ") -}}
-    {{- end -}}
-    {{- $sharedTags := intersect $currentTags $candidateTags -}}
-    {{- $sharedCategories := intersect $currentCategories $candidateCategories -}}
-    {{- $score = add $score (mul (len $sharedTags) 5) (mul (len $sharedCategories) 2) -}}
-    {{- if gt $score 0 -}}
-      {{- $similar = $similar | append (dict "page" $candidate "score" $score) -}}
-    {{- end -}}
-  {{- end -}}
-{{- end -}}
-{{- $similar = sort $similar "score" "desc" -}}
-{{- $similarPosts := slice -}}
-{{- range first 4 $similar -}}
-  {{- $similarPosts = $similarPosts | append .page -}}
-{{- end -}}
 {{- $excluded := slice $current.RelPermalink -}}
 {{- with $previous -}}{{- $excluded = $excluded | append .RelPermalink -}}{{- end -}}
 {{- with $next -}}{{- $excluded = $excluded | append .RelPermalink -}}{{- end -}}
-{{- range $similarPosts -}}{{- $excluded = $excluded | append .RelPermalink -}}{{- end -}}
+{{- $relatedData := index .Site.Data "related-posts" | default (dict) -}}
+{{- $relatedURLs := index $relatedData $current.RelPermalink | default (slice) -}}
+{{- $similarPosts := slice -}}
+{{- range $relatedURLs -}}
+  {{- $url := . -}}
+  {{- if lt (len $similarPosts) 4 -}}
+    {{- range $all -}}
+      {{- if and (eq .RelPermalink $url) (not (in $excluded .RelPermalink)) -}}
+        {{- $similarPosts = $similarPosts | append . -}}
+        {{- $excluded = $excluded | append .RelPermalink -}}
+      {{- end -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
 {{- $randomPosts := slice -}}
 {{- range shuffle $all -}}
   {{- if and (lt (len $randomPosts) 4) (not (in $excluded .RelPermalink)) -}}
@@ -88,7 +54,7 @@
   {{ end }}
   {{ if gt (len $similarPosts) 0 }}
     <section class="related-group">
-      <h3>نوشتهٔ مشابه</h3>
+      <h3>نوشته‌های مشابه</h3>
       <ul class="related-list">
         {{ range $similarPosts }}
           <li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li>
