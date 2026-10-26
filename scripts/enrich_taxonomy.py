@@ -10,15 +10,11 @@ POSTS = ROOT / "content" / "posts"
 REPORT = ROOT / "reports" / "seo-taxonomy-report.md"
 
 CATEGORIES = {
-    "نفت، گاز و انرژی": ["نفت خام", "صادرات نفت", "اقتصاد نفتی", "نفت", "گاز طبیعی", "پتروشیمی", "اوپک", "برنت", "پالایشگاه", "بنزین", "انرژی", "بازار نفت", "نفتی", "گاز", "برق"],
-    "اقتصاد ایران و اقتصاد کلان": ["اقتصاد ایران", "اقتصاد", "تورم", "رکود", "بیکاری", "رشد اقتصادی", "یارانه", "بانک مرکزی", "تولید ناخالص", "بودجه", "سرمایه داری", "سرمایه‌داری", "فساد اقتصادی", "تجارت خارجی", "واردات", "صادرات", "توسعه اقتصادی", "فقر", "مالیات", "ارز", "ریال", "دلار", "اقتصاد جهانی"],
-    "بازارهای مالی و سرمایه‌گذاری": ["بورس", "بازار سرمایه", "سهام", "صندوق سرمایه گذاری", "صندوق سرمایه‌گذاری", "صندوق اهرمی", "شاخص کل", "اوراق", "سرمایه گذاری", "سرمایه‌گذاری", "بازارهای مالی", "سهام عدالت", "رمزارز", "بیت کوین", "بیت‌کوین", "بازار سهام"],
-    "سیاست و روابط بین‌الملل": ["روابط بین الملل", "روابط بین‌الملل", "سیاست خارجی", "دیپلماسی", "تحریم", "انتخابات", "حکومت", "جمهوری اسلامی", "ایالات متحده", "آمریکا", "روسیه", "چین", "اسرائیل", "اوکراین", "عراق", "سوریه", "افغانستان", "ترکیه", "ترامپ", "جنگ", "سیاست", "سیاسی", "مجلس", "دولت"],
+    "اقتصاد، نفت و انرژی": ["اقتصاد ایران", "اقتصاد کلان", "اقتصاد", "نفت خام", "صادرات نفت", "اقتصاد نفتی", "نفت", "گاز طبیعی", "پتروشیمی", "اوپک", "برنت", "پالایشگاه", "بنزین", "انرژی", "بازار نفت", "نفتی", "گاز", "برق", "تورم", "رکود", "بیکاری", "رشد اقتصادی", "یارانه", "بانک مرکزی", "تولید ناخالص", "بودجه", "سرمایه داری", "سرمایه‌داری", "فساد اقتصادی", "تجارت خارجی", "واردات", "صادرات", "توسعه اقتصادی", "فقر", "مالیات", "ارز", "ریال", "دلار", "اقتصاد جهانی", "بورس", "بازار سرمایه", "سهام", "صندوق سرمایه گذاری", "صندوق سرمایه‌گذاری", "شاخص کل", "اوراق", "سرمایه گذاری", "سرمایه‌گذاری", "بازارهای مالی", "رمزارز", "بیت کوین", "بیت‌کوین"],
+    "سیاست و روابط بین‌الملل": ["روابط بین الملل", "روابط بین‌الملل", "سیاست خارجی", "دیپلماسی", "تحریم", "انتخابات", "حکومت", "جمهوری اسلامی", "ایالات متحده", "آمریکا", "روسیه", "چین", "اسرائیل", "اوکراین", "عراق", "سوریه", "افغانستان", "ترکیه", "ترامپ", "جنگ", "سیاست", "سیاسی", "مجلس", "دولت", "روابط خارجی", "مذاکره"],
     "تاریخ ایران و جهان": ["تاریخ معاصر", "تاریخ ایران", "تاریخ", "قاجار", "پهلوی", "مشروطه", "رضاشاه", "محمدرضاشاه", "ترکمانچای", "صفویه", "ساسانی", "هخامنشی", "انقلاب ۱۳۵۷", "انقلاب اسلامی", "جنگ ایران و عراق", "جنگ جهانی", "تاریخی", "تاریخچه"],
-    "جامعه، فرهنگ و اندیشه": ["جامعه", "فرهنگ", "مغالطه", "فلسفه", "کتاب", "ادبیات", "روشنفکر", "روشنفکری", "دین", "مذهب", "حقوق بشر", "آزادی", "آموزش", "رسانه", "اخلاق", "عدالت", "زبان", "زنان", "خانواده", "نژادپرستی", "قانون", "اندیشه", "فرهنگی", "اجتماعی", "آذری", "آذربایجان"],
-    "محیط‌زیست و منابع آب": ["محیط زیست", "محیط‌زیست", "کارون", "سد گتوند", "شوری آب", "خشکسالی", "ریزگرد", "آلودگی", "تغییرات آب و هوایی", "تغییر اقلیم", "دریاچه", "تالاب", "منابع طبیعی", "بحران آب", "منابع آب", "آب آشامیدنی"],
-    "سفرنامه و جهانگردی": ["سفرنامه", "گردشگری", "جهانگردی", "نیوزیلند", "سنگاپور", "استرالیا", "هنگ کنگ", "هنگ‌کنگ", "مسافرت", "سفر به", "سفر", "گردشگر"],
-    "فناوری و زندگی دیجیتال": ["فناوری", "هوش مصنوعی", "اینترنت", "شبکه اجتماعی", "تکنولوژی", "کامپیوتر", "مخابرات", "موبایل", "نرم افزار", "نرم‌افزار", "سخت افزار", "سخت‌افزار", "اندروید", "آیفون", "دیجیتال"],
+    "جامعه، فرهنگ و اندیشه": ["جامعه", "فرهنگ", "مغالطه", "فلسفه", "کتاب", "ادبیات", "روشنفکر", "روشنفکری", "دین", "مذهب", "حقوق بشر", "آزادی", "آموزش", "رسانه", "اخلاق", "عدالت", "زبان", "زنان", "خانواده", "نژادپرستی", "قانون", "اندیشه", "فرهنگی", "اجتماعی", "آذری", "آذربایجان", "آب", "محیط زیست", "محیط‌زیست", "کارون", "سد گتوند", "شوری آب", "خشکسالی", "ریزگرد", "آلودگی", "تغییر اقلیم", "دریاچه", "تالاب", "منابع طبیعی", "بحران آب", "منابع آب", "آب آشامیدنی"],
+    "سفر، فناوری و محیط‌زیست": ["سفرنامه", "گردشگری", "جهانگردی", "نیوزیلند", "سنگاپور", "استرالیا", "هنگ کنگ", "هنگ‌کنگ", "مسافرت", "سفر به", "سفر", "گردشگر", "فناوری", "هوش مصنوعی", "اینترنت", "شبکه اجتماعی", "تکنولوژی", "کامپیوتر", "مخابرات", "موبایل", "نرم افزار", "نرم‌افزار", "سخت افزار", "سخت‌افزار", "اندروید", "آیفون", "دیجیتال"],
 }
 TAGS = [
     ("اقتصاد ایران", "اقتصاد ایران"), ("نفت", "نفت و انرژی"), ("صادرات نفت", "صادرات نفت"),
@@ -67,7 +63,7 @@ def main():
     for path in files:
         original = path.read_text(encoding="utf-8")
         match = re.match(r"\A---\n(.*?)\n---(?:\n|$)", original, re.S)
-        if not match: continue
+        if not match or path.name == "_index.md": continue
         front, body = match.group(1), original[match.end():]
         title, summary = normalize(read_scalar(front, "title")), normalize(read_scalar(front, "summary"))
         plain = normalize(re.sub(r"<(script|style)\b[^>]*>.*?</\1>", " ", body, flags=re.I | re.S))
@@ -75,22 +71,15 @@ def main():
         has_tags = bool(re.search(r"(?m)^tags\s*:", front))
         categories, tags = [], []
 
-        if has_categories:
-            m = re.search(r"(?m)^categories:\s*(\[.*\])\s*$", front)
-            try: categories = json.loads(m.group(1)) if m else ["دسته‌بندی موجود"]
-            except json.JSONDecodeError: categories = ["دسته‌بندی موجود"]
-            if "یادداشت‌ها و جستارها" in categories:
-                unclassified.append(f"- {path.name}: {read_scalar(front, 'title')}")
+        ranked = sorted(((score_terms(terms, title, summary, plain), name) for name, terms in CATEGORIES.items()), reverse=True)
+        best, name = ranked[0]
+        if best < 4:
+            categories = ["جامعه، فرهنگ و اندیشه"]
+            unclassified.append(f"- {path.name}: {read_scalar(front, 'title')}")
         else:
-            ranked = sorted(((score_terms(terms, title, summary, plain), name) for name, terms in CATEGORIES.items()), reverse=True)
-            best, name = ranked[0]
-            if best < 4:
-                categories = ["یادداشت‌ها و جستارها"]
-                unclassified.append(f"- {path.name}: {read_scalar(front, 'title')}")
-            else:
-                categories = [name]
-                if len(ranked) > 1 and ranked[1][0] >= 9 and ranked[1][0] >= best * .62:
-                    categories.append(ranked[1][1])
+            categories = [name]
+            if len(ranked) > 1 and ranked[1][0] >= 9 and ranked[1][0] >= best * .62:
+                categories.append(ranked[1][1])
 
         if has_tags:
             m = re.search(r"(?m)^tags:\s*(\[.*\])\s*$", front)
@@ -116,8 +105,12 @@ def main():
 
         counts.update(categories); tag_counts.update(tags)
         updated_front = front
-        if not has_categories:
-            updated_front += "\ncategories: " + json.dumps(categories, ensure_ascii=False)
+        # CHATGPT: replace old taxonomy values so all published posts use the same five-category system.
+        category_line = "categories: " + json.dumps(categories, ensure_ascii=False)
+        if re.search(r"(?m)^categories\\s*:", updated_front):
+            updated_front = re.sub(r"(?m)^categories\\s*:.*$", lambda _: category_line, updated_front, count=1)
+        else:
+            updated_front += "\\n" + category_line
         if has_tags:
             # CHATGPT: write back the cleaned list only when removing the overly broad water tag.
             front_lines = updated_front.splitlines()
@@ -137,7 +130,7 @@ def main():
         if updated != original:
             path.write_text(updated, encoding="utf-8"); changed += 1
 
-    lines = ["# SEO taxonomy report", "", f"- Markdown posts scanned: {len(files)}", f"- Files updated with taxonomy: {changed}", "- Categories use weighted title, summary, and body matches. Weak matches use the catch-all category.", "", "## Category distribution", ""]
+    lines = ["# SEO taxonomy report", "", f"- Markdown posts scanned: {len(files)}", f"- Files updated with taxonomy: {changed}", "- Exactly five category labels are used; assignments are refreshed using weighted title, summary, and body matches.", "", "## Category distribution", ""]
     lines += [f"- {name}: {count}" for name, count in counts.most_common()]
     lines += ["", "## Most common assigned tags", ""]
     lines += [f"- {name}: {count}" for name, count in tag_counts.most_common(25)]
