@@ -79,6 +79,8 @@ def main():
             m = re.search(r"(?m)^categories:\s*(\[.*\])\s*$", front)
             try: categories = json.loads(m.group(1)) if m else ["دسته‌بندی موجود"]
             except json.JSONDecodeError: categories = ["دسته‌بندی موجود"]
+            if "یادداشت‌ها و جستارها" in categories:
+                unclassified.append(f"- {path.name}: {read_scalar(front, 'title')}")
         else:
             ranked = sorted(((score_terms(terms, title, summary, plain), name) for name, terms in CATEGORIES.items()), reverse=True)
             best, name = ranked[0]
