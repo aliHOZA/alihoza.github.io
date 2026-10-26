@@ -12,8 +12,12 @@
 {{- $keywords := slice "اقتصاد ایران" "نفت و انرژی" "تاریخ معاصر ایران" "سیاست ایران" "روابط ایران و آمریکا" "بازار سرمایه" "صادرات نفت" "فساد اقتصادی" "تورم" "تحریم‌ها" "توسعه اقتصادی" "اقتصاد نفتی" "تجارت خارجی" "روسیه" "چین" "جنگ و صلح" "دوران قاجار" "دوران پهلوی" "انقلاب مشروطه" "بودجه و یارانه" "بانک مرکزی" "آب و محیط زیست" "رود کارون و سد گتوند" "مغالطه و تفکر نقاد" "جامعه و فرهنگ" "حقوق و عدالت" "سفرنامه" -}}
 {{- $currentText := lower (printf "%s %s" $current.Title $current.Plain) -}}
 {{- $similar := slice -}}
+{{- $similarExcluded := slice $current.RelPermalink -}}
+{{- with $previous -}}{{- $similarExcluded = $similarExcluded | append .RelPermalink -}}{{- end -}}
+{{- with $next -}}{{- $similarExcluded = $similarExcluded | append .RelPermalink -}}{{- end -}}
+{{- range $sameMonth -}}{{- $similarExcluded = $similarExcluded | append .RelPermalink -}}{{- end -}}
 {{- range $all -}}
-  {{- if ne .RelPermalink $current.RelPermalink -}}
+  {{- if not (in $similarExcluded .RelPermalink) -}}
     {{- $candidate := . -}}
     {{- $candidateText := lower (printf "%s %s" .Title .Plain) -}}
     {{- $score := 0 -}}
