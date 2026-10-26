@@ -28,4 +28,4 @@ jobs:
         run: hugo --minify --baseURL "https://aliHOZA.github.io/"
 
       - name: Verify search index was generated
-        run: test -s public/index.json && test -s public/search/index.html
+        run: test -s public/index.json && test -s public/random-index.json && test -s public/search/index.html

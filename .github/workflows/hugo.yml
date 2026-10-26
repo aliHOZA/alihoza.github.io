@@ -38,6 +38,17 @@ jobs:
       - name: Build site
         run: hugo --minify --baseURL "https://aliHOZA.github.io/"
 
+      - name: Verify generated indexes and enforce Pages size limit
+        run: |
+          test -s public/index.json
+          test -s public/random-index.json
+          bytes=$(du -sb public | cut -f1)
+          echo "Published site size: $bytes bytes"
+          if [ "$bytes" -gt 1073741824 ]; then
+            echo "Published site exceeds GitHub Pages' 1 GiB limit."
+            exit 1
+          fi
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:

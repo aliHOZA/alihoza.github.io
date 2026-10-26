@@ -23,11 +23,17 @@ enableRobotsTXT = true
   tag = 'tags'
 
 [outputs]
-  home = ['HTML', 'JSON']
+  home = ['HTML', 'JSON', 'RANDOMINDEX']
 
 [outputFormats.JSON]
   mediaType = 'application/json'
   baseName = 'index'
+  isPlainText = true
+  notAlternative = true
+
+[outputFormats.RANDOMINDEX]
+  mediaType = 'application/json'
+  baseName = 'random-index'
   isPlainText = true
   notAlternative = true
 

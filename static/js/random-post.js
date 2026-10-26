@@ -6,7 +6,7 @@
   const chooseRandomPost = async () => {
     link?.setAttribute("aria-busy", "true");
     try {
-      const response = await fetch(indexUrl, { cache: "no-store" });
+      const response = await fetch(indexUrl);
       if (!response.ok) throw new Error("Could not load post index");
       const posts = await response.json();
       if (!Array.isArray(posts) || posts.length === 0) throw new Error("No posts found");

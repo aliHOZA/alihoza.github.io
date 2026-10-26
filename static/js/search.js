@@ -9,6 +9,7 @@
   const status = document.getElementById("search-status");
   const results = document.getElementById("search-results");
   let pages = [];
+  let indexedPages = [];
 
   const normalize = (value) => String(value || "")
     .toLocaleLowerCase("fa")
@@ -35,27 +36,19 @@
     }
 
     const terms = query.split(" ").filter(Boolean);
-    const found = pages.map((page) => {
-      const title = normalize(page.title);
-      const summary = normalize(page.summary);
-      const content = normalize(page.content);
-      const tags = normalize((page.tags || []).join(" "));
-      const categories = normalize((page.categories || []).join(" "));
+    const found = indexedPages.map((item) => {
       let score = 0;
-
       for (const term of terms) {
-        if (title.includes(term)) score += 12;
-        if (tags.includes(term)) score += 7;
-        if (categories.includes(term)) score += 6;
-        if (summary.includes(term)) score += 4;
-        if (content.includes(term)) score += 1;
+        if (item.title.includes(term)) score += 12;
+        if (item.tags.includes(term)) score += 7;
+        if (item.categories.includes(term)) score += 6;
+        if (item.summary.includes(term)) score += 4;
+        if (item.content.includes(term)) score += 1;
       }
-      return { page, score };
-    }).filter((item) => item.score > 0 && terms.every((term) => {
-      const p = item.page;
-      return [p.title, p.summary, p.content, (p.tags || []).join(" "), (p.categories || []).join(" ")]
-        .some((field) => normalize(field).includes(term));
-    })).sort((a, b) => b.score - a.score || b.page.date.localeCompare(a.page.date));
+      return { page: item.page, score, item };
+    }).filter(({ score, item }) => score > 0 && terms.every((term) =>
+      [item.title, item.summary, item.content, item.tags, item.categories].some((field) => field.includes(term))
+    )).sort((a, b) => b.score - a.score || b.page.date.localeCompare(a.page.date));
 
     const shown = found.slice(0, 50);
     status.textContent = found.length
@@ -102,6 +95,14 @@
     })
     .then((data) => {
       pages = Array.isArray(data) ? data : [];
+      indexedPages = pages.map((page) => ({
+        page,
+        title: normalize(page.title),
+        summary: normalize(page.summary),
+        content: normalize(page.content),
+        tags: normalize((page.tags || []).join(" ")),
+        categories: normalize((page.categories || []).join(" "))
+      }));
       status.textContent = "جستجو در " + pages.length + " نوشته آماده است.";
       if (input.value.trim()) runSearch();
     })
