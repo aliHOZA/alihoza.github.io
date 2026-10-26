@@ -1,15 +1,15 @@
 # SEO taxonomy report
 
 - Markdown posts scanned: 310
-- Files updated with taxonomy: 0
+- Files updated with taxonomy: 21
 - Exactly five category labels are used; assignments are refreshed using weighted title, summary, and body matches.
 
 ## Category distribution
 
-- جامعه، فرهنگ و اندیشه: 171
-- سیاست و روابط بین‌الملل: 90
+- جامعه، فرهنگ و اندیشه: 168
+- سیاست و روابط بین‌الملل: 88
 - اقتصاد، نفت و انرژی: 63
-- سفر، فناوری و محیط‌زیست: 23
+- سفر، فناوری و محیط‌زیست: 22
 - تاریخ ایران و جهان: 20
 
 ## Most common assigned tags
@@ -43,10 +43,12 @@
 ## Posts needing manual category review
 
 - 2018-08-30-fqukrtpedbci.md: بحرانِ خطِ فارسی
+- 2019-05-21-d2l6tl8e1wuf.md: «صحرای تاتارها» برای منتظران معجزه
 - 2019-06-30-aopoe2iiu3us.md: اثبات سرقت علمی از مقاله من
 - 2019-08-05-hdbvmcih3ril.md: میشه دید ولی نمیشه صداشو در آورد!
 - 2019-09-27-cvq7nqgrnfem.md: رهبری سازمان با فروتنی
 - 2019-10-06-kdfxnwgfgjmr.md: دربی ایتالیا (Derby d'Italia)
+- 2019-12-31-xmgi2ef33mwi.md: سرنوشت غم‌انگیز مرسدس
 - 2020-03-04-b7jsafvdmidc.md: فعلا قصد به‌روزرسانی ندارم
 - 2020-09-05-d1zdzjrxankc.md: تکامل بشر
 - 2020-10-03-bpoot7woxllj.md: تنها تا ۱۵ مهر وقت دارید...
@@ -61,6 +63,7 @@
 - 2022-05-01-klvqsfi9tr6o.md: آش شور شرکت‌های دانش بنیان
 - 2023-02-20-pwo9ap3k74ip.md: میرزا حسن رشدیه و کربلایی کاظم ساروقی
 - 2023-06-08-onznoglt8nw5.md: فرار مغزها به دانشگاه دلفت
+- 2023-10-26-q3ioqa1ybjrd.md: یک پیشنهاد برای حل مساله فلسطین
 - 2024-05-21-first-post.md: نخستین پست با هوگو
 - 2024-08-24-zwtizphehw9l.md: یک ویرگولی معاون رئیس جمهوری شد
 - 2025-09-08-oyk1k2kns6mt.md: سپاس و قدردانی
