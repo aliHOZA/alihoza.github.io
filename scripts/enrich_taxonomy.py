@@ -114,8 +114,23 @@ def main():
 
         counts.update(categories); tag_counts.update(tags)
         updated_front = front
-        if not has_categories: updated_front += "\ncategories: " + json.dumps(categories, ensure_ascii=False)
-        if has_tags and "بحران آب" not in tags and re.search(r'(?m)^tags:\s*\[.*"بحران آب".*\]\s*
+        if not has_categories:
+            updated_front += "\ncategories: " + json.dumps(categories, ensure_ascii=False)
+        if has_tags:
+            # CHATGPT: write back the cleaned list only when removing the overly broad water tag.
+            front_lines = updated_front.splitlines()
+            for index, line in enumerate(front_lines):
+                if line.startswith("tags:"):
+                    try:
+                        original_tag_values = json.loads(line.split(":", 1)[1].strip())
+                    except json.JSONDecodeError:
+                        original_tag_values = []
+                    if "بحران آب" in original_tag_values and "بحران آب" not in tags:
+                        front_lines[index] = "tags: " + json.dumps(tags, ensure_ascii=False)
+                    break
+            updated_front = "\n".join(front_lines)
+        else:
+            updated_front += "\ntags: " + json.dumps(tags, ensure_ascii=False)
         updated = "---\n" + updated_front + "\n---\n" + body
         if updated != original:
             path.write_text(updated, encoding="utf-8"); changed += 1
