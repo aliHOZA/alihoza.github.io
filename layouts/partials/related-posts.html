@@ -60,29 +60,27 @@
 {{- range $similarPosts -}}{{- $excluded = $excluded | append .RelPermalink -}}{{- end -}}
 {{- $randomPosts := slice -}}
 {{- range shuffle $all -}}
-  {{- if and (lt (len $randomPosts) 3) (not (in $excluded .RelPermalink)) -}}
+  {{- if and (lt (len $randomPosts) 4) (not (in $excluded .RelPermalink)) -}}
     {{- $randomPosts = $randomPosts | append . -}}
     {{- $excluded = $excluded | append .RelPermalink -}}
   {{- end -}}
 {{- end -}}
 <section class="related-posts" aria-label="نوشته‌های پیشنهادی" data-current-date="{{ $current.Date.Format "2006-01-02" }}">
   <h2>برای مطالعهٔ بیشتر</h2>
-  {{ with $previous }}
-    <section class="related-group">
-      <h3>نوشتهٔ پیشین</h3>
-      <ul class="related-list">
-        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li>
-      </ul>
-    </section>
-  {{ end }}
-  {{ with $next }}
-    <section class="related-group">
-      <h3>نوشتهٔ بعدی</h3>
-      <ul class="related-list">
-        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li>
-      </ul>
-    </section>
-  {{ end }}
+  <div class="post-neighbors">
+    {{ with $previous }}
+      <section class="related-group post-neighbor post-previous">
+        <h3>نوشتهٔ پیشین</h3>
+        <ul class="related-list"><li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li></ul>
+      </section>
+    {{ end }}
+    {{ with $next }}
+      <section class="related-group post-neighbor post-next">
+        <h3>نوشتهٔ بعدی</h3>
+        <ul class="related-list"><li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li></ul>
+      </section>
+    {{ end }}
+  </div>
   {{ if gt (len $sameDay) 0 }}
     <section class="related-group same-day-years" data-current-date="{{ $current.Date.Format "2006-01-02" }}">
       <h3>در همین روز، در سال‌های گذشته</h3>
@@ -105,7 +103,7 @@
   {{ end }}
   {{ if gt (len $similarPosts) 0 }}
     <section class="related-group">
-      <h3>۴ نوشتهٔ مشابه بر اساس کلیدواژه‌ها</h3>
+      <h3>نوشتهٔ مشابه</h3>
       <ul class="related-list">
         {{ range $similarPosts }}
           <li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li>
