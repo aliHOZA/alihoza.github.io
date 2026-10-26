@@ -91,6 +91,67 @@
     group.hidden = count === 0;
   };
 
+  const appendRandomYearMatches = (group, posts, matches, limit) => {
+    if (!group) return;
+    const list = group.querySelector(".related-list");
+    if (!list) return;
+    list.replaceChildren();
+
+    const candidatesByYear = new Map();
+    for (const post of posts) {
+      const date = solarDateParts(post.date);
+      if (!date || date.year >= current.year || !matches(date)) continue;
+
+      let url;
+      try { url = new URL(post.url, window.location.origin).href; }
+      catch { continue; }
+      if (!url || shown.has(url)) continue;
+
+      if (!candidatesByYear.has(date.year)) candidatesByYear.set(date.year, []);
+      candidatesByYear.get(date.year).push({ post, date, url });
+    }
+
+    const shuffled = (items) => {
+      const result = [...items];
+      for (let i = result.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [result[i], result[j]] = [result[j], result[i]];
+      }
+      return result;
+    };
+
+    const years = shuffled([...candidatesByYear.keys()]);
+    const selected = [];
+    const selectedUrls = new Set();
+
+    // Prefer one randomly selected post from each distinct year.
+    for (const year of years) {
+      if (selected.length >= limit) break;
+      const available = shuffled(candidatesByYear.get(year));
+      const choice = available.find((candidate) => !selectedUrls.has(candidate.url));
+      if (choice) {
+        selected.push(choice);
+        selectedUrls.add(choice.url);
+      }
+    }
+
+    // If fewer than four eligible years exist, fill remaining slots randomly.
+    if (selected.length < limit) {
+      const remaining = shuffled([...candidatesByYear.values()].flat().filter((candidate) => !selectedUrls.has(candidate.url)));
+      for (const candidate of remaining) {
+        if (selected.length >= limit) break;
+        selected.push(candidate);
+        selectedUrls.add(candidate.url);
+      }
+    }
+
+    for (const candidate of selected) {
+      list.append(makeRecommendation(candidate.post, candidate.date));
+      shown.add(candidate.url);
+    }
+    group.hidden = selected.length === 0;
+  };
+
   fetch(related.dataset.dateIndexUrl)
     .then((response) => {
       if (!response.ok) throw new Error("Date index request failed");
@@ -99,7 +160,7 @@
     .then((posts) => {
       if (!Array.isArray(posts)) throw new Error("Invalid date index");
       appendMatches(dayGroup, posts, (date) => date.month === current.month && date.day === current.day, 4, true, true);
-      appendMatches(monthGroup, posts, (date) => date.month === current.month, 4);
+      appendRandomYearMatches(monthGroup, posts, (date) => date.month === current.month, 4);
     })
     .catch(() => {
       if (dayGroup) dayGroup.hidden = true;
