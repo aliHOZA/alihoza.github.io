@@ -1,7 +1,9 @@
 name: Optimize large images to WebP
 
 on:
-  workflow_dispatch:
+  pull_request:
+    branches: [main]
+    types: [opened, synchronize, reopened]
 
 permissions:
   contents: write
@@ -13,7 +15,6 @@ concurrency:
 
 jobs:
   optimize:
-    # Only run for this repository's own branches, not forked PRs.
     if: github.event.pull_request.head.repo.full_name == github.repository
     runs-on: ubuntu-latest
     steps:
@@ -21,12 +22,16 @@ jobs:
         with:
           ref: ${{ github.head_ref }}
           fetch-depth: 0
+      - name: Restore original for previously non-saving conversion
+        run: |
+          git fetch origin main
+          git checkout origin/main -- static/images/virgool/a598c3090b51de98b750.jpeg
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
       - name: Install Pillow
         run: python -m pip install --disable-pip-version-check Pillow
-      - name: Convert large images and update references
+      - name: Convert large images only when savings are meaningful
         run: python scripts/optimize_large_images.py
       - name: Commit converted images and report
         run: |
@@ -37,5 +42,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add -A
-          git commit -m "Convert large images to WebP quality 90"
+          git commit -m "Safely optimize large images as WebP"
           git push origin "HEAD:${{ github.head_ref }}"
