@@ -9,7 +9,7 @@
     <article class="post-card">
       <h2 class="post-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
       <div class="post-meta">
-        <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time>
+        <time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time>
         {{ with .ReadingTime }}<span>{{ . }} دقیقه مطالعه</span>{{ end }}
       </div>
       {{ with .Summary }}<p class="post-summary">{{ . | plainify | htmlUnescape | truncate 190 }}</p>{{ end }}
