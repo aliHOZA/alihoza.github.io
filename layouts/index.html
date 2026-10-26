@@ -5,8 +5,9 @@
   <h1 class="page-heading">اقتصاد، سیاست و تاریخ؛ با نگاهی مستقل</h1>
   <p class="page-intro">نوشته‌ها و جستارهایی دربارهٔ ایران و جهان؛ از اقتصاد و انرژی تا تاریخ و سیاست.</p>
 </section>
-<div class="section-heading"><h2>تازه‌ترین نوشته‌ها</h2><span>آخرین به‌روزرسانی‌ها</span></div>
-{{ $paginator := .Paginate (where .Site.RegularPages "Section" "posts").ByDate.Reverse 12 }}
+{{ $allPosts := (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
+{{ $paginator := .Paginate $allPosts 8 }}
+<div class="section-heading"><h2>تازه‌ترین نوشته‌ها</h2><span>۸ نوشتهٔ اخیر</span></div>
 <section class="post-list" aria-label="آخرین نوشته‌ها">
   {{ range $index, $page := $paginator.Pages }}
     <article class="post-card">
@@ -32,5 +33,31 @@
     <span class="post-meta">صفحه {{ $paginator.PageNumber }} از {{ $paginator.TotalPages }}</span>
     {{ if $paginator.HasNext }}<a href="{{ $paginator.Next.URL }}">نوشته‌های قدیمی‌تر →</a>{{ end }}
   </nav>
+{{ end }}
+{{ if eq $paginator.PageNumber 1 }}
+  {{ $randomCandidates := complement $allPosts $paginator.Pages }}
+  {{ $randomPosts := first 4 (shuffle $randomCandidates) }}
+  {{ if $randomPosts }}
+    <div class="section-heading random-posts-heading"><h2>شاید برایتان جالب باشد</h2><span>۴ نوشتهٔ منتخب به‌صورت تصادفی</span></div>
+    <section class="post-list random-post-list" aria-label="نوشته‌های تصادفی">
+      {{ range $index, $page := $randomPosts }}
+        <article class="post-card">
+          {{- $thumbFile := printf "static/images/thumbnails/%s.webp" $page.File.ContentBaseName -}}
+          {{- if fileExists $thumbFile -}}
+            <a class="post-thumbnail" href="{{ $page.RelPermalink }}" aria-hidden="true" tabindex="-1"><img src="{{ printf "/images/thumbnails/%s.webp" $page.File.ContentBaseName | relURL }}" alt="" loading="lazy" decoding="async" width="112" height="84"></a>
+          {{- end }}
+          <div class="post-card-main">
+            <h3 class="post-title"><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
+            <div class="post-meta">
+              <time class="js-local-date" data-date="{{ $page.Date.Format "2006-01-02" }}" datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format "2006/01/02" }}</time>
+              {{ with $page.ReadingTime }}<span>{{ . }} دقیقه مطالعه</span>{{ end }}
+            </div>
+            {{ with $page.Summary }}<p class="post-summary">{{ . | plainify | htmlUnescape | truncate 190 }}</p>{{ end }}
+          </div>
+          <span class="post-number" aria-hidden="true">{{ printf "%02d" (add $index 1) }}</span>
+        </article>
+      {{ end }}
+    </section>
+  {{ end }}
 {{ end }}
 {{ end }}
