@@ -14,11 +14,13 @@
 <body>
   <div class="site-shell">
     <header class="site-header">
-      <a class="brand" href="{{ .Site.Home.RelPermalink }}">
-        <span class="brand-mark" aria-hidden="true">ع</span>
-        <span class="brand-name">{{ .Site.Title }}</span>
-      </a>
-      {{ with .Site.Params.description }}<p class="site-description">{{ . }}</p>{{ end }}
+      <div class="brand-group">
+        <a class="brand" href="{{ .Site.Home.RelPermalink }}">
+          <span class="brand-mark" aria-hidden="true">ع</span>
+          <span class="brand-name">{{ .Site.Title }}</span>
+        </a>
+        {{ with .Site.Params.description }}<p class="site-description">{{ . }}</p>{{ end }}
+      </div>
       <nav class="site-nav" aria-label="ناوبری اصلی">
         <a href="{{ .Site.Home.RelPermalink }}">خانه</a>
         <a href="{{ "search/" | relURL }}">جستجو</a>
@@ -31,7 +33,7 @@
     </main>
     <footer class="site-footer">
       <span>© {{ now.Year }} {{ .Site.Params.author | default .Site.Title }}</span>
-      <span> · ساخته‌شده با Hugo</span>
+      <span>· ساخته‌شده با Hugo</span>
     </footer>
   </div>
 </body>
