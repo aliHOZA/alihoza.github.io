@@ -69,3 +69,10 @@
   .post-card:has(.post-thumbnail) .post-thumbnail { width: 84px; }
   .post-card:has(.post-thumbnail) .post-card-main { grid-column: 2; }
 }
+
+/* CHATGPT: visually separate anniversary year labels from linked post titles. */
+.years-ago { display: inline; color: var(--muted); font-size: .82rem; white-space: nowrap; }
+.years-ago::before { content: " | "; white-space: pre; }
+.post-thumbnail { display: block; flex: 0 0 112px; width: 112px; height: 84px; overflow: hidden; border-radius: 8px; }
+.post-thumbnail img { display: block; width: 100%; height: 100%; object-fit: cover; }
+@media (max-width: 620px) { .post-thumbnail { flex-basis: 84px; width: 84px; height: 63px; } }
