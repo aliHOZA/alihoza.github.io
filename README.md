@@ -18,7 +18,8 @@
 - `layouts/` و `assets/`: قالب‌ها، استایل‌ها و اسکریپت‌های سفارشی
 - `hugo.toml`: تنظیمات سایت، زبان، آدرس اصلی، taxonomy و خروجی‌ها
 - `.github/workflows/hugo.yml`: ساخت و انتشار سایت در GitHub Pages
-- `.github/workflows/validate-hugo.yml` و `ci.yml`: بررسی‌های خودکار
+- `.github/workflows/validate-hugo.yml`: بررسی خودکار ساخت Hugo در درخواست‌های ادغام و شاخهٔ قالب
+- `.github/workflows/optimize-large-images.yml`: تبدیل امن تصاویر بزرگ به WebP، فقط با صرفه‌جویی حداقل ۳۰٪
 - `.github/workflows/import-virgool.yml`: گردش‌کار واردکردن محتوای ویرگول
 - `.github/workflows/vendor-virgool-images.yml`: گردش‌کار محلی‌سازی تصاویر ویرگول
 - `.github/workflows/generate-post-thumbnails.yml`: تولید تصاویر بندانگشتی مطالب
