@@ -1,0 +1,45 @@
+name: Generate post thumbnails
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "content/posts/**"
+      - "scripts/generate_post_thumbnails.py"
+      - ".github/workflows/generate-post-thumbnails.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: post-thumbnails
+  cancel-in-progress: false
+
+jobs:
+  thumbnails:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Install image processing dependency
+        run: python3 -m pip install --user Pillow
+
+      - name: Generate compact WebP thumbnails
+        run: python3 scripts/generate_post_thumbnails.py
+
+      - name: Commit thumbnails
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add static/images/thumbnails
+          if git diff --cached --quiet; then
+            echo "No thumbnail changes."
+            exit 0
+          fi
+          git commit -m "[CHATGPT] Generate compact WebP post thumbnails"
+          git push origin HEAD:main
