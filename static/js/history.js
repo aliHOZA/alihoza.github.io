@@ -1,4 +1,4 @@
-// CHATGPT: filter the full-text index by Solar Hijri or Gregorian year and month.
+// Filter the full-text index by Solar Hijri or Gregorian year and month.
 (() => {
   const form = document.getElementById("history-filter"); if (!form) return;
   const calendar = document.getElementById("history-calendar"), yearSelect = document.getElementById("history-year"), monthSelect = document.getElementById("history-month");
@@ -23,11 +23,17 @@
     monthSelect.replaceChildren(new Option("همهٔ ماه‌ها","")); monthNames[calendar.value].forEach((m,i)=>monthSelect.add(new Option(m,String(i+1))));
   };
   const render = () => {
-    const filtered=pages.filter(p=>{const d=getDateParts(p.date,calendar.value); return d && (!yearSelect.value||d.year===yearSelect.value) && (!monthSelect.value||d.month===monthSelect.value);});
+    const hasDateFilter = Boolean(yearSelect.value || monthSelect.value);
+    // With no year/month selected, show only the 12 oldest posts, oldest first.
+    const filtered = hasDateFilter
+      ? pages.filter(p=>{const d=getDateParts(p.date,calendar.value); return d && (!yearSelect.value||d.year===yearSelect.value) && (!monthSelect.value||d.month===monthSelect.value);})
+      : pages.slice(-12).reverse();
     const total=Math.max(1,Math.ceil(filtered.length/pageSize)); currentPage=Math.min(currentPage,total-1); results.replaceChildren();
     filtered.slice(currentPage*pageSize,(currentPage+1)*pageSize).forEach(p=>{const article=make("article","post-card"), heading=make("h2","post-title"), link=make("a","",p.title||"بدون عنوان"); link.href=p.url; heading.append(link); article.append(heading,make("div","post-meta",formatDate(p.date,calendar.value))); if(p.summary) article.append(make("p","post-summary",p.summary)); results.append(article);});
-    status.textContent=filtered.length ? filtered.length.toLocaleString("fa-IR")+" نوشته پیدا شد." : "برای این بازه نوشته‌ای پیدا نشد.";
-    pagination.hidden=filtered.length<=pageSize; prevButton.disabled=currentPage===0; nextButton.disabled=currentPage>=total-1; pageLabel.textContent="صفحهٔ "+(currentPage+1).toLocaleString("fa-IR")+" از "+total.toLocaleString("fa-IR");
+    status.textContent = hasDateFilter
+      ? (filtered.length ? filtered.length.toLocaleString("fa-IR")+" نوشته پیدا شد." : "برای این بازه نوشته‌ای پیدا نشد.")
+      : (filtered.length ? "۱۲ نوشتهٔ قدیمی‌تر وبلاگ، از قدیمی به جدید نمایش داده شده‌اند." : "هنوز نوشته‌ای برای نمایش وجود ندارد.");
+    pagination.hidden = !hasDateFilter || filtered.length<=pageSize; prevButton.disabled=currentPage===0; nextButton.disabled=currentPage>=total-1; pageLabel.textContent="صفحهٔ "+(currentPage+1).toLocaleString("fa-IR")+" از "+total.toLocaleString("fa-IR");
   };
   form.addEventListener("submit",e=>{e.preventDefault();currentPage=0;render();}); calendar.addEventListener("change",()=>{refreshYears();currentPage=0;render();});
   yearSelect.addEventListener("change",()=>{currentPage=0;render();}); monthSelect.addEventListener("change",()=>{currentPage=0;render();});
