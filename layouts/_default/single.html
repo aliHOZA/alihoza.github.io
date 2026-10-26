@@ -18,9 +18,13 @@
   {{ with .Params.tags }}
     <div class="tag-row" aria-label="برچسب‌ها">{{ range . }}<a class="tag-chip" href="{{ printf "tags/%s/" (. | urlize) | relURL }}">{{ . }}</a>{{ end }}</div>
   {{ end }}
-  {{- /* CHATGPT: link back to the source post using the imported Virgool post ID. */ -}}
-  {{- $postID := path.BaseName .File.Path | replaceRE "^[0-9]{4}-[0-9]{2}-[0-9]{2}-" "" -}}
-  <p class="source-post-link"><a href="https://virgool.io/@mrali/{{ .Title | urlize }}-{{ $postID }}" target="_blank" rel="noopener noreferrer">مشاهدهٔ نسخهٔ اصلی در ویرگول ↗</a></p>
+  {{- /* CHATGPT: prefer the exact imported Virgool URL; fall back to the imported post ID if metadata is absent. */ -}}
+  {{- with .Params.original_url -}}
+    <p class="source-post-link"><a href="{{ . }}" target="_blank" rel="noopener noreferrer">مشاهدهٔ نسخهٔ اصلی در ویرگول ↗</a></p>
+  {{- else -}}
+    {{- $postID := .File.ContentBaseName | replaceRE "^[0-9]{4}-[0-9]{2}-[0-9]{2}-" "" -}}
+    <p class="source-post-link"><a href="https://virgool.io/@mrali/{{ $.Title | urlize }}-{{ $postID }}" target="_blank" rel="noopener noreferrer">مشاهدهٔ نسخهٔ اصلی در ویرگول ↗</a></p>
+  {{- end -}}
   <!-- CHATGPT: show chronological neighbors, same-month posts, keyword-similar posts, and three distinct random posts. -->
   {{ partial "related-posts.html" . }}
   <!-- CHATGPT: comments render after the article only after Giscus IDs are configured in hugo.toml. -->
