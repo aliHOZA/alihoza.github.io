@@ -13,7 +13,8 @@
     {{ end }}
   </header>
   <div class="article-content">
-    {{ .Content }}
+    {{- /* CHATGPT: remove imported Virgool "سایر مطالب" recommendations from the rendered article body. */ -}}
+    {{- .Content | replaceRE "(?s)(<hr[^>]*></hr>\\s*)?<h[1-6][^>]*>\\s*سایر مطالب:?\\s*</h[1-6]>\\s*<ul[^>]*>.*?</ul>" "" | safeHTML -}}
   </div>
   {{ with .Params.tags }}
     <div class="tag-row" aria-label="برچسب‌ها">{{ range . }}<a class="tag-chip" href="{{ printf "tags/%s/" (. | urlize) | relURL }}">{{ . }}</a>{{ end }}</div>
