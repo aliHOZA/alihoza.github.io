@@ -1,0 +1,71 @@
+name: Finish WebP conversion for MPO image
+on:
+  push:
+    branches: [convert-large-images-webp-q90]
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+          submodules: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - run: python -m pip install --disable-pip-version-check Pillow
+      - name: Convert remaining multi-picture JPEG
+        run: |
+          cat > /tmp/fix.py <<'PY'
+          from PIL import Image, ImageOps
+          from pathlib import Path
+          import os, re
+          old=Path("static/images/virgool/f36867ef1be40c50f9f7.jpeg")
+          new=old.with_suffix(".webp")
+          size_before=old.stat().st_size
+          im=Image.open(old)
+          im.seek(0)
+          frame=ImageOps.exif_transpose(im.copy()).convert("RGB")
+          kwargs={"format":"WEBP","quality":90,"method":6}
+          if im.info.get("icc_profile"): kwargs["icc_profile"]=im.info["icc_profile"]
+          frame.save(new,**kwargs)
+          size_after=new.stat().st_size
+          for p in Path(".").rglob("*"):
+              if not p.is_file() or ".git" in p.parts or p.suffix.lower() not in {".md",".html",".htm",".css",".js",".json",".xml",".toml",".yaml",".yml",".txt",".svg",".csv"}:
+                  continue
+              try: s=p.read_text(encoding="utf-8")
+              except (UnicodeDecodeError,OSError): continue
+              n=s.replace(old.as_posix(),new.as_posix()).replace(old.name,new.name)
+              if n!=s: p.write_text(n,encoding="utf-8")
+          old.unlink()
+          report=Path(".github/image-optimization-report.md")
+          s=report.read_text(encoding="utf-8")
+          s=s.replace("- Images converted: **52**","- Images converted: **53**")
+          s=s.replace("- Images not converted due to errors: **1**","- Images not converted due to errors: **0**")
+          s=s.replace("- Source size before: **59.66 MB**",f"- Source size before: **{(59660000+size_before)/1e6:.2f} MB**")
+          # Recalculate exact totals from all successful rows already in report and this additional image.
+          before=sum(int(float(m.group(1))*1e6) for m in re.finditer(r"\| `static/images/virgool/[^|]+` \| `static/images/virgool/[^|]+\.webp` \| ([0-9.]+) \| ([0-9.]+) \|",s))
+          after=sum(int(float(m.group(2))*1e6) for m in re.finditer(r"\| `static/images/virgool/[^|]+` \| `static/images/virgool/[^|]+\.webp` \| ([0-9.]+) \| ([0-9.]+) \|",s))
+          before+=size_before
+          after+=size_after
+          saved=before-after
+          s=re.sub(r"- Source size before: \*\*[^*]+\*\*",f"- Source size before: **{before/1e6:.2f} MB**",s)
+          s=re.sub(r"- WebP size after: \*\*[^*]+\*\*",f"- WebP size after: **{after/1e6:.2f} MB**",s)
+          s=re.sub(r"- Net savings for converted images: \*\*[^*]+\*\*",f"- Net savings for converted images: **{saved/1e6:.2f} MB ({saved/before*100:.1f}%)**",s)
+          s=s.replace("- Original files removed after successful conversion: **52**","- Original files removed after successful conversion: **53**")
+          s=s.replace("| `static/images/virgool/f36867ef1be40c50f9f7.jpeg` | `static/images/virgool/f36867ef1be40c50f9f7.webp` | 4.38 |  |  | ERROR: ERROR adding frame: Invalid frame dimensions. |",f"| `static/images/virgool/f36867ef1be40c50f9f7.jpeg` | `static/images/virgool/f36867ef1be40c50f9f7.webp` | {size_before/1e6:.2f} | {size_after/1e6:.2f} | {(size_before-size_after)*100/size_before:.1f}% | OK (first MPO frame) |")
+          report.write_text(s,encoding="utf-8")
+          with open(os.environ["GITHUB_STEP_SUMMARY"],"a",encoding="utf-8") as f:
+              f.write(f"Converted MPO primary frame to WebP q90. Original {size_before/1e6:.2f} MB; WebP {size_after/1e6:.2f} MB; saved {(size_before-size_after)/1e6:.2f} MB.\n")
+          print(f"Converted MPO primary frame: {size_before} -> {size_after} bytes")
+          PY
+          python /tmp/fix.py
+      - name: Commit final image and report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "[CHATGPT] Finish WebP q90 conversion for MPO image"
+          git push
