@@ -4,7 +4,7 @@ on:
   push:
     branches: ["main"]
   workflow_run:
-    workflows: ["Import published Virgool posts"]
+    workflows: ["Import published Virgool posts", "Vendor Virgool images"]
     types: [completed]
     branches: ["main"]
   workflow_dispatch:
