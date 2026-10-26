@@ -2,6 +2,8 @@ name: Convert large images to WebP q90
 on:
   push:
     branches: [convert-large-images-webp-q90-v2]
+    paths:
+      - 'static/images/**'
 permissions:
   contents: write
 jobs:
