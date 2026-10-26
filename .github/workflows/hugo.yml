@@ -35,13 +35,22 @@ jobs:
           hugo-version: '0.134.3'
           extended: true
 
-      - name: Build site
+      # First build creates Hugo's canonical JSON index; the ranking script uses
+      # its rendered content and permalinks, avoiding a separate Markdown parser.
+      - name: Build source index
+        run: hugo --minify --baseURL "https://aliHOZA.github.io/"
+
+      - name: Generate TF-IDF related-post rankings
+        run: python scripts/build_related_posts.py --index public/index.json --output data/related-posts.json
+
+      - name: Build site with related-post rankings
         run: hugo --minify --baseURL "https://aliHOZA.github.io/"
 
       - name: Verify generated indexes and enforce Pages size limit
         run: |
           test -s public/index.json
           test -s public/random-index.json
+          test -s data/related-posts.json
           bytes=$(du -sb public | cut -f1)
           echo "Published site size: $bytes bytes"
           if [ "$bytes" -gt 1073741824 ]; then
