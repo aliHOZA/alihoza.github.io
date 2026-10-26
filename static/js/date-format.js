@@ -51,7 +51,7 @@
             shown.add(href);
             visible += 1;
             const label = item.querySelector(".years-ago");
-            if (label) label.textContent = `${current.year - date.year} سال پیش`;
+            if (label) label.textContent = `${current.year - date.year} سال قبل`;
           } else {
             item.hidden = true;
           }
