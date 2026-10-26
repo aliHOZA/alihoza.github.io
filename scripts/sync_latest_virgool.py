@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Import the newest published posts from the author's live Virgool profile."""
 from __future__ import annotations
-import re, time
+import re, time, json
 from datetime import datetime
 from html.parser import HTMLParser
 from pathlib import Path
@@ -52,6 +52,45 @@ def publication_date_from_html(raw: str, profile_html: str, post_id: str) -> str
         match = re.search(r"20\\d{2}-\\d{2}-\\d{2}(?:T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:?\\d{2})?)?", snippet)
         if match:
             return match.group(0)
+    return ""
+
+def fetch_api_publication_date(post_id: str) -> str:
+    def walk(value, key=""):
+        low = key.lower()
+        if isinstance(value, dict):
+            for child_key, child in value.items():
+                if any(word in child_key.lower() for word in ("published", "created", "date")) and not any(word in child_key.lower() for word in ("updated", "modified")):
+                    found = walk(child, child_key)
+                    if found:
+                        return found
+                found = walk(child, child_key)
+                if found:
+                    return found
+        elif isinstance(value, (int, float)) and any(word in low for word in ("published", "created", "date", "time")):
+            stamp = int(value)
+            if stamp > 10**12:
+                stamp //= 1000
+            if 1_500_000_000 <= stamp <= 2_100_000_000:
+                return datetime.fromtimestamp(stamp).isoformat()
+        elif isinstance(value, str) and any(word in low for word in ("published", "created", "date", "time")):
+            match = re.search(r"20\\d{2}-\\d{2}-\\d{2}(?:T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:?\\d{2})?)?", value)
+            if match:
+                return match.group(0)
+        return ""
+
+    endpoints = (
+        f"https://virgool.io/api/v1.2/post/{post_id}",
+        f"https://virgool.io/api/v1.2/posts/{post_id}",
+        f"https://virgool.io/api/v1.2/post?hash={post_id}",
+    )
+    for endpoint in endpoints:
+        try:
+            payload = json.loads(fetch(endpoint))
+            result = walk(payload)
+            if result:
+                return result
+        except Exception:
+            continue
     return ""
 
 def main() -> None:
@@ -117,7 +156,7 @@ def main() -> None:
                 classes = re.findall(r'class="([^"]+)"', raw, re.I)[:45]
                 raise RuntimeError(f"no recognized article-content container; page title={page_title!r}; classes={classes!r}")
             title = re.sub(r"\s*(?:[-|–]\s*)?ویرگول\s*$", "", article.title.strip()).strip() or post_id
-            published = article.published or publication_date_from_html(raw, profile_html, post_id)
+            published = article.published or publication_date_from_html(raw, profile_html, post_id) or fetch_api_publication_date(post_id)
             if not published:
                 raise RuntimeError("no publication time found in article or profile HTML")
             date = parse_date(published, published[:10])
