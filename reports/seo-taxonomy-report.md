@@ -1,22 +1,16 @@
 # SEO taxonomy report
 
-- Markdown posts scanned: 311
-- Files updated with taxonomy: 0
-- Categories use weighted title, summary, and body matches. Weak matches use the catch-all category.
+- Markdown posts scanned: 310
+- Files updated with taxonomy: 122
+- Exactly five category labels are used; assignments are refreshed using weighted title, summary, and body matches.
 
 ## Category distribution
 
-- جامعه، فرهنگ و اندیشه: 143
-- سیاست و روابط بین‌الملل: 101
-- اقتصاد ایران و اقتصاد کلان: 44
-- تاریخ ایران و جهان: 22
-- یادداشت‌ها و جستارها: 18
-- سفرنامه و جهانگردی: 17
-- نفت، گاز و انرژی: 13
-- فناوری و زندگی دیجیتال: 6
-- محیط‌زیست و منابع آب: 1
-- بازارهای مالی و سرمایه‌گذاری: 1
-- یادداشت: 1
+- جامعه، فرهنگ و اندیشه: 173
+- سیاست و روابط بین‌الملل: 90
+- اقتصاد، نفت و انرژی: 67
+- سفر، فناوری و محیط‌زیست: 24
+- تاریخ ایران و جهان: 21
 
 ## Most common assigned tags
 
@@ -48,7 +42,6 @@
 
 ## Posts needing manual category review
 
-- 2018-07-29-uz5apjjwzvpj.md: فرمان ساختن ایران به جای زیارت رفتن
 - 2018-08-30-fqukrtpedbci.md: بحرانِ خطِ فارسی
 - 2019-06-30-aopoe2iiu3us.md: اثبات سرقت علمی از مقاله من
 - 2019-08-05-hdbvmcih3ril.md: میشه دید ولی نمیشه صداشو در آورد!
@@ -60,9 +53,8 @@
 - 2020-11-26-a2gcsy4aj3jz.md: بایا دیگه چیه؟
 - 2021-04-22-epa2myou5yir.md: خفقان
 - 2021-05-18-imv79iyw53ak.md: درد بین‌المللی!
-- 2021-07-14-pbrjs8ufcpm8.md: خدمات متقابل ایران و کوبا :)
 - 2022-05-01-klvqsfi9tr6o.md: آش شور شرکت‌های دانش بنیان
 - 2023-06-08-onznoglt8nw5.md: فرار مغزها به دانشگاه دلفت
+- 2024-05-21-first-post.md: نخستین پست با هوگو
 - 2024-08-24-zwtizphehw9l.md: یک ویرگولی معاون رئیس جمهوری شد
 - 2025-09-08-oyk1k2kns6mt.md: سپاس و قدردانی
-- _index.md: Posts

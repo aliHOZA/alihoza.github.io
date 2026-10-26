@@ -5,7 +5,7 @@ summary: "علی حسین‌زاده | اوج هنر و حرفه‌ای‌گری
 virgool_id: "dfhw6likogvc"
 original_url: "https://virgool.io/@mrali/%D9%82%D8%A7%D8%A8%D9%84%DB%8C%D8%AA-%D9%85%D8%AA%D8%AD%D8%B1%DA%A9-%D8%A8%D9%88%D8%AF%D9%86-%D9%82%D8%A7%D8%A8%D9%84%DB%8C%D8%AA-%D8%AA%D8%A7%D8%B4%D9%88-%D8%A8%D9%88%D8%AF%D9%86-dfhw6likogvc"
 draft: false
-categories: ["یادداشت‌ها و جستارها"]
+categories: ["جامعه، فرهنگ و اندیشه"]
 tags: []
 ---
 

@@ -5,7 +5,7 @@ summary: "خط فارسی پادکست جیگسا : در قسمت یک پادک�
 virgool_id: "fqukrtpedbci"
 original_url: "https://virgool.io/@mrali/%D8%A8%D8%AD%D8%B1%D8%A7%D9%86%D9%90-%D8%AE%D8%B7%D9%90-%D9%81%D8%A7%D8%B1%D8%B3%DB%8C-fqukrtpedbci"
 draft: false
-categories: ["یادداشت‌ها و جستارها"]
+categories: ["جامعه، فرهنگ و اندیشه"]
 tags: []
 ---
 

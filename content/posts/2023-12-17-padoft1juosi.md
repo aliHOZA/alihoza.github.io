@@ -5,7 +5,7 @@ summary: "موسی غنی‌نژاد درباره موسی غنی‌نژاد و 
 virgool_id: "padoft1juosi"
 original_url: "https://virgool.io/@mrali/%D8%B3%D8%AE%D9%86%DA%AF%D9%88%DB%8C%DB%8C-%D8%B9%D9%82%D9%84-padoft1juosi"
 draft: false
-categories: ["سیاست و روابط بین‌الملل"]
+categories: ["سیاست و روابط بین‌الملل", "اقتصاد، نفت و انرژی"]
 tags: []
 ---
 

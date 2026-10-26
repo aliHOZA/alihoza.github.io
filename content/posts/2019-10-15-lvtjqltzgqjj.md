@@ -5,7 +5,7 @@ summary: "تحلیل مبتنی بر تجربه‌ی یکی از هموطنان 
 virgool_id: "lvtjqltzgqjj"
 original_url: "https://virgool.io/@mrali/%D8%AA%D9%81%D8%A7%D9%88%D8%AA-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D9%88-%D9%86%DB%8C%D9%88%D8%B2%DB%8C%D9%84%D9%86%D8%AF-lvtjqltzgqjj"
 draft: false
-categories: ["سفرنامه و جهانگردی", "جامعه، فرهنگ و اندیشه"]
+categories: ["سفر، فناوری و محیط‌زیست", "جامعه، فرهنگ و اندیشه"]
 tags: ["نیوزیلند", "فساد اقتصادی"]
 ---
 

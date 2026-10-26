@@ -5,7 +5,7 @@ summary: "بازخوانی یک مستند مستند کلوپ ترور به ن�
 virgool_id: "ughfjejhbrkp"
 original_url: "https://virgool.io/@mrali/%DA%A9%D9%84%D9%88%D9%BE-%D8%AA%D8%B1%D9%88%D8%B1-%D9%85%D8%A7%D8%B2%DB%8C%D8%A7%D8%B1-%D8%A7%D8%A8%D8%B1%D8%A7%D9%87%DB%8C%D9%85%DB%8C-%D9%88-%D9%85%D8%B3%D8%AA%D9%86%D8%AF%D8%B3%D8%A7%D8%B2%DB%8C-%D8%A7%D8%B1%D8%B2%D8%B4%DB%8C-%D9%87%D8%A7-ughfjejhbrkp"
 draft: false
-categories: ["اقتصاد ایران و اقتصاد کلان", "سیاست و روابط بین‌الملل"]
+categories: ["اقتصاد، نفت و انرژی", "سیاست و روابط بین‌الملل"]
 tags: []
 ---
 

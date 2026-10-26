@@ -5,7 +5,7 @@ summary: "بعدتر کشف می‌کنم که در زمان اتحاد جماه
 virgool_id: "qypvosyeswch"
 original_url: "https://virgool.io/@mrali/%D8%A8%D8%A8%D8%B1-%D8%AE%D8%A7%D9%84%D8%AE%D8%A7%D9%84%DB%8C-%D9%BE%D9%84%D9%86%DA%AF-%D8%B1%D8%A7%D9%87%D8%B1%D8%A7%D9%87-qypvosyeswch"
 draft: false
-categories: ["سفرنامه و جهانگردی"]
+categories: ["سفر، فناوری و محیط‌زیست"]
 tags: []
 ---
 

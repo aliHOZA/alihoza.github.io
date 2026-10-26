@@ -5,7 +5,7 @@ summary: "از روزهای «یا مرگ یا مصدق» تا «جاوید شا
 virgool_id: "anwma9yxjmhk"
 original_url: "https://virgool.io/@mrali/%D8%A8%DB%8C%D8%B3%D8%AA-%D9%88-%D9%87%D8%B4%D8%AA-%D9%85%D8%B1%D8%AF%D8%A7%D8%AF-%D8%A2%D9%85%D8%AF-%D9%88-%D8%B1%D9%81%D8%AA-anwma9yxjmhk"
 draft: false
-categories: ["سیاست و روابط بین‌الملل"]
+categories: ["سیاست و روابط بین‌الملل", "جامعه، فرهنگ و اندیشه"]
 tags: ["انقلاب مشروطه", "نفت و انرژی"]
 ---
 

@@ -5,7 +5,7 @@ summary: "لطفا توجه فرمائید که: تقریبا هیچ وجهی ا
 virgool_id: "fen5xolulkxk"
 original_url: "https://virgool.io/@mrali/%D8%A7%D8%B2-%D9%82%D8%B1%D8%A7%D8%B1%D8%AF%D8%A7%D8%AF-%DA%A9%D8%B1%D8%B3%D9%86%D8%AA-%DA%86%DB%8C%D8%B2%DB%8C-%D9%85%DB%8C-%D8%AF%D8%A7%D9%86%DB%8C%D8%AF-fen5xolulkxk"
 draft: false
-categories: ["سیاست و روابط بین‌الملل", "اقتصاد ایران و اقتصاد کلان"]
+categories: ["اقتصاد، نفت و انرژی", "سیاست و روابط بین‌الملل"]
 tags: ["تحریم‌ها", "فساد اقتصادی", "نفت و انرژی"]
 ---
 

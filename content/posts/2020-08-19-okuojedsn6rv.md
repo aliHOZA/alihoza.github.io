@@ -5,7 +5,7 @@ summary: "رانت عظیم قیر رایگان مجلس یا دولت هر وق
 virgool_id: "okuojedsn6rv"
 original_url: "https://virgool.io/@mrali/%D9%85%D8%AC%D9%84%D8%B3%DB%8C-%D9%85%D8%AB%D9%84-%D9%82%DB%8C%D8%B1-%D8%B4%D9%81%D8%A7%D9%81-okuojedsn6rv"
 draft: false
-categories: ["سیاست و روابط بین‌الملل", "اقتصاد ایران و اقتصاد کلان"]
+categories: ["سیاست و روابط بین‌الملل", "اقتصاد، نفت و انرژی"]
 tags: ["فساد اقتصادی"]
 ---
 

@@ -5,7 +5,7 @@ summary: "London Inter-Bank Offered Rate نفس‌های نرخ لایبور ب�
 virgool_id: "trcy6qywyxxo"
 original_url: "https://virgool.io/@mrali/%D9%85%D8%B1%DA%AF-%D9%84%D8%A7%DB%8C%D8%A8%D9%88%D8%B1-%D9%85%D9%87%D9%85-%D8%AA%D8%B1%DB%8C%D9%86-%D9%86%D8%B1%D8%AE-%D8%AC%D9%87%D8%A7%D9%86-trcy6qywyxxo"
 draft: false
-categories: ["تاریخ ایران و جهان"]
+categories: ["اقتصاد، نفت و انرژی"]
 tags: []
 ---
 

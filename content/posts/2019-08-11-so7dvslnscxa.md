@@ -5,7 +5,7 @@ summary: "سه قانون ساده‌ی نوشتن در موبایل و تبلت
 virgool_id: "so7dvslnscxa"
 original_url: "https://virgool.io/@mrali/%D8%AE%D9%88%D8%B4%D9%86%D9%88%DB%8C%D8%B3%DB%8C-%D8%AF%D8%B1-%D8%B1%D8%A7%DB%8C%D8%A7%D9%86%D9%87-so7dvslnscxa"
 draft: false
-categories: ["فناوری و زندگی دیجیتال", "جامعه، فرهنگ و اندیشه"]
+categories: ["سفر، فناوری و محیط‌زیست", "جامعه، فرهنگ و اندیشه"]
 tags: []
 ---
 

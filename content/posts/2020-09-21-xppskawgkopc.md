@@ -5,7 +5,7 @@ summary: "علی حسین‌زاده | پروژه کارخانه انرژی ات
 virgool_id: "xppskawgkopc"
 original_url: "https://virgool.io/@mrali/%D8%A7%D9%88%D9%84%DB%8C%D9%86-%D9%86%DB%8C%D8%B1%D9%88%DA%AF%D8%A7%D9%87-%D9%87%D8%B3%D8%AA%D9%87%D8%A7%DB%8C-%D8%A7%D9%85%D8%A7%D8%B1%D8%A7%D8%AA-%D8%B1%D8%A7%D9%87%D8%A7%D9%86%D8%AF%D8%A7%D8%B2%DB%8C-%D8%B4%D8%AF%D9%87-%D8%A7%D8%B3%D8%AA-xppskawgkopc"
 draft: false
-categories: ["نفت، گاز و انرژی"]
+categories: ["اقتصاد، نفت و انرژی"]
 tags: ["تحریم‌ها"]
 ---
 

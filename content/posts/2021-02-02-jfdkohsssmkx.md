@@ -5,7 +5,7 @@ summary: "خدا علاوه بر خودش، پدر آقای کوبریک را ه
 virgool_id: "jfdkohsssmkx"
 original_url: "https://virgool.io/@mrali/%D9%85%D9%86-%D9%85%D8%A7%D8%AF%D8%B1%D9%85-jfdkohsssmkx"
 draft: false
-categories: ["فناوری و زندگی دیجیتال"]
+categories: ["سفر، فناوری و محیط‌زیست"]
 tags: []
 ---
 

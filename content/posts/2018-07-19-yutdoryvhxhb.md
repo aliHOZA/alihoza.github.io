@@ -5,7 +5,7 @@ summary: "همه انسان‌ها معمولا دوست دارند معروف �
 virgool_id: "yutdoryvhxhb"
 original_url: "https://virgool.io/@mrali/%D9%81%D9%86%D8%A7%D9%88%D8%B1%DB%8C-%D9%82%D8%A7%D8%B1%DA%86-%D9%86%DB%8C%D8%B3%D8%AA-yutdoryvhxhb"
 draft: false
-categories: ["فناوری و زندگی دیجیتال", "جامعه، فرهنگ و اندیشه"]
+categories: ["جامعه، فرهنگ و اندیشه", "سفر، فناوری و محیط‌زیست"]
 tags: []
 ---
 

@@ -5,7 +5,7 @@ summary: "آیا عجیب نیست که یک شرکت بزرگ خودروساز�
 virgool_id: "muy3rvxyqgim"
 original_url: "https://virgool.io/@mrali/%D9%81%DB%8C%D9%84%D9%85-%D9%85%D8%B3%D8%AA%D9%86%D8%AF-%DA%86%D9%87-%DA%A9%D8%B3%DB%8C-%D8%AE%D9%88%D8%AF%D8%B1%D9%88%DB%8C-%D8%A8%D8%B1%D9%82%DB%8C-%D8%B1%D8%A7-%DA%A9%D8%B4%D8%AA-muy3rvxyqgim"
 draft: false
-categories: ["نفت، گاز و انرژی"]
+categories: ["اقتصاد، نفت و انرژی"]
 tags: ["ایالات متحده"]
 ---
 

@@ -5,7 +5,7 @@ summary: "حیفِ ایران... افتتاحیه الکامپ ایران! ما�
 virgool_id: "dgsq6orzwfkc"
 original_url: "https://virgool.io/@mrali/%D9%87%D8%B1-%DA%86%DB%8C%D8%B2%DB%8C-%D8%A8%D9%87-%D8%A7%DB%8C%D9%86-%D8%AE%D8%A8%D8%B1-%D8%A7%D8%B6%D8%A7%D9%81%D9%87-%DA%A9%D9%86%DB%8C%D9%85-%D8%A8%D9%87-%D8%A2%D9%86-%D9%84%D8%B7%D9%85%D9%87-%D8%B2%D8%AF%DB%8C%D9%85-dgsq6orzwfkc"
 draft: false
-categories: ["فناوری و زندگی دیجیتال", "اقتصاد ایران و اقتصاد کلان"]
+categories: ["اقتصاد، نفت و انرژی", "سفر، فناوری و محیط‌زیست"]
 tags: []
 ---
 

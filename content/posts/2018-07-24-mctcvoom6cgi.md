@@ -5,7 +5,7 @@ summary: "کیومرث اشتریان | استاد دانشگاه تهران: آ
 virgool_id: "mctcvoom6cgi"
 original_url: "https://virgool.io/@mrali/%DA%86%D8%B1%D8%A7-%D8%AF%D9%88%D9%84%D8%AA-%D9%86%D9%85%DB%8C%D8%AA%D9%88%D8%A7%D9%86%D8%AF-%D8%AA%D8%B5%D9%85%DB%8C%D9%85-%D8%A8%DA%AF%DB%8C%D8%B1%D8%AF-mctcvoom6cgi"
 draft: false
-categories: ["سیاست و روابط بین‌الملل"]
+categories: ["سیاست و روابط بین‌الملل", "جامعه، فرهنگ و اندیشه"]
 tags: []
 ---
 
