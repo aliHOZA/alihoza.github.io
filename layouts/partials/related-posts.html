@@ -3,8 +3,11 @@
 {{- $previous := .PrevInSection -}}
 {{- $next := .NextInSection -}}
 {{- $sameMonth := slice -}}
+{{- /* CHATGPT: use a 31-day neighborhood, then filter by Solar Hijri month in date-format.js. */ -}}
+{{- $monthStart := $current.Date.AddDate 0 0 -31 -}}
+{{- $monthEnd := $current.Date.AddDate 0 0 31 -}}
 {{- range $all.ByDate.Reverse -}}
-  {{- if and (ne .RelPermalink $current.RelPermalink) (eq .Date.Month $current.Date.Month) (eq .Date.Year $current.Date.Year) -}}
+  {{- if and (ne .RelPermalink $current.RelPermalink) (.Date.After $monthStart) (.Date.Before $monthEnd) -}}
     {{- $sameMonth = $sameMonth | append . -}}
   {{- end -}}
 {{- end -}}
@@ -52,7 +55,7 @@
     {{- $excluded = $excluded | append .RelPermalink -}}
   {{- end -}}
 {{- end -}}
-<section class="related-posts" aria-label="نوشته‌های پیشنهادی">
+<section class="related-posts" aria-label="نوشته‌های پیشنهادی" data-current-date="{{ $current.Date.Format "2006-01-02" }}">
   <h2>برای مطالعهٔ بیشتر</h2>
   {{ with $previous }}
     <section class="related-group">
