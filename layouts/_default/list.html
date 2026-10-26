@@ -7,12 +7,18 @@
 <section class="post-list">
   {{ range $paginator.Pages }}
     <article class="post-card">
+      {{- $thumbFile := printf "static/images/thumbnails/%s.webp" .File.ContentBaseName -}}
+      {{- if fileExists $thumbFile -}}
+        <a class="post-thumbnail" href="{{ .RelPermalink }}" aria-hidden="true" tabindex="-1"><img src="{{ printf "/images/thumbnails/%s.webp" .File.ContentBaseName | relURL }}" alt="" loading="lazy" decoding="async" width="112" height="84"></a>
+      {{- end }}
+      <div class="post-card-main">
       <h2 class="post-title"><a href="{{ .RelPermalink }}">{{ .Title }}</a></h2>
       <div class="post-meta">
         <time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time>
         {{ with .ReadingTime }}<span>{{ . }} دقیقه مطالعه</span>{{ end }}
       </div>
       {{ with .Summary }}<p class="post-summary">{{ . | plainify | htmlUnescape | truncate 190 }}</p>{{ end }}
+      </div>
     </article>
   {{ else }}
     <p class="empty-state">موردی برای نمایش وجود ندارد.</p>
