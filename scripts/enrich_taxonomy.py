@@ -59,7 +59,7 @@ def score_terms(terms, title, summary, body):
 def main():
     counts, tag_counts = Counter(), Counter()
     changed, unclassified = 0, []
-    files = sorted(POSTS.glob("*.md"))
+    files = sorted(path for path in POSTS.glob("*.md") if path.name != "_index.md")
     for path in files:
         original = path.read_text(encoding="utf-8")
         match = re.match(r"\A---\n(.*?)\n---(?:\n|$)", original, re.S)
@@ -107,10 +107,10 @@ def main():
         updated_front = front
         # CHATGPT: replace old taxonomy values so all published posts use the same five-category system.
         category_line = "categories: " + json.dumps(categories, ensure_ascii=False)
-        if re.search(r"(?m)^categories\\s*:", updated_front):
-            updated_front = re.sub(r"(?m)^categories\\s*:.*$", lambda _: category_line, updated_front, count=1)
+        if re.search(r"(?m)^categories\s*:", updated_front):
+            updated_front = re.sub(r"(?m)^categories\s*:.*$", lambda _: category_line, updated_front, count=1)
         else:
-            updated_front += "\\n" + category_line
+            updated_front += "\n" + category_line
         if has_tags:
             # CHATGPT: write back the cleaned list only when removing the overly broad water tag.
             front_lines = updated_front.splitlines()
