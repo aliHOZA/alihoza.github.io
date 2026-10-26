@@ -1,0 +1,89 @@
+baseURL = 'https://aliHOZA.github.io/'
+languageCode = 'fa'
+title = 'وبلاگ علی حسین‌زاده'
+theme = 'PaperMod'
+
+defaultContentLanguage = 'fa'
+defaultContentLanguageInSubdir = false
+
+[languages]
+  [languages.fa]
+    languageName = 'فارسی'
+    languageDirection = 'rtl'
+    weight = 1
+    title = 'وبلاگ علی حسین‌زاده'
+    [languages.fa.params]
+      description = 'وبلاگ شخصی علی حسین‌زاده'
+
+[params]
+  env = 'production'
+  description = 'وبلاگ شخصی علی حسین‌زاده'
+  author = 'علی حسین‌زاده'
+  defaultTheme = 'auto'
+  ShowReadingTime = true
+  ShowShareButtons = false
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowWordCount = false
+  ShowRssButtonInSectionTermList = true
+  UseHugoToc = true
+  disableSpecial1stPost = false
+  disableScrollToTop = false
+  comments = false
+  hidemeta = false
+  hideSummary = false
+  showtoc = false
+  tocopen = false
+  DateFormat = '2 January 2006'
+
+  [params.assets]
+    disableHLJS = false
+
+  [params.label]
+    text = 'وبلاگ علی حسین‌زاده'
+
+  [params.homeInfoParams]
+    Title = 'وبلاگ علی حسین‌زاده'
+    Content = 'نوشته‌های من درباره اقتصاد، فناوری، جامعه و زندگی.'
+
+  [[params.socialIcons]]
+    name = 'github'
+    url = 'https://github.com/aliHOZA'
+
+[menu]
+  [[menu.main]]
+    identifier = 'posts'
+    name = 'نوشته‌ها'
+    url = '/posts/'
+    weight = 10
+  [[menu.main]]
+    identifier = 'archives'
+    name = 'آرشیو'
+    url = '/archives/'
+    weight = 20
+  [[menu.main]]
+    identifier = 'tags'
+    name = 'برچسب‌ها'
+    url = '/tags/'
+    weight = 30
+  [[menu.main]]
+    identifier = 'search'
+    name = 'جستجو'
+    url = '/search/'
+    weight = 40
+
+[outputs]
+  home = ['HTML', 'RSS', 'JSON']
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    style = 'monokai'
+    lineNos = false
+
+[taxonomies]
+  tag = 'tags'
+  category = 'categories'
