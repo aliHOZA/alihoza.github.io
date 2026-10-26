@@ -29,14 +29,10 @@ jobs:
           hugo-version: '0.134.3'
           extended: true
 
-      - name: Setup Go (required for Hugo modules)
-        uses: actions/setup-go@v5
-        with:
-          go-version: '1.22'
-
       - name: Build site
         run: |
-          hugo mod get -u
+          hugo version
+          ls -la themes/ || echo "No themes dir yet"
           hugo --minify --baseURL "https://aliHOZA.github.io/"
 
       - name: Upload Pages artifact
