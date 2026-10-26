@@ -180,3 +180,13 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-
 @media (max-width: 700px) {
   .random-post-list { grid-template-columns: minmax(0, 1fr); }
 }
+
+
+/* CHATGPT: clamp history summaries to two lines only in the default view. */
+.history-default-view .post-summary {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+}
