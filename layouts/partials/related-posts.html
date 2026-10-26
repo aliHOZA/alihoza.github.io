@@ -85,7 +85,7 @@
   {{ end }}
   {{ if gt (len $sameDay) 0 }}
     <section class="related-group same-day-years" data-current-date="{{ $current.Date.Format "2006-01-02" }}">
-      <h3>ایکس سال پیش در همین روز</h3>
+      <h3>در همین روز، در سال‌های گذشته</h3>
       <ul class="related-list">
         {{ range first 8 $sameDay }}
           <li><a href="{{ .RelPermalink }}">{{ .Title }}</a><span class="years-ago" data-date="{{ .Date.Format "2006-01-02" }}"></span><time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li>
