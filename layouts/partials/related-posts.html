@@ -72,7 +72,7 @@
     {{ with $next }}
       <section class="related-group post-neighbor post-next">
         <h3>نوشتهٔ بعدی</h3>
-        <ul class="related-list"><li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006-01-02" }}</time></li></ul>
+        <ul class="related-list"><li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li></ul>
       </section>
     {{ end }}
   </div>
