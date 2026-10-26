@@ -35,10 +35,16 @@ def publication_date_from_html(raw: str, profile_html: str, post_id: str) -> str
     for key in ("article:published_time", "datePublished", "publishedAt", "published_at", "publish_date"):
         position = raw.lower().find(key.lower())
         if position >= 0:
-            snippet = raw[max(0, position - 180):position + 350]
+            snippet = raw[max(0, position - 180):position + 450]
             match = re.search(r"20\\d{2}-\\d{2}-\\d{2}(?:T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:?\\d{2})?)?", snippet)
             if match:
                 return match.group(0)
+            numeric = re.search(r"(?<!\\d)(1[5-9]\\d{8}|1[5-9]\\d{11})(?!\\d)", snippet)
+            if numeric:
+                stamp = int(numeric.group(1))
+                if stamp > 10**12:
+                    stamp //= 1000
+                return datetime.fromtimestamp(stamp).isoformat()
     # Some profile cards include an exact ISO date close to the post permalink.
     position = profile_html.lower().find(post_id.lower())
     if position >= 0:
