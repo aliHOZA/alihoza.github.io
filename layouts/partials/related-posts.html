@@ -3,6 +3,14 @@
 {{- $previous := .PrevInSection -}}
 {{- $next := .NextInSection -}}
 {{- $sameMonth := slice -}}
+{{- $sameDay := slice -}}
+{{- /* CHATGPT: collect candidate same-day anniversaries across years; Persian calendar matching is confirmed in JS. */ -}}
+{{- range $all.ByDate.Reverse -}}
+  {{- $dayDiff := sub .Date.YearDay $current.Date.YearDay -}}
+  {{- if and (ne .RelPermalink $current.RelPermalink) (ne .Date.Year $current.Date.Year) (ge $dayDiff -2) (le $dayDiff 2) -}}
+    {{- $sameDay = $sameDay | append . -}}
+  {{- end -}}
+{{- end -}}
 {{- /* CHATGPT: use a 31-day neighborhood, then filter by Solar Hijri month in date-format.js. */ -}}
 {{- $monthStart := $current.Date.AddDate 0 0 -31 -}}
 {{- $monthEnd := $current.Date.AddDate 0 0 31 -}}
@@ -19,6 +27,7 @@
 {{- with $previous -}}{{- $similarExcluded = $similarExcluded | append .RelPermalink -}}{{- end -}}
 {{- with $next -}}{{- $similarExcluded = $similarExcluded | append .RelPermalink -}}{{- end -}}
 {{- range $sameMonth -}}{{- $similarExcluded = $similarExcluded | append .RelPermalink -}}{{- end -}}
+{{- range $sameDay -}}{{- $similarExcluded = $similarExcluded | append .RelPermalink -}}{{- end -}}
 {{- range $all -}}
   {{- if not (in $similarExcluded .RelPermalink) -}}
     {{- $candidate := . -}}
@@ -47,6 +56,7 @@
 {{- with $previous -}}{{- $excluded = $excluded | append .RelPermalink -}}{{- end -}}
 {{- with $next -}}{{- $excluded = $excluded | append .RelPermalink -}}{{- end -}}
 {{- range $sameMonth -}}{{- $excluded = $excluded | append .RelPermalink -}}{{- end -}}
+{{- range $sameDay -}}{{- $excluded = $excluded | append .RelPermalink -}}{{- end -}}
 {{- range $similarPosts -}}{{- $excluded = $excluded | append .RelPermalink -}}{{- end -}}
 {{- $randomPosts := slice -}}
 {{- range shuffle $all -}}
@@ -70,6 +80,16 @@
       <h3>نوشتهٔ بعدی</h3>
       <ul class="related-list">
         <li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li>
+      </ul>
+    </section>
+  {{ end }}
+  {{ if gt (len $sameDay) 0 }}
+    <section class="related-group same-day-years" data-current-date="{{ $current.Date.Format "2006-01-02" }}">
+      <h3>ایکس سال پیش در همین روز</h3>
+      <ul class="related-list">
+        {{ range first 8 $sameDay }}
+          <li><a href="{{ .RelPermalink }}">{{ .Title }}</a><span class="years-ago" data-date="{{ .Date.Format "2006-01-02" }}"></span><time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li>
+        {{ end }}
       </ul>
     </section>
   {{ end }}

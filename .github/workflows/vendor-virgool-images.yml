@@ -5,6 +5,7 @@ on:
     branches: ["main"]
     paths:
       - "scripts/vendor_virgool_images.py"
+      - "content/posts/**"
       - ".github/workflows/vendor-virgool-images.yml"
   workflow_dispatch:
 

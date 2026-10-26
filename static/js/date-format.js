@@ -17,6 +17,29 @@
     if (!Number.isNaN(date.getTime())) node.textContent = formatter.format(date);
   });
 
+  const solarDateParts = (isoDate) => {
+    const date = new Date(isoDate + "T12:00:00Z");
+    if (Number.isNaN(date.getTime())) return null;
+    const parts = formatter.formatToParts(date);
+    const numeric = (type) => Number(parts.find((part) => part.type === type)?.value.replace(/[^0-9]/g, ""));
+    return { year: numeric("year"), month: parts.find((part) => part.type === "month")?.value, day: numeric("day") };
+  };
+
+  document.querySelectorAll(".same-day-years[data-current-date]").forEach((group) => {
+    const current = solarDateParts(group.dataset.currentDate);
+    if (!current) return;
+    let visible = 0;
+    group.querySelectorAll("li time[data-date]").forEach((time) => {
+      const past = solarDateParts(time.dataset.date);
+      const matches = past && past.month === current.month && past.day === current.day && past.year < current.year;
+      time.closest("li").hidden = !matches;
+      const label = time.closest("li").querySelector(".years-ago");
+      if (label && matches) label.textContent = `${current.year - past.year} سال پیش`;
+      if (matches) visible += 1;
+    });
+    group.hidden = visible === 0;
+  });
+
   document.querySelectorAll(".related-posts[data-current-date]").forEach((related) => {
     const current = solarMonth(related.dataset.currentDate);
     if (!current) return;

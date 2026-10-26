@@ -6,7 +6,7 @@
 <h1 class="page-heading">{{ $heading }}</h1>
 <p class="page-intro">{{ if eq .Data.Plural "tags" }}مرور نوشته‌ها بر اساس برچسب‌ها.{{ else if eq .Data.Plural "categories" }}مرور نوشته‌ها بر اساس دسته‌بندی موضوعی.{{ end }}</p>
 <div class="taxonomy-terms">
-  {{ range .Data.Terms.Alphabetical }}
+  {{ range .Data.Terms.ByCount }}
     <a class="taxonomy-term" href="{{ .Page.RelPermalink }}"><span>{{ .Page.Title }}</span><span class="taxonomy-count">{{ .Count }}</span></a>
   {{ else }}
     <p class="empty-state">موردی برای نمایش وجود ندارد.</p>
