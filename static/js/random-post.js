@@ -24,8 +24,15 @@
       const post = candidates[Math.floor(Math.random() * candidates.length)];
       window.location.href = post.url;
     } catch (error) {
-      // If the index cannot be loaded, use the dedicated random page's fallback message.
-      window.location.href = link.href;
+      // Keep the landing page usable if the post index is unavailable.
+      const isRandomPage = window.location.pathname.replace(/\\/$/, "").endsWith("/random");
+      if (isRandomPage) {
+        const message = document.querySelector("main p");
+        if (message) message.textContent = "انتخاب خودکار ممکن نشد. لطفاً دوباره تلاش کنید یا به صفحهٔ اصلی وبلاگ برگردید.";
+        link?.removeAttribute("aria-busy");
+      } else {
+        window.location.href = link.href;
+      }
     } finally {
       link?.removeAttribute("aria-busy");
     }
