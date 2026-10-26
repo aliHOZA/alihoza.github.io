@@ -4,7 +4,7 @@
 <section class="history-page">
   <h1 class="page-heading">تاریخچهٔ نوشته‌ها</h1>
   <p class="page-intro">سال و ماه را انتخاب کنید تا نوشته‌های همان بازه را ببینید. می‌توانید بین تقویم شمسی و میلادی جابه‌جا شوید.</p>
-  <form id="history-filter" class="history-filter">
+  <form id="history-filter" class="history-filter" data-index-url="{{ "index.json" | relURL }}">
     <div class="history-field"><label for="history-calendar">تقویم</label><select id="history-calendar" name="calendar"><option value="persian" selected>شمسی</option><option value="gregorian">میلادی</option></select></div>
     <div class="history-field"><label for="history-year">سال</label><select id="history-year" name="year"><option value="">همهٔ سال‌ها</option></select></div>
     <div class="history-field"><label for="history-month">ماه</label><select id="history-month" name="month"><option value="">همهٔ ماه‌ها</option></select></div>
