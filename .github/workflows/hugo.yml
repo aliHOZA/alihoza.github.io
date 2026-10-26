@@ -29,14 +29,15 @@ jobs:
           hugo-version: '0.134.3'
           extended: true
 
-      - name: Install PaperMod theme (alternative method)
+      - name: Download and install PaperMod theme
         run: |
-          mkdir -p themes
-          # Use curl + tar instead of git clone to avoid exit code 128 issues
-          curl -sL https://github.com/adityatelange/hugo-PaperMod/archive/refs/heads/master.tar.gz | tar -xz --strip-components=1 -C themes
-          # Rename the extracted folder
-          mv themes/hugo-PaperMod-master themes/PaperMod || mv themes/adityatelange-hugo-PaperMod-* themes/PaperMod || true
-          ls -la themes/
+          mkdir -p themes/PaperMod
+          cd /tmp
+          curl -sL -o papermod.tar.gz https://github.com/adityatelange/hugo-PaperMod/archive/refs/heads/master.tar.gz
+          tar -xzf papermod.tar.gz
+          # The extracted folder is usually hugo-PaperMod-master
+          cp -r hugo-PaperMod-master/* $GITHUB_WORKSPACE/themes/PaperMod/
+          ls -la $GITHUB_WORKSPACE/themes/PaperMod/ | head -10
 
       - name: Build site
         run: |
