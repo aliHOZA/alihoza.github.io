@@ -1,0 +1,132 @@
+name: Convert large images to WebP q90
+on:
+  push:
+    branches: [convert-large-images-webp-q90]
+permissions:
+  contents: write
+jobs:
+  convert:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Install Pillow
+        run: python -m pip install --disable-pip-version-check Pillow
+      - name: Convert images above 750 KiB and update references
+        run: |
+          cat > /tmp/convert_images.py <<'PY'
+          from PIL import Image, ImageOps
+          from pathlib import Path
+          import io, os, subprocess, csv, re
+          root=Path(".")
+          threshold=750*1024
+          extensions={".jpg",".jpeg",".png",".webp",".gif",".avif",".bmp",".tif",".tiff"}
+          text_ext={".md",".html",".htm",".css",".js",".json",".xml",".toml",".yaml",".yml",".txt",".svg",".csv"}
+          files=sorted(p for p in root.rglob("*") if p.is_file() and ".git" not in p.parts and p.suffix.lower() in extensions and p.stat().st_size>threshold)
+          rows=[]
+          replacements={}
+          for p in files:
+              original=p.stat().st_size
+              target=p.with_suffix(".webp")
+              try:
+                  im=Image.open(p)
+                  frames=[]
+                  durations=[]
+                  loop=im.info.get("loop",0)
+                  icc=im.info.get("icc_profile")
+                  exif=im.info.get("exif")
+                  animated=getattr(im,"is_animated",False) and getattr(im,"n_frames",1)>1
+                  nframes=im.n_frames if animated else 1
+                  for i in range(nframes):
+                      im.seek(i)
+                      frame=ImageOps.exif_transpose(im.copy())
+                      if frame.mode not in ("RGB","RGBA"):
+                          frame=frame.convert("RGBA" if "transparency" in frame.info or "A" in frame.getbands() else "RGB")
+                      frames.append(frame)
+                      durations.append(im.info.get("duration",100))
+                  save_args={"format":"WEBP","quality":90,"method":6}
+                  if icc: save_args["icc_profile"]=icc
+                  if exif: save_args["exif"]=exif
+                  if animated:
+                      save_args.update(save_all=True,append_images=frames[1:],duration=durations,loop=loop)
+                  frames[0].save(target,**save_args)
+                  converted=target.stat().st_size
+                  if converted==0: raise RuntimeError("empty output")
+                  replacements[p.as_posix()]=target.as_posix()
+                  replacements[p.name]=target.name
+                  rows.append([p.as_posix(),target.as_posix(),original,converted,original-converted,round((original-converted)*100/original,1),nframes,"OK"])
+              except Exception as e:
+                  if target.exists() and target != p: target.unlink()
+                  rows.append([p.as_posix(),target.as_posix(),original,"","","",0,"ERROR: "+str(e)])
+          # Replace references in textual source files, longest paths first, then basenames.
+          ref_changes=0
+          for t in root.rglob("*"):
+              if not t.is_file() or t.suffix.lower() not in text_ext or ".git" in t.parts:
+                  continue
+              try: s=t.read_text(encoding="utf-8")
+              except (UnicodeDecodeError,OSError): continue
+              new=s
+              for old,newpath in sorted(replacements.items(),key=lambda kv:len(kv[0]),reverse=True):
+                  new=new.replace(old,newpath)
+              if new!=s:
+                  t.write_text(new,encoding="utf-8")
+                  ref_changes+=1
+          # Delete only successfully converted source files, after references are rewritten.
+          deleted=0
+          for row in rows:
+              if row[7]=="OK":
+                  old=root/row[0]
+                  old.unlink()
+                  deleted+=1
+          report=Path(".github/image-optimization-report.md")
+          ok=[r for r in rows if r[7]=="OK"]
+          errors=[r for r in rows if r[7]!="OK"]
+          before=sum(r[2] for r in ok)
+          after=sum(r[3] for r in ok)
+          saved=before-after
+          report.parent.mkdir(exist_ok=True)
+          lines=["# Large image conversion report — WebP quality 90","",
+                 f"- Threshold: **greater than 750 KiB ({threshold:,} bytes)**",
+                 f"- Images converted: **{len(ok)}**",
+                 f"- Images not converted due to errors: **{len(errors)}**",
+                 f"- Source size before: **{before/1e6:.2f} MB**",
+                 f"- WebP size after: **{after/1e6:.2f} MB**",
+                 f"- Net savings for converted images: **{saved/1e6:.2f} MB ({saved/before*100:.1f}%)**" if before else "- No images converted",
+                 f"- Text files with updated references: **{ref_changes}**",
+                 f"- Original files removed after successful conversion: **{deleted}**","",
+                 "> WebP encoding used quality=90 and method=6. Alpha transparency and animated frames were retained where supported by Pillow. Perceptual quality is lossy; original files were deleted from the working branch after successful conversion, but remain recoverable from Git history.","",
+                 "| Original | WebP | Before (MB) | After (MB) | Saved | Status |","|---|---|---:|---:|---:|---|"]
+          for r in rows:
+              before_s=f"{r[2]/1e6:.2f}" if isinstance(r[2],int) else str(r[2])
+              after_s=f"{r[3]/1e6:.2f}" if isinstance(r[3],int) else str(r[3])
+              saved_s=f"{r[5]}%" if isinstance(r[5],(int,float)) else ""
+              lines.append(f"| `{r[0]}` | `{r[1]}` | {before_s} | {after_s} | {saved_s} | {r[7]} |")
+          report.write_text("\n".join(lines)+"\n",encoding="utf-8")
+          with open(os.environ["GITHUB_STEP_SUMMARY"],"a",encoding="utf-8") as f:
+              f.write("\n".join(lines[:10])+"\n")
+          if errors:
+              print("Conversion errors:",errors)
+          print(f"Converted {len(ok)} images; saved {saved/1e6:.2f} MB; updated {ref_changes} text files.")
+          PY
+          python /tmp/convert_images.py
+      - name: Commit converted images and report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+          else
+            git commit -m "[CHATGPT] Convert images over 750 KiB to WebP quality 90"
+            git push
+          fi
+      - uses: actions/upload-artifact@v4
+        with:
+          name: webp-q90-conversion-report
+          path: .github/image-optimization-report.md
+          if-no-files-found: error
+          retention-days: 30
