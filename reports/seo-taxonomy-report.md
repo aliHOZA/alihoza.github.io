@@ -1,16 +1,16 @@
 # SEO taxonomy report
 
 - Markdown posts scanned: 310
-- Files updated with taxonomy: 122
+- Files updated with taxonomy: 22
 - Exactly five category labels are used; assignments are refreshed using weighted title, summary, and body matches.
 
 ## Category distribution
 
-- جامعه، فرهنگ و اندیشه: 173
+- جامعه، فرهنگ و اندیشه: 171
 - سیاست و روابط بین‌الملل: 90
-- اقتصاد، نفت و انرژی: 67
-- سفر، فناوری و محیط‌زیست: 24
-- تاریخ ایران و جهان: 21
+- اقتصاد، نفت و انرژی: 63
+- سفر، فناوری و محیط‌زیست: 23
+- تاریخ ایران و جهان: 20
 
 ## Most common assigned tags
 
@@ -46,14 +46,20 @@
 - 2019-06-30-aopoe2iiu3us.md: اثبات سرقت علمی از مقاله من
 - 2019-08-05-hdbvmcih3ril.md: میشه دید ولی نمیشه صداشو در آورد!
 - 2019-09-27-cvq7nqgrnfem.md: رهبری سازمان با فروتنی
+- 2019-10-06-kdfxnwgfgjmr.md: دربی ایتالیا (Derby d'Italia)
 - 2020-03-04-b7jsafvdmidc.md: فعلا قصد به‌روزرسانی ندارم
 - 2020-09-05-d1zdzjrxankc.md: تکامل بشر
+- 2020-10-03-bpoot7woxllj.md: تنها تا ۱۵ مهر وقت دارید...
 - 2020-10-10-f7ermd5qugm0.md: مسابقه: حدس بزنید...
+- 2020-10-22-ufkuwneteaqz.md: نیسان در برابر نیسان
 - 2020-11-20-dfhw6likogvc.md: قابلیت متحرک بودن!!! قابلیت تاشو بودن!!!
 - 2020-11-26-a2gcsy4aj3jz.md: بایا دیگه چیه؟
+- 2020-12-20-wstre9ezdwde.md: لذت شنیدن موسیقی باکیفیت
+- 2021-04-07-l8ost3juhjf1.md: معرفی فیلم: سرزمین درختان باران
 - 2021-04-22-epa2myou5yir.md: خفقان
 - 2021-05-18-imv79iyw53ak.md: درد بین‌المللی!
 - 2022-05-01-klvqsfi9tr6o.md: آش شور شرکت‌های دانش بنیان
+- 2023-02-20-pwo9ap3k74ip.md: میرزا حسن رشدیه و کربلایی کاظم ساروقی
 - 2023-06-08-onznoglt8nw5.md: فرار مغزها به دانشگاه دلفت
 - 2024-05-21-first-post.md: نخستین پست با هوگو
 - 2024-08-24-zwtizphehw9l.md: یک ویرگولی معاون رئیس جمهوری شد
