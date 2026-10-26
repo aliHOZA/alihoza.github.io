@@ -55,4 +55,6 @@ jobs:
             exit 0
           fi
           git commit -m "Import, repair, and categorize published Virgool posts [CHATGPT]"
+          # CHATGPT: rebase generated taxonomy changes onto any UI commits made while this workflow was running.
+          git pull --rebase origin main
           git push origin HEAD:main
