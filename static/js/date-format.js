@@ -100,7 +100,7 @@
     const candidatesByYear = new Map();
     for (const post of posts) {
       const date = solarDateParts(post.date);
-      if (!date || date.year >= current.year || !matches(date)) continue;
+      if (!date || date.year === current.year || !matches(date)) continue;
 
       let url;
       try { url = new URL(post.url, window.location.origin).href; }
