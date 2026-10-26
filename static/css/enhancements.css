@@ -31,3 +31,12 @@
   .related-list { grid-template-columns: minmax(0, 1fr); }
   .keyword-cloud { gap: 8px 11px; }
 }
+/* CHATGPT: responsive archive filters for Solar Hijri and Gregorian dates. */
+.history-page { max-width: 900px; margin-inline: auto; }
+.history-filter { display: grid; grid-template-columns: 1fr 1fr 1fr auto; align-items: end; gap: 14px; margin-top: 28px; padding: 20px; border: 1px solid var(--line); border-radius: 12px; background: var(--surface); }
+.history-field { min-width: 0; }
+.history-field label { display: block; margin-bottom: 6px; font-size: .85rem; font-weight: 700; }
+.history-field select { width: 100%; min-width: 0; padding: 11px 12px; border: 1px solid var(--line); border-radius: 7px; background: var(--page); color: var(--ink); font: inherit; }
+.history-filter .search-button { min-height: 47px; white-space: nowrap; }
+@media (max-width: 700px) { .history-filter { grid-template-columns: 1fr 1fr; } .history-filter .search-button { grid-column: 1 / -1; width: 100%; } }
+@media (max-width: 420px) { .history-filter { grid-template-columns: 1fr; } }
