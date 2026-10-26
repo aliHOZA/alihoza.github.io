@@ -11,12 +11,12 @@ enableRobotsTXT = true
   # CHATGPT: configure these IDs after enabling Discussions and registering a GoatCounter site.
   [params.giscus]
     repo = 'aliHOZA/alihoza.github.io'
-    repoId = ''
+    repoId = 'R_kgDOQA4KwQ'
     category = 'General'
     categoryId = ''
 
   [params.goatcounter]
-    code = ''
+    code = 'alihoza'
 
 [taxonomies]
   category = 'categories'
