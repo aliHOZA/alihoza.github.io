@@ -20,14 +20,14 @@ concurrency:
 
 jobs:
   build:
-    if: \${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
+    if: ${{ github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success' }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v4
         with:
           ref: main
-          fetch-depth: 0
+          fetch-depth: 1
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v3
@@ -56,11 +56,11 @@ jobs:
 
   deploy:
     needs: build
-    if: \${{ needs.build.result == 'success' }}
+    if: ${{ needs.build.result == 'success' }}
     runs-on: ubuntu-latest
     environment:
       name: github-pages
-      url: \${{ steps.deployment.outputs.page_url }}
+      url: ${{ steps.deployment.outputs.page_url }}
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
