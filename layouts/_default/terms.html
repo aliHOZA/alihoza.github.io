@@ -1,0 +1,15 @@
+{{ define "title" }}{{ if eq .Data.Plural "tags" }}برچسب‌ها{{ else if eq .Data.Plural "categories" }}دسته‌بندی‌ها{{ else }}{{ .Title }}{{ end }} | {{ .Site.Title }}{{ end }}
+{{ define "main" }}
+<div class="breadcrumbs"><a href="{{ .Site.Home.RelPermalink }}">خانه</a> /</div>
+{{ $heading := .Title }}
+{{ if eq .Data.Plural "tags" }}{{ $heading = "برچسب‌ها" }}{{ else if eq .Data.Plural "categories" }}{{ $heading = "دسته‌بندی‌ها" }}{{ end }}
+<h1 class="page-heading">{{ $heading }}</h1>
+<p class="page-intro">{{ if eq .Data.Plural "tags" }}مرور نوشته‌ها بر اساس برچسب‌ها.{{ else if eq .Data.Plural "categories" }}مرور نوشته‌ها بر اساس دسته‌بندی موضوعی.{{ end }}</p>
+<div class="taxonomy-terms">
+  {{ range .Data.Terms.Alphabetical }}
+    <a class="taxonomy-term" href="{{ .Page.RelPermalink }}"><span>{{ .Page.Title }}</span><span class="taxonomy-count">{{ .Count }}</span></a>
+  {{ else }}
+    <p class="empty-state">موردی برای نمایش وجود ندارد.</p>
+  {{ end }}
+</div>
+{{ end }}
