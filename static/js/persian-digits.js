@@ -1,7 +1,7 @@
 // CHATGPT: normalize visible Latin digits to Persian digits, including dynamically added search results.
 (() => {
   const digitMap = { "0":"۰", "1":"۱", "2":"۲", "3":"۳", "4":"۴", "5":"۵", "6":"۶", "7":"۷", "8":"۸", "9":"۹" };
-  const convert = (value) => value.replace(/[0-9]/g, (digit) => digitMap[digit]);
+  const convert = (value) => value.replace(/هٔ/g, "ه").replace(/[0-9]/g, (digit) => digitMap[digit]);
   const skip = "script,style,code,pre,kbd,samp,input,textarea,select,svg,math";
   const processNode = (root) => {
     if (root.nodeType === Node.TEXT_NODE) {
