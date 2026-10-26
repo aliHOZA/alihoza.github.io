@@ -18,6 +18,7 @@ class ArticleParser(HTMLParser):
     def __init__(self):
         super().__init__(convert_charrefs=True)
         self.in_section = False
+        self.content_tag = None
         self.depth = 0
         self.parts = []
         self.title = ""
@@ -35,8 +36,9 @@ class ArticleParser(HTMLParser):
             self.published = a["datetime"].strip()
         if tag == "a" and "p-canonical" in a.get("class", "").split():
             self.canonical = a.get("href", "")
-        if tag == "section" and "e-content" in a.get("class", "").split():
+        if not self.in_section and "e-content" in a.get("class", "").split():
             self.in_section = True
+            self.content_tag = tag
             self.depth = 1
             self.parts.append(self.get_starttag_text())
             return
@@ -51,8 +53,9 @@ class ArticleParser(HTMLParser):
             self.parts.append(f"</{tag}>")
             if tag not in self.VOID:
                 self.depth -= 1
-            if tag == "section" and self.depth <= 0:
+            if tag == self.content_tag and self.depth <= 0:
                 self.in_section = False
+                self.content_tag = None
                 self.depth = 0
         if self.title_depth and tag in {"h1", "title"}:
             if not self.title:
