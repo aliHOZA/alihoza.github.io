@@ -17,7 +17,7 @@ IMAGE_DIR = ROOT / "static" / "images" / "virgool"
 REPORT = ROOT / "reports" / "virgool-image-migration.md"
 MAX_IMAGE_BYTES = 20 * 1024 * 1024
 MAX_TOTAL_BYTES = 350 * 1024 * 1024
-URL_RE = re.compile(r'https://files\.virgool\.io/upload/[^"\\'<>\\s)]+')
+URL_RE = re.compile(r"https://files\.virgool\.io/upload/[^\"'<>\s)]+")
 EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".webp", ".avif", ".svg"}
 
 def safe_extension(url: str, content_type: str) -> str:
