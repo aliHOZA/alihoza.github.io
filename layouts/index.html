@@ -6,14 +6,25 @@
   <p class="page-intro">نوشته‌ها و جستارهایی دربارهٔ ایران و جهان؛ از اقتصاد و انرژی تا تاریخ و سیاست.</p>
 </section>
 {{ $allPosts := (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
+{{/* Keep 8 posts on page one; use 12 per page thereafter. The 8-item paginator creates all required static page URLs. */}}
 {{ $paginator := .Paginate $allPosts 8 }}
-{{ if eq $paginator.PageNumber 1 }}
+{{ $pageNumber := $paginator.PageNumber }}
+{{ $displayPosts := first 8 $allPosts }}
+{{ if gt $pageNumber 1 }}
+  {{ $offset := add 8 (mul (sub $pageNumber 2) 12) }}
+  {{ $displayPosts = first 12 (after $offset $allPosts) }}
+{{ end }}
+{{ $totalPages := 1 }}
+{{ if gt (len $allPosts) 8 }}
+  {{ $totalPages = add 1 (div (add (sub (len $allPosts) 8) 11) 12) }}
+{{ end }}
+{{ if eq $pageNumber 1 }}
 <div class="section-heading"><h2>تازه‌ترین نوشته‌ها</h2><span>۸ نوشتهٔ اخیر</span></div>
 {{ else }}
-<div class="section-heading"><h2>نوشته‌های قدیمی‌تر</h2><span>صفحه {{ $paginator.PageNumber }}</span></div>
+<div class="section-heading"><h2>نوشته‌های قدیمی‌تر</h2><span>صفحه {{ $pageNumber }}</span></div>
 {{ end }}
 <section class="post-list" aria-label="آخرین نوشته‌ها">
-  {{ range $index, $page := $paginator.Pages }}
+  {{ range $index, $page := $displayPosts }}
     <article class="post-card">
       {{- $thumbFile := printf "static/images/thumbnails/%s.webp" $page.File.ContentBaseName -}}
       {{- if fileExists $thumbFile -}}
@@ -31,14 +42,14 @@
     </article>
   {{ else }}<p class="empty-state">هنوز نوشته‌ای برای نمایش وجود ندارد.</p>{{ end }}
 </section>
-{{ if gt $paginator.TotalPages 1 }}
+{{ if gt $totalPages 1 }}
   <nav class="pagination" aria-label="صفحه‌بندی">
     {{ if $paginator.HasPrev }}<a href="{{ $paginator.Prev.URL }}">← نوشته‌های جدیدتر</a>{{ else }}<span></span>{{ end }}
-    <span class="post-meta">صفحه {{ $paginator.PageNumber }} از {{ $paginator.TotalPages }}</span>
-    {{ if $paginator.HasNext }}<a href="{{ $paginator.Next.URL }}">نوشته‌های قدیمی‌تر →</a>{{ end }}
+    <span class="post-meta">صفحه {{ $pageNumber }} از {{ $totalPages }}</span>
+    {{ if lt $pageNumber $totalPages }}<a href="{{ $paginator.Next.URL }}">نوشته‌های قدیمی‌تر →</a>{{ end }}
   </nav>
 {{ end }}
-{{ if eq $paginator.PageNumber 1 }}
+{{ if eq $pageNumber 1 }}
   {{ $randomCandidates := after 8 $allPosts }}
   {{ $randomPosts := first 4 (shuffle $randomCandidates) }}
   {{ if $randomPosts }}
