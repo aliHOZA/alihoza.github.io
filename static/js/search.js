@@ -70,7 +70,11 @@
       heading.append(link);
       article.append(heading);
 
-      const meta = make("div", "post-meta", page.date || "");
+      const date = page.date ? new Date(page.date + "T12:00:00Z") : null;
+      const displayDate = date && !Number.isNaN(date.getTime())
+        ? new Intl.DateTimeFormat("fa-IR-u-ca-persian", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }).format(date)
+        : (page.date || "");
+      const meta = make("div", "post-meta", displayDate);
       article.append(meta);
 
       if (page.summary) article.append(make("p", "post-summary", page.summary));
