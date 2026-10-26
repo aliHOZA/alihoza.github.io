@@ -1,0 +1,18 @@
+{{ define "title" }}تاریخچهٔ نوشته‌ها | {{ .Site.Title }}{{ end }}
+{{ define "main" }}
+<div class="breadcrumbs"><a href="{{ .Site.Home.RelPermalink }}">خانه</a> /</div>
+<section class="history-page">
+  <h1 class="page-heading">تاریخچهٔ نوشته‌ها</h1>
+  <p class="page-intro">سال و ماه را انتخاب کنید تا نوشته‌های همان بازه را ببینید. می‌توانید بین تقویم شمسی و میلادی جابه‌جا شوید.</p>
+  <form id="history-filter" class="history-filter">
+    <div class="history-field"><label for="history-calendar">تقویم</label><select id="history-calendar" name="calendar"><option value="persian" selected>شمسی</option><option value="gregorian">میلادی</option></select></div>
+    <div class="history-field"><label for="history-year">سال</label><select id="history-year" name="year"><option value="">همهٔ سال‌ها</option></select></div>
+    <div class="history-field"><label for="history-month">ماه</label><select id="history-month" name="month"><option value="">همهٔ ماه‌ها</option></select></div>
+    <button class="search-button" type="submit">نمایش نوشته‌ها</button>
+  </form>
+  <p id="history-status" class="search-status" role="status" aria-live="polite">در حال بارگذاری آرشیو…</p>
+  <section id="history-results" class="post-list" aria-label="نوشته‌های آرشیو"></section>
+  <nav id="history-pagination" class="pagination" aria-label="صفحه‌بندی آرشیو" hidden><button id="history-prev" class="search-button" type="button">← جدیدتر</button><span id="history-page-label" class="post-meta"></span><button id="history-next" class="search-button" type="button">قدیمی‌تر →</button></nav>
+</section>
+<script src="{{ "js/history.js" | relURL }}" defer></script>
+{{ end }}
