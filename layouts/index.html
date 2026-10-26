@@ -7,13 +7,17 @@
 </section>
 {{ $allPosts := (where .Site.RegularPages "Section" "posts").ByDate.Reverse }}
 {{ $paginator := .Paginate $allPosts 8 }}
+{{ if eq $paginator.PageNumber 1 }}
 <div class="section-heading"><h2>تازه‌ترین نوشته‌ها</h2><span>۸ نوشتهٔ اخیر</span></div>
+{{ else }}
+<div class="section-heading"><h2>نوشته‌های قدیمی‌تر</h2><span>صفحه {{ $paginator.PageNumber }}</span></div>
+{{ end }}
 <section class="post-list" aria-label="آخرین نوشته‌ها">
   {{ range $index, $page := $paginator.Pages }}
     <article class="post-card">
       {{- $thumbFile := printf "static/images/thumbnails/%s.webp" $page.File.ContentBaseName -}}
       {{- if fileExists $thumbFile -}}
-        <a class="post-thumbnail" href="{{ $page.RelPermalink }}" aria-hidden="true" tabindex="-1"><img src="{{ printf "/images/thumbnails/%s.webp" $page.File.ContentBaseName | relURL }}" alt="" loading="lazy" decoding="async" width="112" height="84"></a>
+        <a class="post-thumbnail" href="{{ $page.RelPermalink }}" aria-hidden="true" tabindex="-1"><img src="{{ printf "/images/thumbnails/%s.webp" $page.File.ContentBaseName | relURL }}" alt="" loading="lazy" decoding="async" width="160" height="120"></a>
       {{- end }}
       <div class="post-card-main">
         <h3 class="post-title"><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
@@ -44,7 +48,7 @@
         <article class="post-card">
           {{- $thumbFile := printf "static/images/thumbnails/%s.webp" $page.File.ContentBaseName -}}
           {{- if fileExists $thumbFile -}}
-            <a class="post-thumbnail" href="{{ $page.RelPermalink }}" aria-hidden="true" tabindex="-1"><img src="{{ printf "/images/thumbnails/%s.webp" $page.File.ContentBaseName | relURL }}" alt="" loading="lazy" decoding="async" width="112" height="84"></a>
+            <a class="post-thumbnail" href="{{ $page.RelPermalink }}" aria-hidden="true" tabindex="-1"><img src="{{ printf "/images/thumbnails/%s.webp" $page.File.ContentBaseName | relURL }}" alt="" loading="lazy" decoding="async" width="160" height="120"></a>
           {{- end }}
           <div class="post-card-main">
             <h3 class="post-title"><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
