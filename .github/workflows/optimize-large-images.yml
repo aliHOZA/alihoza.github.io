@@ -1,0 +1,45 @@
+name: Optimize large images
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - "scripts/optimize_large_images.py"
+      - ".github/workflows/optimize-large-images.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: image-optimization
+  cancel-in-progress: false
+
+jobs:
+  optimize:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Install Pillow
+        run: python3 -m pip install --user Pillow
+
+      - name: Convert eligible images safely
+        run: python3 scripts/optimize_large_images.py
+
+      - name: Commit converted images and report
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A -- static content .github/image-optimization-report.md .github/image-optimization-results.json
+          if git diff --cached --quiet; then
+            echo "No image conversions or report changes."
+            exit 0
+          fi
+          git commit -m "[CHATGPT] Optimize eligible large images as WebP"
+          git pull --rebase origin main
+          git push origin HEAD:main
