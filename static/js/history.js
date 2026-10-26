@@ -24,6 +24,7 @@
   };
   const render = () => {
     const hasDateFilter = Boolean(yearSelect.value || monthSelect.value);
+    results.classList.toggle("history-default-view", !hasDateFilter);
     // With no year/month selected, show only the 12 oldest posts, oldest first.
     const filtered = hasDateFilter
       ? pages.filter(p=>{const d=getDateParts(p.date,calendar.value); return d && (!yearSelect.value||d.year===yearSelect.value) && (!monthSelect.value||d.month===monthSelect.value);})
