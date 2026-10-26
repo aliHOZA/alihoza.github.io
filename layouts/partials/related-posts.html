@@ -1,20 +1,49 @@
 {{- $current := . -}}
 {{- $all := where .Site.RegularPages "Section" "posts" -}}
 {{- $previous := .PrevInSection -}}
+{{- $next := .NextInSection -}}
 {{- $sameMonth := slice -}}
 {{- range $all.ByDate.Reverse -}}
-  {{- if and (ne .RelPermalink $current.RelPermalink) (eq .Date.Month $current.Date.Month) (ne .Date.Year $current.Date.Year) -}}
-    {{- if or (not $previous) (ne .RelPermalink $previous.RelPermalink) -}}
-      {{- $sameMonth = $sameMonth | append . -}}
+  {{- if and (ne .RelPermalink $current.RelPermalink) (eq .Date.Month $current.Date.Month) (eq .Date.Year $current.Date.Year) -}}
+    {{- $sameMonth = $sameMonth | append . -}}
+  {{- end -}}
+{{- end -}}
+{{- /* CHATGPT: score candidates by overlap with editorial keyword-cloud terms and existing tags/categories. */ -}}
+{{- $keywords := slice "اقتصاد ایران" "نفت و انرژی" "تاریخ معاصر ایران" "سیاست ایران" "روابط ایران و آمریکا" "بازار سرمایه" "صادرات نفت" "فساد اقتصادی" "تورم" "تحریم‌ها" "توسعه اقتصادی" "اقتصاد نفتی" "تجارت خارجی" "روسیه" "چین" "جنگ و صلح" "دوران قاجار" "دوران پهلوی" "انقلاب مشروطه" "بودجه و یارانه" "بانک مرکزی" "آب و محیط زیست" "رود کارون و سد گتوند" "مغالطه و تفکر نقاد" "جامعه و فرهنگ" "حقوق و عدالت" "سفرنامه" -}}
+{{- $currentText := lower (printf "%s %s" $current.Title $current.Plain) -}}
+{{- $similar := slice -}}
+{{- range $all -}}
+  {{- if ne .RelPermalink $current.RelPermalink -}}
+    {{- $candidate := . -}}
+    {{- $candidateText := lower (printf "%s %s" .Title .Plain) -}}
+    {{- $score := 0 -}}
+    {{- range $keywords -}}
+      {{- $term := lower . -}}
+      {{- if and (strings.Contains $currentText $term) (strings.Contains $candidateText $term) -}}
+        {{- $score = add $score 4 -}}
+      {{- end -}}
+    {{- end -}}
+    {{- $sharedTags := intersect ($current.Params.tags | default (slice)) ($candidate.Params.tags | default (slice)) -}}
+    {{- $sharedCategories := intersect ($current.Params.categories | default (slice)) ($candidate.Params.categories | default (slice)) -}}
+    {{- $score = add $score (mul (len $sharedTags) 3) (mul (len $sharedCategories) 2) -}}
+    {{- if gt $score 0 -}}
+      {{- $similar = $similar | append (dict "page" $candidate "score" $score) -}}
     {{- end -}}
   {{- end -}}
 {{- end -}}
+{{- $similar = sort $similar "score" "desc" -}}
+{{- $similarPosts := slice -}}
+{{- range first 4 $similar -}}
+  {{- $similarPosts = $similarPosts | append .page -}}
+{{- end -}}
 {{- $excluded := slice $current.RelPermalink -}}
 {{- with $previous -}}{{- $excluded = $excluded | append .RelPermalink -}}{{- end -}}
+{{- with $next -}}{{- $excluded = $excluded | append .RelPermalink -}}{{- end -}}
 {{- range $sameMonth -}}{{- $excluded = $excluded | append .RelPermalink -}}{{- end -}}
+{{- range $similarPosts -}}{{- $excluded = $excluded | append .RelPermalink -}}{{- end -}}
 {{- $randomPosts := slice -}}
 {{- range shuffle $all -}}
-  {{- if and (lt (len $randomPosts) 2) (not (in $excluded .RelPermalink)) -}}
+  {{- if and (lt (len $randomPosts) 3) (not (in $excluded .RelPermalink)) -}}
     {{- $randomPosts = $randomPosts | append . -}}
     {{- $excluded = $excluded | append .RelPermalink -}}
   {{- end -}}
@@ -25,16 +54,34 @@
     <section class="related-group">
       <h3>نوشتهٔ پیشین</h3>
       <ul class="related-list">
-        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li>
+        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li>
+      </ul>
+    </section>
+  {{ end }}
+  {{ with $next }}
+    <section class="related-group">
+      <h3>نوشتهٔ بعدی</h3>
+      <ul class="related-list">
+        <li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li>
       </ul>
     </section>
   {{ end }}
   {{ if gt (len $sameMonth) 0 }}
     <section class="related-group">
-      <h3>در همین ماه، در سال‌های دیگر</h3>
+      <h3>در همین ماه</h3>
       <ul class="related-list">
         {{ range first 4 $sameMonth }}
-          <li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li>
+          <li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li>
+        {{ end }}
+      </ul>
+    </section>
+  {{ end }}
+  {{ if gt (len $similarPosts) 0 }}
+    <section class="related-group">
+      <h3>۴ نوشتهٔ مشابه بر اساس کلیدواژه‌ها</h3>
+      <ul class="related-list">
+        {{ range $similarPosts }}
+          <li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li>
         {{ end }}
       </ul>
     </section>
@@ -44,7 +91,7 @@
       <h3>شاید این نوشته‌ها هم برایتان جالب باشند</h3>
       <ul class="related-list">
         {{ range $randomPosts }}
-          <li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li>
+          <li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li>
         {{ end }}
       </ul>
     </section>
