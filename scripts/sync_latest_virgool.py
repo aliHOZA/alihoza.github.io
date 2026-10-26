@@ -30,6 +30,24 @@ def fetch(url: str) -> str:
     with urlopen(request, timeout=25) as response:
         return response.read().decode("utf-8", errors="replace")
 
+def publication_date_from_html(raw: str, profile_html: str, post_id: str) -> str:
+    # Search around common publication-date metadata keys without assuming attribute order.
+    for key in ("article:published_time", "datePublished", "publishedAt", "published_at", "publish_date"):
+        position = raw.lower().find(key.lower())
+        if position >= 0:
+            snippet = raw[max(0, position - 180):position + 350]
+            match = re.search(r"20\\d{2}-\\d{2}-\\d{2}(?:T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:?\\d{2})?)?", snippet)
+            if match:
+                return match.group(0)
+    # Some profile cards include an exact ISO date close to the post permalink.
+    position = profile_html.lower().find(post_id.lower())
+    if position >= 0:
+        snippet = profile_html[max(0, position - 2500):position + 2500]
+        match = re.search(r"20\\d{2}-\\d{2}-\\d{2}(?:T\\d{2}:\\d{2}:\\d{2}(?:\\.\\d+)?(?:Z|[+-]\\d{2}:?\\d{2})?)?", snippet)
+        if match:
+            return match.group(0)
+    return ""
+
 def main() -> None:
     POSTS.mkdir(parents=True, exist_ok=True)
     profile_html = ""
@@ -93,9 +111,10 @@ def main() -> None:
                 classes = re.findall(r'class="([^"]+)"', raw, re.I)[:45]
                 raise RuntimeError(f"no recognized article-content container; page title={page_title!r}; classes={classes!r}")
             title = re.sub(r"\s*(?:[-|–]\s*)?ویرگول\s*$", "", article.title.strip()).strip() or post_id
-            if not article.published:
-                raise RuntimeError("no publication time found in article HTML")
-            date = parse_date(article.published, article.published[:10])
+            published = article.published or publication_date_from_html(raw, profile_html, post_id)
+            if not published:
+                raise RuntimeError("no publication time found in article or profile HTML")
+            date = parse_date(published, published[:10])
             dt = datetime.fromisoformat(date)
             target = POSTS / f"{dt.date().isoformat()}-{post_id}.md"
             if target.exists():
