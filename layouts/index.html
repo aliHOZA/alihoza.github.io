@@ -35,7 +35,7 @@
   </nav>
 {{ end }}
 {{ if eq $paginator.PageNumber 1 }}
-  {{ $randomCandidates := complement $allPosts $paginator.Pages }}
+  {{ $randomCandidates := after 8 $allPosts }}
   {{ $randomPosts := first 4 (shuffle $randomCandidates) }}
   {{ if $randomPosts }}
     <div class="section-heading random-posts-heading"><h2>شاید برایتان جالب باشد</h2><span>۴ نوشتهٔ منتخب به‌صورت تصادفی</span></div>
