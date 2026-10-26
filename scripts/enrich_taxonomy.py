@@ -31,7 +31,7 @@ TAGS = [
     ("سد گتوند", "سد گتوند"), ("مغالطه", "تفکر نقاد"), ("حقوق بشر", "حقوق بشر"),
     ("سفرنامه", "سفرنامه"), ("نیوزیلند", "نیوزیلند"), ("محیط زیست", "محیط‌زیست"),
     ("محیط‌زیست", "محیط‌زیست"), ("بانک مرکزی", "بانک مرکزی"), ("بودجه", "بودجه"),
-    ("جنگ", "جنگ"), ("فرهنگ", "فرهنگ"), ("عدالت", "عدالت"), ("آب", "بحران آب"),
+    ("جنگ", "جنگ"), ("فرهنگ", "فرهنگ"), ("عدالت", "عدالت"),
 ]
 
 def normalize(value: str) -> str:
@@ -94,6 +94,12 @@ def main():
             m = re.search(r"(?m)^tags:\s*(\[.*\])\s*$", front)
             try: tags = json.loads(m.group(1)) if m else ["برچسب موجود"]
             except json.JSONDecodeError: tags = ["برچسب موجود"]
+            # CHATGPT: "water" alone is too broad to be a reliable SEO tag; keep it only with clear environmental context.
+            if "بحران آب" in tags:
+                env_terms = ["بحران آب", "کارون", "سد گتوند", "شوری آب", "خشکسالی", "ریزگرد", "محیط زیست", "محیط‌زیست", "منابع آب", "تالاب", "دریاچه"]
+                explicit_context = any(normalize(term) in title or normalize(term) in summary for term in env_terms)
+                if not explicit_context and "محیط‌زیست و منابع آب" not in categories:
+                    tags = [tag for tag in tags if tag != "بحران آب"]
         else:
             ranked_tags = []
             for raw, label in TAGS:
@@ -109,6 +115,46 @@ def main():
         counts.update(categories); tag_counts.update(tags)
         updated_front = front
         if not has_categories: updated_front += "\ncategories: " + json.dumps(categories, ensure_ascii=False)
+        if has_tags and "بحران آب" not in tags and re.search(r'(?m)^tags:\s*\[.*"بحران آب".*\]\s*
+        updated = "---\n" + updated_front + "\n---\n" + body
+        if updated != original:
+            path.write_text(updated, encoding="utf-8"); changed += 1
+
+    lines = ["# SEO taxonomy report", "", f"- Markdown posts scanned: {len(files)}", f"- Files updated with taxonomy: {changed}", "- Categories use weighted title, summary, and body matches. Weak matches use the catch-all category.", "", "## Category distribution", ""]
+    lines += [f"- {name}: {count}" for name, count in counts.most_common()]
+    lines += ["", "## Most common assigned tags", ""]
+    lines += [f"- {name}: {count}" for name, count in tag_counts.most_common(25)]
+    lines += ["", "## Posts needing manual category review", ""]
+    lines += unclassified[:100] or ["- None"]
+    REPORT.parent.mkdir(parents=True, exist_ok=True)
+    REPORT.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(f"Scanned {len(files)} posts; updated {changed}.")
+    print("Category distribution:", dict(counts))
+    print(f"Posts needing review: {len(unclassified)}")
+
+if __name__ == "__main__":
+    main()
+, front):
+            updated_front = re.sub(r'(?m)^tags:\s*\[.*\]\s*
+        updated = "---\n" + updated_front + "\n---\n" + body
+        if updated != original:
+            path.write_text(updated, encoding="utf-8"); changed += 1
+
+    lines = ["# SEO taxonomy report", "", f"- Markdown posts scanned: {len(files)}", f"- Files updated with taxonomy: {changed}", "- Categories use weighted title, summary, and body matches. Weak matches use the catch-all category.", "", "## Category distribution", ""]
+    lines += [f"- {name}: {count}" for name, count in counts.most_common()]
+    lines += ["", "## Most common assigned tags", ""]
+    lines += [f"- {name}: {count}" for name, count in tag_counts.most_common(25)]
+    lines += ["", "## Posts needing manual category review", ""]
+    lines += unclassified[:100] or ["- None"]
+    REPORT.parent.mkdir(parents=True, exist_ok=True)
+    REPORT.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print(f"Scanned {len(files)} posts; updated {changed}.")
+    print("Category distribution:", dict(counts))
+    print(f"Posts needing review: {len(unclassified)}")
+
+if __name__ == "__main__":
+    main()
+, "tags: " + json.dumps(tags, ensure_ascii=False), updated_front)
         if not has_tags: updated_front += "\ntags: " + json.dumps(tags, ensure_ascii=False)
         updated = "---\n" + updated_front + "\n---\n" + body
         if updated != original:
