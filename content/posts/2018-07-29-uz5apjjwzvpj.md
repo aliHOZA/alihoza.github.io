@@ -5,6 +5,8 @@ summary: "چهار ماه پس از پیروزی انقلاب، آیت الله 
 virgool_id: "uz5apjjwzvpj"
 original_url: "https://virgool.io/@mrali/%D9%81%D8%B1%D9%85%D8%A7%D9%86-%D8%B3%D8%A7%D8%AE%D8%AA%D9%86-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D8%A8%D9%87-%D8%AC%D8%A7%DB%8C-%D8%B2%DB%8C%D8%A7%D8%B1%D8%AA-%D8%B1%D9%81%D8%AA%D9%86-uz5apjjwzvpj"
 draft: false
+categories: ["یادداشت‌ها و جستارها"]
+tags: ["بحران آب"]
 ---
 
 <section class="e-content">

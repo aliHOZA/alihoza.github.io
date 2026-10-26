@@ -5,6 +5,8 @@ summary: "علی حسین‌زاده | آقای بیگی نماینده مجلس
 virgool_id: "ixpofqdewiyi"
 original_url: "https://virgool.io/@mrali/%DA%A9%D8%A7%D8%B1%D8%AA-%D9%85%D9%84%DB%8C%D9%90-%D9%85%D9%84%DB%8C-ixpofqdewiyi"
 draft: false
+categories: ["سیاست و روابط بین‌الملل"]
+tags: ["چین"]
 ---
 
 <section class="e-content">

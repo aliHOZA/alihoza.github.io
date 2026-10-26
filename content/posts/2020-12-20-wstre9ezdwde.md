@@ -5,6 +5,8 @@ summary: "کیفیت موسیقی را از دو منظر می‌توان نگر
 virgool_id: "wstre9ezdwde"
 original_url: "https://virgool.io/@mrali/%D9%84%D8%B0%D8%AA-%D8%B4%D9%86%DB%8C%D8%AF%D9%86-%D9%85%D9%88%D8%B3%DB%8C%D9%82%DB%8C-%D8%A8%D8%A7%DA%A9%DB%8C%D9%81%DB%8C%D8%AA-wstre9ezdwde"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: []
 ---
 
 <section class="e-content">

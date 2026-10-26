@@ -5,6 +5,8 @@ summary: "بزرگمهر: همه چیز را همگان دانند و همگان
 virgool_id: "tbxce6agljgl"
 original_url: "https://virgool.io/@mrali/%D8%A2%DB%8C%D8%A7-%D8%BA%D8%B1%D8%A8%DB%8C-%D9%87%D8%A7-%D9%84%D8%A7%D8%B4%DB%8C-%D9%87%D8%B3%D8%AA%D9%86-%D8%A8%DB%8C%D8%A7%DB%8C%DB%8C%D8%AF-%D8%A8%D8%B1%D9%88%DB%8C%D9%85-%DB%8C%D9%88%D8%AA%DB%8C%D9%88%D8%A8-tbxce6agljgl"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه", "سیاست و روابط بین‌الملل"]
+tags: ["ایالات متحده"]
 ---
 
 <section class="e-content">

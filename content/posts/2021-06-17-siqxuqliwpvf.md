@@ -5,6 +5,8 @@ summary: "سخنرانی محسن رنانی (عضو هیات علمی دانش�
 virgool_id: "siqxuqliwpvf"
 original_url: "https://virgool.io/@mrali/%D8%AA%D8%AD%D9%88%D9%84%D8%A7%D8%AA-%D8%A7%D9%85%DB%8C%D8%AF%D8%A8%D8%AE%D8%B4-%D8%AA%D9%88%D8%B3%D8%B9%D9%87-%D8%AF%D8%B1-%D8%B3%D8%A7%D9%84-%D9%87%D8%A7%DB%8C-%D9%BE%D8%B3-%D8%A7%D8%B2-%D8%A7%D9%86%D9%82%D9%84%D8%A7%D8%A8-siqxuqliwpvf"
 draft: false
+categories: ["تاریخ ایران و جهان"]
+tags: []
 ---
 
 <section class="e-content">

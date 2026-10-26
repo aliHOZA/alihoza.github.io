@@ -5,6 +5,8 @@ summary: "در این سلسله نوشته، خاطرات یک ایرانی م�
 virgool_id: "zqlcanch2mcv"
 original_url: "https://virgool.io/@mrali/%D8%B3%D9%81%D8%B1%D9%86%D8%A7%D9%85%D9%87-%D8%AF%D8%B1-%D8%A2%D9%86-%D8%B3%D8%B1-%D8%AF%D9%86%DB%8C%D8%A7-%DB%B1-zqlcanch2mcv"
 draft: false
+categories: ["سفرنامه و جهانگردی"]
+tags: ["سفرنامه", "نیوزیلند", "بحران آب", "چین"]
 ---
 
 <section class="e-content">

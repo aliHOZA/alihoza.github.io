@@ -5,6 +5,8 @@ summary: "مساله سقط جنین: دیدگاه‌های گوناگونی د�
 virgool_id: "nvwnxxge1vkg"
 original_url: "https://virgool.io/@mrali/%D8%B3%D9%82%D8%B7-%D8%AC%D9%86%DB%8C%D9%86-%D9%85%D8%B3%D8%A6%D9%84%D9%87-%D8%B2%D9%86-%D9%88-%D8%A8%D8%AF%D9%86%D8%B4-%DB%8C%D8%A7-%D9%82%D8%A7%D9%86%D9%88%D9%86-%D9%88-%D8%AC%D8%A7%D9%85%D8%B9%D9%87-nvwnxxge1vkg"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: []
 ---
 
 <section class="e-content">

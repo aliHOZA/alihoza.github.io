@@ -5,6 +5,8 @@ summary: "نکاتی در باب قطع گاز شرکت گاز استان یزد
 virgool_id: "virau6yuhbbt"
 original_url: "https://virgool.io/@mrali/%DB%B2-%D8%AF%D9%87%D9%85-%D8%AF%D8%B1%D8%AC%D9%87!-virau6yuhbbt"
 draft: false
+categories: ["نفت، گاز و انرژی"]
+tags: ["نفت و انرژی"]
 ---
 
 <section class="e-content">

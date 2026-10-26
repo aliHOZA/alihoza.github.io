@@ -5,6 +5,8 @@ summary: "به بهانه خرما خوردن جلیل محبی هنگام من�
 virgool_id: "lqmpnyotqyma"
 original_url: "https://virgool.io/@mrali/%D9%85%D9%86-%D9%87%D9%85-%D8%AE%D8%B1%D9%85%D8%A7-%D8%AE%D9%88%D8%B1%D8%AF%D9%87%D8%A7%D9%85-lqmpnyotqyma"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: []
 ---
 
 <section class="e-content">

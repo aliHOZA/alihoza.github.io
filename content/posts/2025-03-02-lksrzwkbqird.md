@@ -5,6 +5,8 @@ summary: "جعفرخان به تازگی از پاریس برگشته و مظا�
 virgool_id: "lksrzwkbqird"
 original_url: "https://virgool.io/@mrali/%D8%AC%D8%B9%D9%81%D8%B1-%D8%AE%D8%A7%D9%86-%D8%A7%D8%B2-%D9%81%D8%B1%D9%86%DA%AF-%D8%A2%D9%85%D8%AF%D9%86-lksrzwkbqird"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: []
 ---
 
 <section class="e-content">

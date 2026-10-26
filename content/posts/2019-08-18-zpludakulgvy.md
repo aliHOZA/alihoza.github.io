@@ -5,6 +5,8 @@ summary: "سازمان امور مالیاتی کشور تلاش کرده بود
 virgool_id: "zpludakulgvy"
 original_url: "https://virgool.io/@mrali/%D8%AC%D8%A7%D9%85%D8%B9%D9%87-%D9%BE%D8%B2%D8%B4%DA%A9%DB%8C-%D8%AA%D8%B3%D9%84%DB%8C%D8%AA-zpludakulgvy"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: []
 ---
 
 <section class="e-content">

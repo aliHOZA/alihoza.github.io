@@ -5,6 +5,8 @@ summary: "چند وقت پیش نگاهی به چارت سازمانی و فهر
 virgool_id: "brzeubz2dbhf"
 original_url: "https://virgool.io/@mrali/%D9%87%DB%8C%D8%A6%D8%AA-%D9%85%D8%AF%DB%8C%D8%B1%D9%87%D9%87%D8%A7-brzeubz2dbhf"
 draft: false
+categories: ["نفت، گاز و انرژی"]
+tags: ["نفت و انرژی"]
 ---
 
 <section class="e-content">

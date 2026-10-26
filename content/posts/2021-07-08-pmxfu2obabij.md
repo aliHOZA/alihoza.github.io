@@ -5,6 +5,8 @@ summary: "علی حسین‌زاده | اخیرا مطالبی منتشر شده
 virgool_id: "pmxfu2obabij"
 original_url: "https://virgool.io/@mrali/%D9%85%D8%B5%D8%B1%D9%81-%D8%A8%D9%86%D8%B2%DB%8C%D9%86-%D8%AE%D9%88%D8%AF%D8%B1%D9%88%D9%87%D8%A7-%D8%B1%D8%A7-%D8%A8%D8%A7-%D8%AD%D8%AC%D9%85-%D8%A8%D8%A7%DA%A9-%D8%B4%D8%A7%D9%86-%D8%A7%D9%86%D8%AF%D8%A7%D8%B2%D9%87-%D9%86%D9%85%DB%8C-%DA%AF%DB%8C%D8%B1%D9%86%D8%AF-pmxfu2obabij"
 draft: false
+categories: ["نفت، گاز و انرژی"]
+tags: ["روسیه"]
 ---
 
 <section class="e-content">

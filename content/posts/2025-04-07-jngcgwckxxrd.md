@@ -5,6 +5,8 @@ summary: "مسعود پزشکیان و شهرام دبیری شهرام دبیر
 virgool_id: "jngcgwckxxrd"
 original_url: "https://virgool.io/@mrali/%D9%85%D8%B3%D8%B9%D9%88%D8%AF-%D9%BE%D8%B2%D8%B4%DA%A9%DB%8C%D8%A7%D9%86-%D9%88-%D8%AA%D8%B1%DA%A9-%D8%B9%D8%A7%D8%AF%D8%AA-%D8%AC%D9%85%D9%87%D9%88%D8%B1%DB%8C-%D8%A7%D8%B3%D9%84%D8%A7%D9%85%DB%8C-jngcgwckxxrd"
 draft: false
+categories: ["سیاست و روابط بین‌الملل"]
+tags: []
 ---
 
 <section class="e-content">

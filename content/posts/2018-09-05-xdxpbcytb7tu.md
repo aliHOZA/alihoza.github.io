@@ -5,6 +5,8 @@ summary: "سه هفته پیش از دفتر مرکزی زنگ زدند و گف�
 virgool_id: "xdxpbcytb7tu"
 original_url: "https://virgool.io/@mrali/%D9%85%D9%86-%D9%88-%D9%86%D8%A7%D8%AA%D8%A7%D8%B4%D8%A7-xdxpbcytb7tu"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: []
 ---
 
 <section class="e-content">

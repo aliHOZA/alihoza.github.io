@@ -5,6 +5,8 @@ summary: "سفره خوبی برای نورچشمی‌ها پهن شده است 
 virgool_id: "t8fayumthvap"
 original_url: "https://virgool.io/@mrali/%D8%B1%D8%A7%D9%86%D8%AA-%DB%B1%DB%B0%DB%B0%DB%B0-%D9%85%DB%8C%D9%84%DB%8C%D8%A7%D8%B1%D8%AF%DB%8C-%D8%B7%D8%B1%D8%AD-%D8%B5%DB%8C%D8%A7%D9%86%D8%AA-t8fayumthvap"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه", "سیاست و روابط بین‌الملل"]
+tags: ["بودجه"]
 ---
 
 <section class="e-content">

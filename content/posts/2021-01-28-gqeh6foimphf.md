@@ -5,6 +5,8 @@ summary: "عطر سنبل، عطر كاج نام فارسی كتاب Funny in fa
 virgool_id: "gqeh6foimphf"
 original_url: "https://virgool.io/@mrali/%D8%B9%D8%B7%D8%B1-%D8%B3%D9%86%D8%A8%D9%84-%D8%B9%D8%B7%D8%B1-%DA%A9%D8%A7%D8%AC-%DA%A9%D8%AA%D8%A7%D8%A8%DB%8C-%D8%AE%D9%88%D8%A7%D9%86%D8%AF%D9%86%DB%8C-gqeh6foimphf"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: ["ایالات متحده", "فرهنگ"]
 ---
 
 <section class="e-content">

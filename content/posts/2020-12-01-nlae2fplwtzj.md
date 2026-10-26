@@ -5,6 +5,8 @@ summary: "شیوا فرهمند راد | با نمایش سریال «گامبی
 virgool_id: "nlae2fplwtzj"
 original_url: "https://virgool.io/@mrali/%D8%AA%D8%A8-%D8%B4%D8%B7%D8%B1%D9%86%D8%AC-nlae2fplwtzj"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: []
 ---
 
 <section class="e-content">

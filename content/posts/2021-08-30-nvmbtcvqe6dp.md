@@ -5,6 +5,8 @@ summary: "یکی از نویسندگان ویرگول بعد از انتخابا
 virgool_id: "nvmbtcvqe6dp"
 original_url: "https://virgool.io/@mrali/%D8%B4%D8%B1%D9%88%D8%B9-%D8%B4%D8%AF-%DA%A9%D9%85%D8%B1%D8%A8%D9%86%D8%AF%D9%87%D8%A7-%D8%B1%D8%A7-%D9%85%D8%AD%DA%A9%D9%85-%D8%A8%D8%A8%D9%86%D8%AF%DB%8C%D8%AF-nvmbtcvqe6dp"
 draft: false
+categories: ["سیاست و روابط بین‌الملل"]
+tags: []
 ---
 
 <section class="e-content">

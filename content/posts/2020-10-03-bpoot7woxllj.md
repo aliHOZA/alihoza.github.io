@@ -5,6 +5,8 @@ summary: "علی حسین‌زاده | تنها تا ۱۵ مهر وقت داری
 virgool_id: "bpoot7woxllj"
 original_url: "https://virgool.io/@mrali/%D8%AA%D9%86%D9%87%D8%A7-%D8%AA%D8%A7-%DB%B1%DB%B5-%D9%85%D9%87%D8%B1-%D9%88%D9%82%D8%AA-%D8%AF%D8%A7%D8%B1%DB%8C%D8%AF-bpoot7woxllj"
 draft: false
+categories: ["تاریخ ایران و جهان"]
+tags: []
 ---
 
 <section class="e-content">

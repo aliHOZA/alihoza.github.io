@@ -5,6 +5,8 @@ summary: "سربازی دکتر مهدی نصرتی | اخیرا کمیسیون 
 virgool_id: "pk4dyuyburhw"
 original_url: "https://virgool.io/@mrali/%E2%AD%90%EF%B8%8F-%D8%A7%D9%84%DA%AF%D9%88%DB%8C-%D8%B9%D8%A7%D8%AF%D9%84%D8%A7%D9%86%D9%87-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%B3%D8%B1%D8%A8%D8%A7%D8%B2%DB%8C-pk4dyuyburhw"
 draft: false
+categories: ["سیاست و روابط بین‌الملل"]
+tags: []
 ---
 
 <section class="e-content">

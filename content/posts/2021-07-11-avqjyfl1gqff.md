@@ -5,6 +5,8 @@ summary: "شیوا شکوری | «قرعه‌کشی» یک داستان کوتا
 virgool_id: "avqjyfl1gqff"
 original_url: "https://virgool.io/@mrali/%D9%86%DA%AF%D8%A7%D9%87%DB%8C-%D8%A8%D9%87-%D8%AF%D8%A7%D8%B3%D8%AA%D8%A7%D9%86-%D9%82%D8%B1%D8%B9%D9%87-%DA%A9%D8%B4%DB%8C-%D8%A7%D8%AB%D8%B1-%D8%B4%D8%B1%D9%84%DB%8C-%D8%AC%DA%A9%D8%B3%D9%88%D9%86-avqjyfl1gqff"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: []
 ---
 
 <section class="e-content">

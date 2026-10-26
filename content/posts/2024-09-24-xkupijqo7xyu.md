@@ -5,6 +5,8 @@ summary: "مهرداد اصیل | از میان آثار حوزه‌ی ادبی�
 virgool_id: "xkupijqo7xyu"
 original_url: "https://virgool.io/@mrali/%D8%A8%D9%87%D8%AA%D8%B1%DB%8C%D9%86-%DA%A9%D8%AA%D8%A7%D8%A8-%D9%87%D8%A7%DB%8C-%D8%B3%D8%A7%D9%84-%D8%AF%D8%B1-%D8%AD%D9%88%D8%B2%D9%87-%DB%8C-%D8%A7%D8%AF%D8%A8%DB%8C%D8%A7%D8%AA-%D8%AC%D9%87%D8%A7%D9%86-%D9%88-%D9%81%D9%87%D8%B1%D8%B3%D8%AA%DB%8C-%D8%A7%D8%B2-%D8%AF%D8%A7%D8%B3%D8%AA%D8%A7%D9%86-%D9%87%D8%A7%DB%8C-%D8%AE%D9%88%D8%A8-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86%DB%8C-xkupijqo7xyu"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: ["جنگ", "روسیه"]
 ---
 
 <section class="e-content">

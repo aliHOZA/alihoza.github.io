@@ -5,6 +5,8 @@ summary: "عصر نوین روابط بین‌المللی در جهان لوم�
 virgool_id: "xl7bivlsmhmr"
 original_url: "https://virgool.io/@mrali/%D8%A2%DB%8C%D8%A7-%D8%A8%D8%A7%DB%8C%D8%AF-%D8%A7%D8%B2-%DA%86%DB%8C%D9%86-%D8%AA%D8%B1%D8%B3%DB%8C%D8%AF-xl7bivlsmhmr"
 draft: false
+categories: ["سیاست و روابط بین‌الملل"]
+tags: ["چین", "ایالات متحده", "جنگ", "فرهنگ"]
 ---
 
 <section class="e-content">

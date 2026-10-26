@@ -5,6 +5,8 @@ summary: "تتلو و حواشی‌ای که در سال گذشته ساخته �
 virgool_id: "rljx3whjxbyh"
 original_url: "https://virgool.io/@mrali/%D8%AA%D8%AA%D9%84%DB%8C%D8%AA%DB%8C-%D8%B2%D9%86%D8%A7%D9%86%D9%87-%D9%88-%D9%85%D8%B1%D8%AF%D8%A7%D9%86%DA%AF%DB%8C-%D8%AA%D8%AA%D9%84%D9%88-rljx3whjxbyh"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: ["جنگ", "فرهنگ"]
 ---
 
 <section class="e-content">

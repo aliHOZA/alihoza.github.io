@@ -5,6 +5,8 @@ summary: "مغالطه به زبان آدمیزاد اگر اولین بار ا�
 virgool_id: "zpjzybactybz"
 original_url: "https://virgool.io/@mrali/%D9%85%D8%BA%D8%A7%D9%84%D8%B7%D9%87-%DA%86%DB%8C%D8%B3%D8%AA-%DB%B1%DB%B0-%D9%85%D8%BA%D8%A7%D9%84%D8%B7%D9%87-%D8%B1%D8%A7%DB%8C%D8%AC-zpjzybactybz"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: ["تفکر نقاد", "ایالات متحده"]
 ---
 
 <section class="e-content">

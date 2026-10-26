@@ -5,6 +5,8 @@ summary: "پاسخ دکتر پویا ناظران* به تحلیلگران و ح
 virgool_id: "arobggt7cqor"
 original_url: "https://virgool.io/@mrali/%D8%A2%DB%8C%D8%A7-%D8%AC%D8%A7%DB%8C%DA%AF%D8%A7%D9%87-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-%D8%AF%D8%B1-%D8%AC%D9%87%D8%A7%D9%86-%D8%B1%D9%88-%D8%A8%D9%87-%D8%A7%D9%81%D9%88%D9%84-%D8%A7%D8%B3%D8%AA-arobggt7cqor"
 draft: false
+categories: ["سیاست و روابط بین‌الملل"]
+tags: ["ایالات متحده"]
 ---
 
 <section class="e-content">

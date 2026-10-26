@@ -5,6 +5,8 @@ summary: "امیر هاشمی مقدم: به تازگی سخنرانی و نقد
 virgool_id: "tt9rfwwjwnnf"
 original_url: "https://virgool.io/@mrali/%D8%A7%D8%B3%D8%AA%D8%A7%D8%AF-%D8%AE%D8%A7%DA%A9-%D8%A8%D8%B1-%D8%B3%D8%B1-tt9rfwwjwnnf"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: ["فساد اقتصادی"]
 ---
 
 <section class="e-content">

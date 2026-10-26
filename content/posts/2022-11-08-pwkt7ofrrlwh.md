@@ -5,6 +5,8 @@ summary: "ما هنوز در مرحله‌ی مظلومش هستیم! متن ز�
 virgool_id: "pwkt7ofrrlwh"
 original_url: "https://virgool.io/@mrali/%D8%AC%D9%85%D9%87%D9%88%D8%B1%DB%8C-%D8%A7%D8%B3%D9%84%D8%A7%D9%85%DB%8C-%D9%85%D8%B8%D9%84%D9%88%D9%85-%D9%81%D8%A7%DB%8C%D8%AF%D9%87-%D9%86%D8%AF%D8%A7%D8%B1%D8%AF-pwkt7ofrrlwh"
 draft: false
+categories: ["سیاست و روابط بین‌الملل"]
+tags: []
 ---
 
 <section class="e-content">

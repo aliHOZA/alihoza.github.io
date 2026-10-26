@@ -5,6 +5,8 @@ summary: "در جهان نظامی‌ها، اولین قربانی، خود ن�
 virgool_id: "rjjlwbcw3ydt"
 original_url: "https://virgool.io/@mrali/%D8%B4%D9%84%DB%8C%DA%A9-%D8%A8%D9%87-%D8%B3%D9%85%D8%AA-%D8%A2%D8%AE%D8%B1%DB%8C%D9%86-%D8%B1%D9%88%D8%B2%D9%86%D9%87-%D9%87%D8%A7%DB%8C-%D9%81%D8%B1%D8%A7%D8%B1-rjjlwbcw3ydt"
 draft: false
+categories: ["سیاست و روابط بین‌الملل"]
+tags: ["جنگ"]
 ---
 
 <section class="e-content">

@@ -5,6 +5,8 @@ summary: "حاج‌آقا مسئلةٌ علی حسین‌زاده: اقتصاد 
 virgool_id: "bywkfpkv9akv"
 original_url: "https://virgool.io/@mrali/%D8%AD%D8%A7%D8%AC-%D8%A2%D9%82%D8%A7-%D9%85%D8%B3%D8%A6%D9%84%D8%A9%D9%8C-%D8%AD%DA%A9%D9%85-%D8%B3%D9%81%D8%B1-%D8%A8%D9%87-%DB%8C%D8%B2%D8%AF-%D8%AF%D8%B1-%D8%A7%DB%8C%D8%A7%D9%85-%DA%A9%D8%B1%D9%88%D9%86%D8%A7-%DA%86%DB%8C%D8%B3%D8%AA-bywkfpkv9akv"
 draft: false
+categories: ["سفرنامه و جهانگردی"]
+tags: []
 ---
 
 <section class="e-content">

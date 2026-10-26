@@ -5,6 +5,8 @@ summary: "شین: اتحاد جماهیر شوروی کمونیستی، قدرت
 virgool_id: "amkkxpexawlv"
 original_url: "https://virgool.io/@mrali/%D8%AD%DA%A9%D9%88%D9%85%D8%AA-%D9%88-%D9%86%DB%8C%D8%A7%D8%B2-%D9%85%D8%B1%D8%AF%D9%85-amkkxpexawlv"
 draft: false
+categories: ["سیاست و روابط بین‌الملل"]
+tags: []
 ---
 
 <section class="e-content">

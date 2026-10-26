@@ -5,6 +5,8 @@ summary: "فرنودیان | یکی از آن قدیمی‌ها و صمیمی‌
 virgool_id: "jntnmywjjhkp"
 original_url: "https://virgool.io/@mrali/%D8%AF%D8%BA%D8%AF%D8%BA%D9%87%D9%87%D8%A7%DB%8C-%DA%A9%D9%86%DA%A9%D9%88%D8%B1%DB%8C-jntnmywjjhkp"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: ["ایالات متحده"]
 ---
 
 <section class="e-content">

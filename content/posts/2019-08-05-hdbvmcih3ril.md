@@ -5,6 +5,8 @@ summary: "سال‌ها پیش مجله گل آقا، این عکس رو گذا�
 virgool_id: "hdbvmcih3ril"
 original_url: "https://virgool.io/@mrali/%D9%85%DB%8C%D8%B4%D9%87-%D8%AF%DB%8C%D8%AF-%D9%88%D9%84%DB%8C-%D9%86%D9%85%DB%8C%D8%B4%D9%87-%D8%B5%D8%AF%D8%A7%D8%B4%D9%88-%D8%AF%D8%B1-%D8%A2%D9%88%D8%B1%D8%AF-hdbvmcih3ril"
 draft: false
+categories: ["یادداشت‌ها و جستارها"]
+tags: []
 ---
 
 <section class="e-content">

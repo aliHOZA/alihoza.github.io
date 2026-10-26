@@ -5,6 +5,8 @@ summary: "علی حسین‌زاده | جایی خواندم که نوشته ب�
 virgool_id: "d1zdzjrxankc"
 original_url: "https://virgool.io/@mrali/%D8%AA%DA%A9%D8%A7%D9%85%D9%84-%D8%A8%D8%B4%D8%B1-d1zdzjrxankc"
 draft: false
+categories: ["یادداشت‌ها و جستارها"]
+tags: []
 ---
 
 <section class="e-content">

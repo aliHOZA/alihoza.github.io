@@ -5,6 +5,8 @@ summary: "به فایل صوتی دکتر زیباکلام با موضوع « ا
 virgool_id: "zazqz7ykywbd"
 original_url: "https://virgool.io/@mrali/%D9%82%D8%A7%D9%86%D9%88%D9%86-%D8%A8%D8%AE%D9%88%D8%A7%D9%87%DB%8C%D8%AF-zazqz7ykywbd"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: ["عدالت"]
 ---
 
 <section class="e-content">

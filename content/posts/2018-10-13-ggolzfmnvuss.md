@@ -5,6 +5,8 @@ summary: "به مناسبت پشیمانی جعفر والی از بازی در 
 virgool_id: "ggolzfmnvuss"
 original_url: "https://virgool.io/@mrali/%D8%B9%D8%B5%D8%A7%D8%B1%D9%87-%D8%B1%D8%B0%D8%A7%DB%8C%D9%84-%D8%A8%D8%B4%D8%B1%DB%8C-ggolzfmnvuss"
 draft: false
+categories: ["تاریخ ایران و جهان", "سیاست و روابط بین‌الملل"]
+tags: ["ایالات متحده"]
 ---
 
 <section class="e-content">

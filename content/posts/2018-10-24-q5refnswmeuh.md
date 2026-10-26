@@ -5,6 +5,8 @@ summary: "علی دادپی : این روزها خبرهای خوب فوتبال
 virgool_id: "q5refnswmeuh"
 original_url: "https://virgool.io/@mrali/%D8%A7%D8%B2-%D9%85%D8%AC%D8%B1%DB%8C-%D8%A8%D8%B1%D9%86%D8%A7%D9%85%D9%87-%D9%86%D9%88%D8%AF-%D8%AA%D8%A7-%DA%A9%D8%A7%D8%B1%D8%A2%D9%81%D8%B1%DB%8C%D9%86%D8%A7%D9%86-%DA%AF%D9%85%D9%86%D8%A7%D9%85-q5refnswmeuh"
 draft: false
+categories: ["سیاست و روابط بین‌الملل"]
+tags: ["جنگ"]
 ---
 
 <section class="e-content">

@@ -5,6 +5,8 @@ summary: "دکتر پویا ناظران | چند وقت پیش صدا و سیم
 virgool_id: "wqmcraa6ciel"
 original_url: "https://virgool.io/@mrali/%D9%86%D9%82%D8%AF-%DA%A9%D9%84%DB%8C%D9%BE-%D8%B5%D8%AF%D8%A7-%D9%88-%D8%B3%DB%8C%D9%85%D8%A7-wqmcraa6ciel"
 draft: false
+categories: ["سیاست و روابط بین‌الملل"]
+tags: ["ایالات متحده"]
 ---
 
 <section class="e-content">

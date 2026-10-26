@@ -5,6 +5,8 @@ summary: "مستند هویدا امروز فرصتی دست داد تا مست�
 virgool_id: "njlzc7inhuyw"
 original_url: "https://virgool.io/@mrali/%D8%A7%D8%B2-%D8%AF%DB%8C%D8%AF%D9%86-%D8%A7%DB%8C%D9%86-%D9%85%D8%B3%D8%AA%D9%86%D8%AF-%D8%AF%D9%84%D9%85-%DA%AF%D8%B1%D9%81%D8%AA-njlzc7inhuyw"
 draft: false
+categories: ["تاریخ ایران و جهان"]
+tags: []
 ---
 
 <section class="e-content">

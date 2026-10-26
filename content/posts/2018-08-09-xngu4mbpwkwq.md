@@ -5,6 +5,8 @@ summary: "معرفی کتاب پیله و پروانه در لغت نامه ی �
 virgool_id: "xngu4mbpwkwq"
 original_url: "https://virgool.io/@mrali/%DA%98%D8%A7%D9%86-%D8%AF%D9%88%D9%85%DB%8C%D9%86%DB%8C%DA%A9-%D8%A8%D9%88%D8%A8%DB%8C-%DB%8C%DA%A9-%D9%BE%D8%B1%D9%88%D8%A7%D9%86%D9%87%DB%8C-%D8%B2%DB%8C%D8%A8%D8%A7-%D9%88-%D8%AE%D8%A7%D8%B1%D9%82%D8%A7%D9%84%D8%B9%D8%A7%D8%AF%D9%87-%D8%A7%D8%B3%D8%AA-xngu4mbpwkwq"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: []
 ---
 
 <section class="e-content">

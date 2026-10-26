@@ -5,6 +5,8 @@ summary: "فرهاد کاشانی - یکی از دوستان بسیار خوب �
 virgool_id: "rj2qkxruwxxi"
 original_url: "https://virgool.io/@mrali/%D8%A8%DB%8C%D9%85%D8%A7%D8%B1%D8%B3%D8%AA%D8%A7%D9%86%D9%87%D8%A7%DB%8C-%D8%A2%D9%85%D8%B1%DB%8C%DA%A9%D8%A7-rj2qkxruwxxi"
 draft: false
+categories: ["سیاست و روابط بین‌الملل"]
+tags: ["ایالات متحده"]
 ---
 
 <section class="e-content">

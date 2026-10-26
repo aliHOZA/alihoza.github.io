@@ -5,6 +5,8 @@ summary: "از ۵ سال پیش با فیلتر شدن وبلاگ سابقم ن�
 virgool_id: "nciykmtl4sws"
 original_url: "https://virgool.io/@mrali/%D8%AA%D9%85%D8%A7%D9%85-%D9%86%D9%88%D8%B4%D8%AA%D9%87-%D9%87%D8%A7%DB%8C-%D9%85%D9%86-%D8%A7%D8%B2-%D8%A2%D8%BA%D8%A7%D8%B2-%D8%AA%D8%A7%DA%A9%D9%86%D9%88%D9%86-%D9%BE%D8%A7%DB%8C%D8%A7%D9%86-%D9%81%D8%B1%D9%88%D8%B1%D8%AF%DB%8C%D9%86-%DB%B1%DB%B4%DB%B0%DB%B2-nciykmtl4sws"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه", "سیاست و روابط بین‌الملل"]
+tags: ["اقتصاد ایران", "ایالات متحده", "بحران آب", "جنگ"]
 ---
 
 <section class="e-content">

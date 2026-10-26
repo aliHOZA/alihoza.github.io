@@ -5,6 +5,8 @@ summary: "دکتر صادق زیباکلام هنوز هر بار که وارد 
 virgool_id: "cjek0plrrsta"
 original_url: "https://virgool.io/@mrali/%D8%AE%D8%A7%D8%B7%D8%B1%D9%87-%D8%A7%DB%8C-%D8%AA%D8%A7%D8%AB%D8%B1%D8%A8%D8%B1%D8%A7%D9%86%DA%AF%DB%8C%D8%B2-%D8%A2%D8%B0%D8%B1%DB%8C%D9%90-%D8%BA%D8%B1%DB%8C%D8%A8-cjek0plrrsta"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: []
 ---
 
 <section class="e-content">

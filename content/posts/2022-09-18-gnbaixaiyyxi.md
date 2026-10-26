@@ -5,6 +5,8 @@ summary: "مهسا امینی صادق زیباکلام | باب دیلن در �
 virgool_id: "gnbaixaiyyxi"
 original_url: "https://virgool.io/@mrali/%DA%86%D9%86%D8%AF-%D9%85%D9%87%D8%B3%D8%A7-%DA%A9%D8%B4%D8%AA%D9%87-%D8%B4%D9%88%D9%86%D8%AF-%D8%AE%D9%88%D8%A7%D9%87%DB%8C%D9%85-%DA%AF%D9%81%D8%AA-%D8%A8%D8%B3-%D8%A7%D8%B3%D8%AA-gnbaixaiyyxi"
 draft: false
+categories: ["سیاست و روابط بین‌الملل"]
+tags: ["ایالات متحده", "جنگ"]
 ---
 
 <section class="e-content">

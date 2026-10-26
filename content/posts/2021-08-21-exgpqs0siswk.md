@@ -5,6 +5,8 @@ summary: "امید حنیف | اولین بار که رفتم خونه‌ش مث
 virgool_id: "exgpqs0siswk"
 original_url: "https://virgool.io/@mrali/%D9%85%D8%B1%D8%AF-%D8%B4%DB%8C%DA%A9-%D9%BE%D9%88%D8%B4-%D8%B2%D9%86-%D9%85%DB%8C%D8%B2%D8%A8%D8%A7%D9%86-%D9%85%D8%A7%D8%B4%DB%8C%D9%86-%D9%84%D8%A8%D8%A7%D8%B3%D8%B4%D9%88%DB%8C%DB%8C-%D9%88-exgpqs0siswk"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: ["بحران آب"]
 ---
 
 <section class="e-content">

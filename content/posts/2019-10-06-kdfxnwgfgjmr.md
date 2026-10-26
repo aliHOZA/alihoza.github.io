@@ -5,6 +5,8 @@ summary: "به مناسبت بازی امشب یوونتوس - اینتر مصا
 virgool_id: "kdfxnwgfgjmr"
 original_url: "https://virgool.io/@mrali/%D8%AF%D8%B1%D8%A8%DB%8C-%D8%A7%DB%8C%D8%AA%D8%A7%D9%84%DB%8C%D8%A7-kdfxnwgfgjmr"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: []
 ---
 
 <section class="e-content">

@@ -5,6 +5,8 @@ summary: "بسیاری از مردم به تقریب می‌دانند که سل
 virgool_id: "a2gasxxchzuw"
 original_url: "https://virgool.io/@mrali/%D8%A8%DB%8C%D8%A7%DB%8C%DB%8C%D8%AF-%D8%AA%D8%A7%D8%B1%DB%8C%D8%AE-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D8%B1%D8%A7-%D8%A8%D8%AE%D9%88%D8%A7%D9%86%DB%8C%D9%85-a2gasxxchzuw"
 draft: false
+categories: ["تاریخ ایران و جهان"]
+tags: ["نفت و انرژی", "انقلاب مشروطه"]
 ---
 
 <section class="e-content">

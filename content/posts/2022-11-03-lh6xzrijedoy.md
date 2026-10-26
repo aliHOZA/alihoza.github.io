@@ -5,6 +5,8 @@ summary: "نامه سرگشاده دکتر صادق زیباکلام به سخن
 virgool_id: "lh6xzrijedoy"
 original_url: "https://virgool.io/@mrali/%DA%A9%D8%AF%D8%A7%D9%85-%D9%86%D9%87%D8%A7%D8%AF-%D9%BE%D8%A7%D8%B3%D8%AE%DA%AF%D9%88%DB%8C-%D8%A7%D9%82%D8%AF%D8%A7%D9%85%D8%A7%D8%AA-%D9%84%D8%A8%D8%A7%D8%B3-%D8%B4%D8%AE%D8%B5%DB%8C-%D9%87%D8%A7-%D8%A7%D8%B3%D8%AA-lh6xzrijedoy"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه", "سیاست و روابط بین‌الملل"]
+tags: ["اقتصاد ایران"]
 ---
 
 <section class="e-content">

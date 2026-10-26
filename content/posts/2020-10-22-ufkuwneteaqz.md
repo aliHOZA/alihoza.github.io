@@ -5,6 +5,8 @@ summary: "آقای Uzi Nissan نقش اول داستان واقعی زیر، ا�
 virgool_id: "ufkuwneteaqz"
 original_url: "https://virgool.io/@mrali/%D9%86%DB%8C%D8%B3%D8%A7%D9%86-%D8%AF%D8%B1-%D8%A8%D8%B1%D8%A7%D8%A8%D8%B1-%D9%86%DB%8C%D8%B3%D8%A7%D9%86-ufkuwneteaqz"
 draft: false
+categories: ["سیاست و روابط بین‌الملل"]
+tags: []
 ---
 
 <section class="e-content">

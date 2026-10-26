@@ -5,6 +5,8 @@ summary: "امیر هاشمی مقدم | از سال ۱۳۹۳، همه‌سال�
 virgool_id: "vyrfenszamxp"
 original_url: "https://virgool.io/@mrali/%D8%B3%D9%81%D8%B1-%D8%A8%D9%87-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86%DB%8C-%D8%AA%D8%B1%DB%8C%D9%86-%D8%B4%D9%87%D8%B1-%D8%AA%D8%B1%DA%A9%DB%8C%D9%87-vyrfenszamxp"
 draft: false
+categories: ["سفرنامه و جهانگردی", "جامعه، فرهنگ و اندیشه"]
+tags: ["فرهنگ"]
 ---
 
 <section class="e-content">

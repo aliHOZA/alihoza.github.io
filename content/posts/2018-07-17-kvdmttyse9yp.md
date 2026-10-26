@@ -5,6 +5,8 @@ summary: "آرمان امیری: چندی پیش علی مطهری در یادد
 virgool_id: "kvdmttyse9yp"
 original_url: "https://virgool.io/@mrali/%DA%86%D8%B1%D8%A7-%D8%B9%D9%84%DB%8C-%D9%85%D8%B7%D9%87%D8%B1%DB%8C-%D9%85%D9%81%D9%87%D9%88%D9%85-%D9%85%D9%84%DB%8C%D8%AA-%D8%B1%D8%A7-%D9%85%D8%AA%D9%88%D8%AC%D9%87-%D9%86%D9%85%DB%8C%D8%B4%D9%88%D8%AF-kvdmttyse9yp"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: []
 ---
 
 <section class="e-content">

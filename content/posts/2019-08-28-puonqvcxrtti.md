@@ -5,6 +5,8 @@ summary: "در گذشته‌های دور پادشاهی بیگانه بر سر�
 virgool_id: "puonqvcxrtti"
 original_url: "https://virgool.io/@mrali/%D8%AD%DA%A9%D9%85-%D9%BE%D8%A7%D8%AF%D8%B4%D8%A7%D9%87-%DB%B1%DB%B5-puonqvcxrtti"
 draft: false
+categories: ["سیاست و روابط بین‌الملل"]
+tags: ["جنگ"]
 ---
 
 <section class="e-content">

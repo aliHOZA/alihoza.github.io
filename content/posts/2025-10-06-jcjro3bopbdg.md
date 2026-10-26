@@ -5,6 +5,8 @@ summary: "چرا در دل بحران‌ها جوک می‌سازیم؟ و چر�
 virgool_id: "jcjro3bopbdg"
 original_url: "https://virgool.io/@mrali/%DA%86%D8%B1%D8%A7-%D8%AF%D8%B1-%D8%AF%D9%84-%D8%A8%D8%AD%D8%B1%D8%A7%D9%86-%D9%87%D8%A7-%D8%AC%D9%88%DA%A9-%D9%85%DB%8C-%D8%B3%D8%A7%D8%B2%DB%8C%D9%85-jcjro3bopbdg"
 draft: false
+categories: ["سیاست و روابط بین‌الملل"]
+tags: ["جنگ"]
 ---
 
 <section class="e-content">

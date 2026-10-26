@@ -5,6 +5,8 @@ summary: "معرفی یکی از آدم‌حسابی‌های ویرگول: خا
 virgool_id: "bfjripuyogpb"
 original_url: "https://virgool.io/@mrali/%D8%AE%D8%A7%D9%86%D9%85-%D8%B4%DB%8C%D9%86%D8%A7-%D8%A7%D9%86%D8%B5%D8%A7%D8%B1%DB%8C-bfjripuyogpb"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: []
 ---
 
 <section class="e-content">

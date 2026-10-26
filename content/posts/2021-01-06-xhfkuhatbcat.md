@@ -5,6 +5,8 @@ summary: "اخیرا شنیدم که قهوه یزدی و روش تهیه آن �
 virgool_id: "xhfkuhatbcat"
 original_url: "https://virgool.io/@mrali/%DB%8C%D8%B2%D8%AF-%D8%AA%D9%86%D9%87%D8%A7-%D8%B4%D9%87%D8%B1-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D8%A8%D8%A7-%D9%82%D9%87%D9%88%D9%87-%D9%85%D8%AE%D8%B5%D9%88%D8%B5-%D8%AE%D9%88%D8%AF-xhfkuhatbcat"
 draft: false
+categories: ["تاریخ ایران و جهان"]
+tags: []
 ---
 
 <section class="e-content">

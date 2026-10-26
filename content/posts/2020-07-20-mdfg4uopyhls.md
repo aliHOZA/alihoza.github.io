@@ -5,6 +5,8 @@ summary: "شرط عجیب ایران برای صلح پس از آزادی خرم
 virgool_id: "mdfg4uopyhls"
 original_url: "https://virgool.io/@mrali/%D8%B4%D8%B1%D8%B7-%D8%B9%D8%AC%DB%8C%D8%A8-%D8%A7%DB%8C%D8%B1%D8%A7%D9%86-%D8%A8%D8%B1%D8%A7%DB%8C-%D8%B5%D9%84%D8%AD-%D8%A8%D8%A7-%D8%B9%D8%B1%D8%A7%D9%82-mdfg4uopyhls"
 draft: false
+categories: ["سیاست و روابط بین‌الملل"]
+tags: ["جنگ"]
 ---
 
 <section class="e-content">

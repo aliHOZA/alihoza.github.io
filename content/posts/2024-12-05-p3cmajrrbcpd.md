@@ -5,6 +5,8 @@ summary: "Rise of the Persian Princes: In their grand capital Persepolis, Achaem
 virgool_id: "p3cmajrrbcpd"
 original_url: "https://virgool.io/@mrali/%D9%BE%D8%B1%D8%B3%D9%BE%D9%88%D9%84%DB%8C%D8%B3-%D9%86%D9%85%D8%A7%D8%AF-%D8%B1%D9%88%D8%A7%D8%AF%D8%A7%D8%B1%DB%8C-%D9%88-%DA%AF%D9%88%D9%86%D8%A7%DA%AF%D9%88%D9%86%DB%8C-%D8%AF%D8%B1-%D8%B4%D8%A7%D9%87%D9%86%D8%B4%D8%A7%D9%87%DB%8C-%D9%87%D8%AE%D8%A7%D9%85%D9%86%D8%B4%DB%8C-p3cmajrrbcpd"
 draft: false
+categories: ["تاریخ ایران و جهان", "سیاست و روابط بین‌الملل"]
+tags: ["ایالات متحده", "بحران آب", "فرهنگ"]
 ---
 
 <section class="e-content">

@@ -5,6 +5,8 @@ summary: "فرض بگیرید که شما در افغانستان دارای ی�
 virgool_id: "ldalatlimqug"
 original_url: "https://virgool.io/@mrali/%DA%A9%D9%85%DB%8C-%D9%87%D9%85-%D8%A7%D8%B2-%D8%AA%D8%A6%D9%88%D8%B1%DB%8C-%D9%86%D9%85%D8%A7%DB%8C%D9%86%D8%AF%DA%AF%DB%8C-%D8%A8%D8%AF%D8%A7%D9%86%DB%8C%D9%85-ldalatlimqug"
 draft: false
+categories: ["سیاست و روابط بین‌الملل"]
+tags: ["فرهنگ"]
 ---
 
 <section class="e-content">

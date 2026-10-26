@@ -5,6 +5,8 @@ summary: "هر آسمانی دل در گرو ستاره‌های خودش دار
 virgool_id: "blogffpnyjfm"
 original_url: "https://virgool.io/@mrali/%D8%B1%D9%88%D9%86%D8%A7%D9%84%D8%AF%D9%88%DB%8C-%D9%85%D8%A7-%D8%A7%D8%B3%D9%85%D8%B4-%D8%AF%D8%A7%DB%8C%DB%8C-%D8%A7%D8%B3%D8%AA-blogffpnyjfm"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: []
 ---
 
 <section class="e-content">

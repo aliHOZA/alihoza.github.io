@@ -5,6 +5,8 @@ summary: "هفده سال پیش چیزکی نوشتم و از پلیس سوئد
 virgool_id: "k9virjaikybv"
 original_url: "https://virgool.io/@mrali/%D9%BE%D9%84%DB%8C%D8%B3-%D8%AF%D8%A7%D8%B1%DB%8C%D9%85-%D8%AA%D8%A7-%D9%BE%D9%84%DB%8C%D8%B3-k9virjaikybv"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: []
 ---
 
 <section class="e-content">

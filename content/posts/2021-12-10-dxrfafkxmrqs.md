@@ -5,6 +5,8 @@ summary: "متن کامل سخنان محمدحسین بیات، دبیر انج
 virgool_id: "dxrfafkxmrqs"
 original_url: "https://virgool.io/@mrali/%D9%BE%D8%A7%D8%B3%D8%AE-%D8%A7%D9%86%D9%82%D9%84%D8%A7%D8%A8%DB%8C-%D9%88-%D9%82%D8%A7%D8%B7%D8%B9-dxrfafkxmrqs"
 draft: false
+categories: ["سیاست و روابط بین‌الملل", "جامعه، فرهنگ و اندیشه"]
+tags: ["عدالت", "فساد اقتصادی"]
 ---
 
 <section class="e-content">

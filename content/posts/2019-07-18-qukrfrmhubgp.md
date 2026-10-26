@@ -5,6 +5,8 @@ summary: "صدرا محقق - بیایید “گاسیپ” کنیم؛ کفش �
 virgool_id: "qukrfrmhubgp"
 original_url: "https://virgool.io/@mrali/%D9%81%DA%A9%D9%88%D9%84%D8%AA%D9%87-%D8%AF%D8%A7%D9%86%D8%B4%DA%A9%D8%AF%D9%87-%D8%B4%D8%AF-%D8%B3%DB%8C%D8%A8-%D8%B2%D9%85%DB%8C%D9%86%DB%8C-%D9%BE%D9%88%D8%AA%DB%8C%D8%AA%D9%88-qukrfrmhubgp"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: ["ایالات متحده", "سفرنامه", "فرهنگ"]
 ---
 
 <section class="e-content">

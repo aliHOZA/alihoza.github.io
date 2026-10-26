@@ -5,6 +5,8 @@ summary: "علی دادپی : این روزها وقتی پای صحبت دوس�
 virgool_id: "vbflsxcp6ook"
 original_url: "https://virgool.io/@mrali/%D8%A7%D8%B9%D8%AA%D9%85%D8%A7%D8%AF-%D9%88-%D8%A7%D8%B9%D8%AA%D8%A8%D8%A7%D8%B1-vbflsxcp6ook"
 draft: false
+categories: ["اقتصاد ایران و اقتصاد کلان"]
+tags: []
 ---
 
 <section class="e-content">

@@ -5,6 +5,8 @@ summary: "علی حسین‌زاده: ۱- با یکی از آشنایان که �
 virgool_id: "ukngy5pxdacb"
 original_url: "https://virgool.io/@mrali/%D9%85%D8%AF%D8%A7%D8%B1%D8%A7-%DA%A9%D9%86%DB%8C%D9%85-ukngy5pxdacb"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: ["تفکر نقاد"]
 ---
 
 <section class="e-content">

@@ -5,6 +5,8 @@ summary: "در سال ۱۳۹۰ خورشیدی کتابی بصورت زیرزمی
 virgool_id: "gsmkdkhjg3ev"
 original_url: "https://virgool.io/@mrali/%D8%AD%D8%AC%D8%A7%D8%A8-%D8%AF%D8%B1-%D8%B9%D8%B5%D8%B1-%D9%BE%DB%8C%D8%A7%D9%85%D8%A8%D8%B1-%DA%86%DA%AF%D9%88%D9%86%D9%87-%D8%A8%D9%88%D8%AF-gsmkdkhjg3ev"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: []
 ---
 
 <section class="e-content">

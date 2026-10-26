@@ -5,6 +5,8 @@ summary: "در کمتری کشوری می‌توان مسئولانی یافت �
 virgool_id: "n2pafwslfgic"
 original_url: "https://virgool.io/@mrali/%D9%81%D8%B1%D9%87%D9%86%DA%AF-%D9%BE%D8%A7%D8%B3%D8%AE%DA%AF%D9%88-%D9%86%D8%A8%D9%88%D8%AF%D9%86-%D9%88-%D8%AF%D9%88%D8%B1-%D8%A8%D8%A7%D8%B7%D9%84-%D8%AD%DA%A9%D9%85%D8%B1%D8%A7%D9%86%DB%8C-%D8%A8%D8%AF-n2pafwslfgic"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه", "اقتصاد ایران و اقتصاد کلان"]
+tags: ["فرهنگ", "فساد اقتصادی", "محیط‌زیست"]
 ---
 
 <section class="e-content">

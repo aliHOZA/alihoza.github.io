@@ -5,6 +5,8 @@ summary: "بعد از قطعی بهت‌آور یک‌هفته‌ای اینتر
 virgool_id: "g2fjjhpaxvpi"
 original_url: "https://virgool.io/@mrali/%D9%86%D9%82%D8%AF%DB%8C-%D8%A8%D8%B1-%D8%B7%D8%B1%D8%AD-%D8%B3%DB%8C%D8%B3%D8%AA%D9%85%D8%B9%D8%A7%D9%85%D9%84-%D9%85%D9%84%DB%8C-g2fjjhpaxvpi"
 draft: false
+categories: ["فناوری و زندگی دیجیتال", "جامعه، فرهنگ و اندیشه"]
+tags: ["بحران آب"]
 ---
 
 <section class="e-content">

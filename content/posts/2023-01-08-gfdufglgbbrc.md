@@ -5,6 +5,8 @@ summary: "حکایت این هموطن بسیار بسیار شبیه سرگذش
 virgool_id: "gfdufglgbbrc"
 original_url: "https://virgool.io/@mrali/%D9%85%D9%86-%D8%AE%D8%B7%D8%A7-%DA%A9%D8%B1%D8%AF%D9%85-%D9%85%D8%B9%D8%B0%D8%B1%D8%AA-%D9%85%DB%8C-%D8%AE%D9%88%D8%A7%D9%87%D9%85-gfdufglgbbrc"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: []
 ---
 
 <section class="e-content">

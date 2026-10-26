@@ -5,6 +5,8 @@ summary: "مهرداد فرهمند - ژاک شیراک از دیگر رهبرا
 virgool_id: "fpcdlcyempwc"
 original_url: "https://virgool.io/@mrali/%DA%98%D8%A7%DA%A9-%D8%B4%DB%8C%D8%B1%D8%A7%DA%A9-fpcdlcyempwc"
 draft: false
+categories: ["جامعه، فرهنگ و اندیشه"]
+tags: []
 ---
 
 <section class="e-content">

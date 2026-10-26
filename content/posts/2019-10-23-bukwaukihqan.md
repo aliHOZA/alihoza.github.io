@@ -5,6 +5,8 @@ summary: "طراحی اسکناس برای هر دولت مسئله‌ای حس�
 virgool_id: "bukwaukihqan"
 original_url: "https://virgool.io/@mrali/%D9%86%D9%82%D8%B4-%D9%BE%D9%88%D9%84-bukwaukihqan"
 draft: false
+categories: ["سیاست و روابط بین‌الملل"]
+tags: []
 ---
 
 <section class="e-content">

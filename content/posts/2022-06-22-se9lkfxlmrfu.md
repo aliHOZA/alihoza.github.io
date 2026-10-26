@@ -5,6 +5,8 @@ summary: "اقتصادانان عموما تمایل دارند که تورم ر
 virgool_id: "se9lkfxlmrfu"
 original_url: "https://virgool.io/@mrali/%D8%A7%DB%8C%D9%86-%DB%8C%DA%A9-%D9%85%D8%B3%D8%A7%D9%84%D9%87-%D8%A7%D9%82%D8%AA%D8%B5%D8%A7%D8%AF%DB%8C-%D9%86%DB%8C%D8%B3%D8%AA-%D9%87%D8%B4%D8%AF%D8%A7%D8%B1%DB%8C-%D8%A7%D9%85%D9%86%DB%8C%D8%AA%DB%8C-%D8%A7%D8%B3%D8%AA-se9lkfxlmrfu"
 draft: false
+categories: ["اقتصاد ایران و اقتصاد کلان"]
+tags: ["تورم"]
 ---
 
 <section class="e-content">
