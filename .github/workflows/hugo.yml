@@ -29,19 +29,14 @@ jobs:
           hugo-version: '0.134.3'
           extended: true
 
-      - name: Download and install PaperMod theme
-        run: |
-          mkdir -p themes/PaperMod
-          cd /tmp
-          curl -sL -o papermod.tar.gz https://github.com/adityatelange/hugo-PaperMod/archive/refs/heads/master.tar.gz
-          tar -xzf papermod.tar.gz
-          # The extracted folder is usually hugo-PaperMod-master
-          cp -r hugo-PaperMod-master/* $GITHUB_WORKSPACE/themes/PaperMod/
-          ls -la $GITHUB_WORKSPACE/themes/PaperMod/ | head -10
+      - name: Setup Go (required for Hugo modules)
+        uses: actions/setup-go@v5
+        with:
+          go-version: '1.22'
 
       - name: Build site
         run: |
-          hugo version
+          hugo mod get -u
           hugo --minify --baseURL "https://aliHOZA.github.io/"
 
       - name: Upload Pages artifact
