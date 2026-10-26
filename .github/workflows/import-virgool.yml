@@ -8,7 +8,6 @@ on:
       - "scripts/import_virgool.py"
       - "scripts/repair_truncated_virgool.py"
       - "scripts/enrich_taxonomy.py"
-      - "scripts/cleanup_published_posts.py"
       - "virgool-export-2026-01-06--ZtG.zip"
   workflow_dispatch:
 
@@ -35,9 +34,6 @@ jobs:
       # CHATGPT: repair existing stub posts using the original HTML bodies, without overwriting full articles.
       - name: Restore truncated existing article bodies
         run: python scripts/repair_truncated_virgool.py --archive virgool-export-2026-01-06--ZtG.zip
-      # CHATGPT: permanently remove the imported "سایر مطالب" heading and link list from article sources.
-      - name: Clean published article sources
-        run: python scripts/cleanup_published_posts.py
       # CHATGPT: assign SEO categories and tags to existing and newly imported published articles.
       - name: Enrich article taxonomy for SEO
         run: python scripts/enrich_taxonomy.py
