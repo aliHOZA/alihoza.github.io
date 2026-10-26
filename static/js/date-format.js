@@ -26,35 +26,65 @@
     return { year: numeric("year"), month: parts.find((part) => part.type === "month")?.value, day: numeric("day") };
   };
 
-  document.querySelectorAll(".same-day-years[data-current-date]").forEach((group) => {
-    const current = solarDateParts(group.dataset.currentDate);
-    if (!current) return;
-    let visible = 0;
-    group.querySelectorAll("li time[data-date]").forEach((time) => {
-      const past = solarDateParts(time.dataset.date);
-      const matches = past && past.month === current.month && past.day === current.day && past.year < current.year;
-      time.closest("li").hidden = !matches;
-      const label = time.closest("li").querySelector(".years-ago");
-      if (label && matches) label.textContent = `${current.year - past.year} سال پیش`;
-      if (matches) visible += 1;
-    });
-    group.hidden = visible === 0;
-  });
-
-  document.querySelectorAll(".related-posts[data-current-date]").forEach((related) => {
-    const current = solarMonth(related.dataset.currentDate);
-    if (!current) return;
-    related.querySelectorAll(".related-group").forEach((group) => {
-      const heading = group.querySelector("h3");
-      if (!heading || heading.textContent.trim() !== "در همین ماه") return;
-      let visible = 0;
-      group.querySelectorAll("li time[data-date]").forEach((time) => {
-        const itemMonth = solarMonth(time.dataset.date);
-        const sameMonth = itemMonth && itemMonth.year === current.year && itemMonth.month === current.month;
-        time.closest("li").hidden = !sameMonth;
-        if (sameMonth) visible += 1;
+  const related = document.querySelector(".related-posts[data-current-date]");
+  if (related) {
+    const current = solarDateParts(related.dataset.currentDate);
+    if (current) {
+      const shown = new Set();
+      const groups = Array.from(related.querySelectorAll(".related-group"));
+      const dayGroup = groups.find((group) => group.classList.contains("same-day-years"));
+      const monthGroup = groups.find((group) => {
+        const heading = group.querySelector("h3");
+        return heading && heading.textContent.trim() === "در همین ماه";
       });
-      group.hidden = visible === 0;
-    });
-  });
+
+      const revealMatching = (group, matchesDate, limit = 4) => {
+        if (!group) return;
+        let visible = 0;
+        group.querySelectorAll("li").forEach((item) => {
+          const time = item.querySelector("time[data-date]");
+          const date = time ? solarDateParts(time.dataset.date) : null;
+          const href = item.querySelector("a")?.getAttribute("href");
+          const matches = Boolean(date && matchesDate(date) && href && !shown.has(href));
+          if (matches && visible < limit) {
+            item.hidden = false;
+            shown.add(href);
+            visible += 1;
+            const label = item.querySelector(".years-ago");
+            if (label) label.textContent = `${current.year - date.year} سال پیش`;
+          } else {
+            item.hidden = true;
+          }
+        });
+        group.hidden = visible === 0;
+      };
+
+      revealMatching(dayGroup, (date) =>
+        date.year < current.year && date.month === current.month && date.day === current.day
+      );
+      revealMatching(monthGroup, (date) =>
+        date.year < current.year && date.month === current.month
+      );
+
+      // Avoid repeating the anniversary/month selections in the later recommendation groups.
+      let seenCount = 0;
+      groups.forEach((group) => {
+        if (group === dayGroup || group === monthGroup || group.classList.contains("post-neighbor")) return;
+        let visible = 0;
+        group.querySelectorAll("li").forEach((item) => {
+          const href = item.querySelector("a")?.getAttribute("href");
+          if (href && shown.has(href)) {
+            item.hidden = true;
+          } else if (href && !item.hidden) {
+            shown.add(href);
+            visible += 1;
+          } else if (!item.hidden) {
+            visible += 1;
+          }
+        });
+        if (group.querySelectorAll("li").length && visible === 0) group.hidden = true;
+        seenCount += visible;
+      });
+    }
+  }
 })();
