@@ -30,10 +30,7 @@ jobs:
           extended: true
 
       - name: Build site
-        run: |
-          hugo version
-          ls -la themes/ || echo "No themes dir yet"
-          hugo --minify --baseURL "https://aliHOZA.github.io/"
+        run: hugo --minify --baseURL "https://aliHOZA.github.io/"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3

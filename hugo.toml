@@ -1,19 +1,10 @@
 baseURL = 'https://aliHOZA.github.io/'
-languageCode = 'en-us'
-title = 'Ali HOSSEINZADEH Blog'
-theme = 'PaperMod'
+languageCode = 'fa'
+title = 'وبلاگ علی حسین‌زاده'
 
 [params]
-  env = 'production'
-  description = 'Personal blog'
-  author = 'Ali HOSSEINZADEH'
-  defaultTheme = 'auto'
-  ShowReadingTime = true
-  ShowShareButtons = false
-  ShowPostNavLinks = true
-
-[outputs]
-  home = ["HTML", "RSS", "JSON"]
+  description = 'وبلاگ شخصی علی حسین‌زاده'
+  author = 'علی حسین‌زاده'
 
 [markup]
   [markup.goldmark]

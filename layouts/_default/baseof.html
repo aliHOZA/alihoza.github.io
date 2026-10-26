@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ block "title" . }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+  <style>
+    body { font-family: Vazirmatn, Tahoma, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.8; direction: rtl; text-align: right; }
+    header { border-bottom: 1px solid #ddd; margin-bottom: 30px; padding-bottom: 15px; }
+    a { color: #0a7ea4; text-decoration: none; }
+    article { margin-bottom: 40px; }
+    .meta { color: #666; font-size: 0.9em; }
+  </style>
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <header>
+    <h1><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></h1>
+  </header>
+  <main>
+    {{ block "main" . }}{{ end }}
+  </main>
+  <footer style="margin-top:50px; border-top:1px solid #ddd; padding-top:15px; font-size:0.85em; color:#666;">
+    &copy; {{ now.Year }} {{ .Site.Params.author }}
+  </footer>
+</body>
+</html>
