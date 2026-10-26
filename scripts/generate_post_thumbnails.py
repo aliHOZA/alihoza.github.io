@@ -16,8 +16,8 @@ THUMBNAILS = STATIC / "images" / "thumbnails"
 # Match HTML image tags in exported Virgool posts and ordinary Markdown image syntax.
 HTML_IMG_RE = re.compile(r"<img\b[^>]*?\bsrc\s*=\s*[\"']([^\"']+)[\"']", re.I)
 MD_IMG_RE = re.compile(r"!\[[^\]]*\]\(([^)\s]+)")
-WIDTH, HEIGHT = 160, 120
-QUALITY = 68
+WIDTH, HEIGHT = 200, 150
+QUALITY = 80
 
 
 def first_image(text: str) -> str | None:
