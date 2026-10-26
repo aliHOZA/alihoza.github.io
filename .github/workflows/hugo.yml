@@ -29,13 +29,19 @@ jobs:
           hugo-version: '0.134.3'
           extended: true
 
-      - name: Install PaperMod theme
+      - name: Install PaperMod theme (alternative method)
         run: |
           mkdir -p themes
-          git clone --depth 1 https://github.com/adityatelange/hugo-PaperMod.git themes/PaperMod
+          # Use curl + tar instead of git clone to avoid exit code 128 issues
+          curl -sL https://github.com/adityatelange/hugo-PaperMod/archive/refs/heads/master.tar.gz | tar -xz --strip-components=1 -C themes
+          # Rename the extracted folder
+          mv themes/hugo-PaperMod-master themes/PaperMod || mv themes/adityatelange-hugo-PaperMod-* themes/PaperMod || true
+          ls -la themes/
 
       - name: Build site
-        run: hugo --minify --baseURL "https://aliHOZA.github.io/"
+        run: |
+          hugo version
+          hugo --minify --baseURL "https://aliHOZA.github.io/"
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
