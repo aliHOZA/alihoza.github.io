@@ -1,21 +1,15 @@
-# The URL where your site will be live
 base_url = "https://aliHOZA.github.io"
 title = "وبلاگ علی حسین‌زاده | ali HOSSEINZADEH"
 description = "وبلاگ شخصی علی حسین‌زاده"
 
-# Important: This controls the language and enables RTL in Tabi
+# Language setting - critical for RTL
 default_language = "fa"
 
-# The theme to use
 theme = "tabi"
 
-# Generate a feed for your posts
 generate_feeds = true
-
-# Build search index
 build_search_index = true
 
-# Taxonomies for organizing content
 taxonomies = [
     {name = "tags", feed = true},
     {name = "categories", feed = true},
@@ -30,18 +24,12 @@ include_title = true
 include_description = true
 include_content = true
 
-# --- Tabi theme specific settings ---
 [extra]
-# Keep this as well for theme compatibility
 rtl = true
 language_code = "fa"
-
 author = "علی حسین‌زاده"
+theme_switcher = true
 
-# Social links
 links = [
     { name = "GitHub", href = "https://github.com/aliHOZA" },
 ]
-
-# Other useful Tabi options
-theme_switcher = true
