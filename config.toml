@@ -1,13 +1,19 @@
 # The URL where your site will be live
 base_url = "https://aliHOZA.github.io"
-title = "وبلاگ علی حسین‌زاده | ali HOSSEINZADEH" # "My New Blog" in Arabic
-description = "بصورت RTL."
+title = "وبلاگ علی حسین‌زاده | ali HOSSEINZADEH"
+description = "وبلاگ شخصی علی حسین‌زاده"
+
+# Important: This controls the language and enables RTL in Tabi
+default_language = "fa"
 
 # The theme to use
 theme = "tabi"
 
 # Generate a feed for your posts
 generate_feeds = true
+
+# Build search index
+build_search_index = true
 
 # Taxonomies for organizing content
 taxonomies = [
@@ -16,24 +22,26 @@ taxonomies = [
 ]
 
 [markdown]
-# Enable smart punctuation
 highlight_code = true
 highlight_theme = "css"
 
-# --- IMPORTANT ---
-# All settings specific to the 'tabi' theme go under [extra]
+[search]
+include_title = true
+include_description = true
+include_content = true
+
+# --- Tabi theme specific settings ---
 [extra]
-# Set this to true to enable Right-to-Left support
+# Keep this as well for theme compatibility
 rtl = true
+language_code = "fa"
 
-# Set the primary language code for your content
-# Note: Zola's default language is set at the top level if you have multiple languages.
-# For a single language site, putting it here is fine for the theme.
-language_code = "fa" # Use "ar" for Arabic, "fa" for Persian, "he" for Hebrew
+author = "علی حسین‌زاده"
 
-# Put the links to your social profiles here
-author = "aliHOZA"
+# Social links
 links = [
     { name = "GitHub", href = "https://github.com/aliHOZA" },
-    # { name = "Twitter", href = "#" },
 ]
+
+# Other useful Tabi options
+theme_switcher = true
