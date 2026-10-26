@@ -88,7 +88,10 @@ def main() -> None:
             article.feed(raw)
             body = "".join(article.parts)
             if not body.strip():
-                raise RuntimeError("no section.e-content found")
+                title_match = re.search(r"<title[^>]*>(.*?)</title>", raw, re.I | re.S)
+                page_title = re.sub(r"\s+", " ", title_match.group(1)).strip()[:180] if title_match else "(no title tag)"
+                classes = re.findall(r'class="([^"]+)"', raw, re.I)[:45]
+                raise RuntimeError(f"no recognized article-content container; page title={page_title!r}; classes={classes!r}")
             title = re.sub(r"\s*(?:[-|–]\s*)?ویرگول\s*$", "", article.title.strip()).strip() or post_id
             if not article.published:
                 raise RuntimeError("no publication time found in article HTML")

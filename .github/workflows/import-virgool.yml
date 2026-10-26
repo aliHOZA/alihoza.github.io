@@ -38,6 +38,7 @@ jobs:
         run: python scripts/repair_truncated_virgool.py --archive virgool-export-2026-01-06--ZtG.zip
       # CHATGPT: sync recent live Virgool posts that are newer than the static archive.
       - name: Import recent posts from live Virgool profile
+        continue-on-error: true
         run: python scripts/sync_latest_virgool.py
       # CHATGPT: permanently remove the imported "سایر مطالب" heading and link list from article sources.
       - name: Clean published article sources
