@@ -12,9 +12,9 @@ POSTS = ROOT / "content" / "posts"
 
 # Match an optional separator, a heading, and its immediately following link list.
 BLOCK_RE = re.compile(
-    r"(?is)(?P<hr>(?:<hr\\b[^>]*>\\s*(?:</hr>\\s*)*)?)"
-    r"<h(?P<level>[1-6])\\b[^>]*>(?P<heading>.*?)</h(?P=level)>"
-    r"(?P<tail>\\s*(?:<ul\\b[^>]*>.*?</ul>)?)"
+    r"(?is)(?P<hr>(?:<hr\b[^>]*>\s*(?:</hr>\s*)*)?)"
+    r"<h(?P<level>[1-6])\b[^>]*>(?P<heading>.*?)</h(?P=level)>"
+    r"(?P<tail>\s*(?:<ul\b[^>]*>.*?</ul>)?)"
 )
 TAG_RE = re.compile(r"<[^>]+>")
 
@@ -24,8 +24,8 @@ def normalize_heading(value: str) -> str:
     value = unicodedata.normalize("NFKC", value)
     value = value.replace("ي", "ی").replace("ى", "ی").replace("ك", "ک")
     value = value.replace("\u200c", "").replace("\u200f", "").replace("\ufeff", "")
-    value = re.sub(r"\\s+", " ", value).strip()
-    value = re.sub(r"[：:!！.،؛\\-–—]+$", "", value).strip()
+    value = re.sub(r"\s+", " ", value).strip()
+    value = re.sub(r"[：:!！.،؛\-–—]+$", "", value).strip()
     return value
 
 
@@ -38,7 +38,7 @@ def remove_blocks(text: str) -> tuple[str, int]:
             return match.group(0)
         count += 1
         # Drop the Virgool recommendation heading, list, and its separator only.
-        return "\\n" if match.group("hr") else ""
+        return "\n" if match.group("hr") else ""
 
     return BLOCK_RE.sub(replace, text), count
 
