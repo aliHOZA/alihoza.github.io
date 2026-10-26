@@ -3,18 +3,6 @@
 {{- $previous := .PrevInSection -}}
 {{- $next := .NextInSection -}}
 {{- /* CHATGPT: Solar Hijri month/day matching happens client-side; shuffle all published posts so each page gets a varied shortlist. */ -}}
-{{- $sameMonth := slice -}}
-{{- range shuffle $all -}}
-  {{- if ne .RelPermalink $current.RelPermalink -}}
-    {{- $sameMonth = $sameMonth | append . -}}
-  {{- end -}}
-{{- end -}}
-{{- $sameDay := slice -}}
-{{- range shuffle $all -}}
-  {{- if ne .RelPermalink $current.RelPermalink -}}
-    {{- $sameDay = $sameDay | append . -}}
-  {{- end -}}
-{{- end -}}
 {{- /* CHATGPT: score candidates by overlap with editorial keyword-cloud terms and existing tags/categories. */ -}}
 {{- $keywords := slice "اقتصاد ایران" "نفت و انرژی" "تاریخ معاصر ایران" "سیاست ایران" "روابط ایران و آمریکا" "بازار سرمایه" "صادرات نفت" "فساد اقتصادی" "تورم" "تحریم‌ها" "توسعه اقتصادی" "اقتصاد نفتی" "تجارت خارجی" "روسیه" "چین" "جنگ و صلح" "دوران قاجار" "دوران پهلوی" "انقلاب مشروطه" "بودجه و یارانه" "بانک مرکزی" "آب و محیط زیست" "رود کارون و سد گتوند" "مغالطه و تفکر نقاد" "جامعه و فرهنگ" "حقوق و عدالت" "سفرنامه" -}}
 {{- $currentText := lower (printf "%s %s" $current.Title $current.Plain) -}}
@@ -57,7 +45,7 @@
     {{- $excluded = $excluded | append .RelPermalink -}}
   {{- end -}}
 {{- end -}}
-<section class="related-posts" aria-label="نوشته‌های پیشنهادی" data-current-date="{{ $current.Date.Format "2006-01-02" }}">
+<section class="related-posts" aria-label="نوشته‌های پیشنهادی" data-current-date="{{ $current.Date.Format "2006-01-02" }}" data-date-index-url="{{ "random-index.json" | relURL }}">
   <h2>برای مطالعهٔ بیشتر</h2>
   <div class="post-neighbors">
     {{ with $previous }}
@@ -73,24 +61,14 @@
       </section>
     {{ end }}
   </div>
-  {{ if gt (len $sameDay) 0 }}
-    <section class="related-group same-day-years" data-current-date="{{ $current.Date.Format "2006-01-02" }}">
+  {{ if gt (len $all) 1 }}
+    <section class="related-group same-day-years" hidden>
       <h3>در همین روز، در سال‌های گذشته</h3>
-      <ul class="related-list">
-        {{ range $sameDay }}
-          <li hidden><a href="{{ .RelPermalink }}">{{ .Title }}</a><span class="years-ago" data-date="{{ .Date.Format "2006-01-02" }}"></span><time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li>
-        {{ end }}
-      </ul>
+      <ul class="related-list"></ul>
     </section>
-  {{ end }}
-  {{ if gt (len $sameMonth) 0 }}
-    <section class="related-group">
+    <section class="related-group same-month-posts" hidden>
       <h3>در همین ماه</h3>
-      <ul class="related-list">
-        {{ range $sameMonth }}
-          <li><a href="{{ .RelPermalink }}">{{ .Title }}</a><time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time></li>
-        {{ end }}
-      </ul>
+      <ul class="related-list"></ul>
     </section>
   {{ end }}
   {{ if gt (len $similarPosts) 0 }}

@@ -1,90 +1,107 @@
-// CHATGPT: render ISO dates as Solar Hijri dates and filter same-month recommendations using the Persian calendar.
+// CHATGPT: format Persian-calendar dates and load compact same-day/month recommendations on demand.
 (() => {
   const options = { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" };
   const formatter = new Intl.DateTimeFormat("fa-IR-u-ca-persian", options);
-  const solarMonth = (isoDate) => {
-    const date = new Date(isoDate + "T12:00:00Z");
-    if (Number.isNaN(date.getTime())) return null;
+  const toLatinDigits = (value) => value.replace(/[۰-۹]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit)));
+
+  const dateObject = (isoDate) => {
+    const date = new Date(String(isoDate || "") + "T12:00:00Z");
+    return Number.isNaN(date.getTime()) ? null : date;
+  };
+
+  const solarDateParts = (isoDate) => {
+    const date = dateObject(isoDate);
+    if (!date) return null;
     const parts = formatter.formatToParts(date);
+    const numeric = (type) => Number(toLatinDigits(parts.find((part) => part.type === type)?.value || ""));
     return {
-      year: parts.find((part) => part.type === "year")?.value,
-      month: parts.find((part) => part.type === "month")?.value
+      year: numeric("year"),
+      month: parts.find((part) => part.type === "month")?.value,
+      day: numeric("day")
     };
   };
 
   document.querySelectorAll(".js-local-date[data-date]").forEach((node) => {
-    const date = new Date(node.dataset.date + "T12:00:00Z");
-    if (!Number.isNaN(date.getTime())) node.textContent = formatter.format(date);
+    const date = dateObject(node.dataset.date);
+    if (date) node.textContent = formatter.format(date);
   });
 
-  const toLatinDigits = (value) => value.replace(/[۰-۹]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹".indexOf(digit)));
-  const solarDateParts = (isoDate) => {
-    const date = new Date(isoDate + "T12:00:00Z");
-    if (Number.isNaN(date.getTime())) return null;
-    const parts = formatter.formatToParts(date);
-    const numeric = (type) => Number(toLatinDigits(parts.find((part) => part.type === type)?.value || ""));
-    return { year: numeric("year"), month: parts.find((part) => part.type === "month")?.value, day: numeric("day") };
+  const related = document.querySelector(".related-posts[data-current-date][data-date-index-url]");
+  if (!related) return;
+
+  const current = solarDateParts(related.dataset.currentDate);
+  if (!current) return;
+
+  const dayGroup = related.querySelector(".same-day-years");
+  const monthGroup = related.querySelector(".same-month-posts");
+  if (!dayGroup && !monthGroup) return;
+
+  const shown = new Set(Array.from(related.querySelectorAll(".post-neighbor a"))
+    .map((anchor) => {
+      try { return new URL(anchor.href, window.location.origin).href; }
+      catch { return ""; }
+    }).filter(Boolean));
+
+  const makeRecommendation = (post, date, includeYearsAgo = false) => {
+    const item = document.createElement("li");
+    const link = document.createElement("a");
+    link.href = post.url;
+    link.textContent = post.title || "بدون عنوان";
+    item.append(link);
+
+    if (includeYearsAgo) {
+      const years = document.createElement("span");
+      years.className = "years-ago";
+      years.textContent = (current.year - date.year) + " سال قبل";
+      item.append(years);
+    }
+
+    const time = document.createElement("time");
+    time.className = "js-local-date";
+    time.dataset.date = post.date;
+    time.dateTime = post.date;
+    const value = dateObject(post.date);
+    if (value) time.textContent = formatter.format(value);
+    item.append(time);
+    return item;
   };
 
-  const related = document.querySelector(".related-posts[data-current-date]");
-  if (related) {
-    const current = solarDateParts(related.dataset.currentDate);
-    if (current) {
-      const shown = new Set();
-      const groups = Array.from(related.querySelectorAll(".related-group"));
-      const dayGroup = groups.find((group) => group.classList.contains("same-day-years"));
-      const monthGroup = groups.find((group) => {
-        const heading = group.querySelector("h3");
-        return heading && heading.textContent.trim() === "در همین ماه";
-      });
+  const appendMatches = (group, posts, matches, limit, includeYearsAgo = false) => {
+    if (!group) return;
+    const list = group.querySelector(".related-list");
+    if (!list) return;
+    list.replaceChildren();
+    let count = 0;
 
-      const revealMatching = (group, matchesDate, limit = 4) => {
-        if (!group) return;
-        let visible = 0;
-        group.querySelectorAll("li").forEach((item) => {
-          const time = item.querySelector("time[data-date]");
-          const date = time ? solarDateParts(time.dataset.date) : null;
-          const href = item.querySelector("a")?.getAttribute("href");
-          const matches = Boolean(date && matchesDate(date) && href && !shown.has(href));
-          if (matches && visible < limit) {
-            item.hidden = false;
-            shown.add(href);
-            visible += 1;
-            const label = item.querySelector(".years-ago");
-            if (label) label.textContent = `${current.year - date.year} سال قبل`;
-          } else {
-            item.hidden = true;
-          }
-        });
-        group.hidden = visible === 0;
-      };
+    for (const post of posts) {
+      if (count >= limit) break;
+      const date = solarDateParts(post.date);
+      if (!date || date.year >= current.year || !matches(date)) continue;
 
-      revealMatching(dayGroup, (date) =>
-        date.year < current.year && date.month === current.month && date.day === current.day
-      );
-      revealMatching(monthGroup, (date) =>
-        date.year < current.year && date.month === current.month
-      );
+      let url;
+      try { url = new URL(post.url, window.location.origin).href; }
+      catch { continue; }
+      if (!url || shown.has(url)) continue;
 
-      // Avoid repeating the anniversary/month selections in the later recommendation groups.
-      let seenCount = 0;
-      groups.forEach((group) => {
-        if (group === dayGroup || group === monthGroup || group.classList.contains("post-neighbor")) return;
-        let visible = 0;
-        group.querySelectorAll("li").forEach((item) => {
-          const href = item.querySelector("a")?.getAttribute("href");
-          if (href && shown.has(href)) {
-            item.hidden = true;
-          } else if (href && !item.hidden) {
-            shown.add(href);
-            visible += 1;
-          } else if (!item.hidden) {
-            visible += 1;
-          }
-        });
-        if (group.querySelectorAll("li").length && visible === 0) group.hidden = true;
-        seenCount += visible;
-      });
+      list.append(makeRecommendation(post, date, includeYearsAgo));
+      shown.add(url);
+      count += 1;
     }
-  }
+    group.hidden = count === 0;
+  };
+
+  fetch(related.dataset.dateIndexUrl)
+    .then((response) => {
+      if (!response.ok) throw new Error("Date index request failed");
+      return response.json();
+    })
+    .then((posts) => {
+      if (!Array.isArray(posts)) throw new Error("Invalid date index");
+      appendMatches(dayGroup, posts, (date) => date.month === current.month && date.day === current.day, 4, true);
+      appendMatches(monthGroup, posts, (date) => date.month === current.month, 4);
+    })
+    .catch(() => {
+      if (dayGroup) dayGroup.hidden = true;
+      if (monthGroup) monthGroup.hidden = true;
+    });
 })();
