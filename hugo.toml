@@ -8,7 +8,7 @@ enableRobotsTXT = true
   description = 'یادداشت‌ها و تحلیل‌هایی درباره اقتصاد ایران، نفت و انرژی، سیاست، تاریخ و جامعه.'
   author = 'علی حسین‌زاده'
 
-  # CHATGPT: configure these IDs after enabling Discussions and registering a GoatCounter site.
+  # CHATGPT: GoatCounter and Giscus repository ID configured; add the selected Giscus category ID to activate comments.
   [params.giscus]
     repo = 'aliHOZA/alihoza.github.io'
     repoId = 'R_kgDOQA4KwQ'
