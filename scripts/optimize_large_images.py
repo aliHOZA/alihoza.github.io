@@ -4,6 +4,7 @@ from pathlib import Path
 from PIL import Image
 import json
 import os
+from urllib.parse import quote
 
 ROOT = Path(".")
 LIMIT = 700 * 1024
@@ -16,7 +17,7 @@ REPORT_JSON = Path(".github/image-optimization-results.json")
 records = []
 rejected = []
 replacements = {}
-inventory = {"large_supported": 0, "excluded_large": 0, "animated_large": 0, "conversion_errors": 0}
+inventory = {"large_supported": 0, "excluded_large": 0, "animated_large": 0, "conversion_errors": 0, "output_collisions": 0}
 
 def is_excluded(path):
     parts = {p.lower() for p in path.parts}
@@ -67,9 +68,15 @@ for path, before in candidates:
                 inventory["animated_large"] += 1
                 continue
             im.load()
+            has_alpha = im.mode in ("RGBA", "LA", "PA") or "transparency" in im.info
             if im.mode not in ("RGB", "RGBA"):
-                im = im.convert("RGBA" if "transparency" in im.info else "RGB")
+                im = im.convert("RGBA" if has_alpha else "RGB")
             out = path.with_suffix(".webp")
+            # Never overwrite an existing WebP; it may belong to another source with the same stem.
+            if out.exists():
+                inventory["output_collisions"] += 1
+                print(f"SKIP {path}: output already exists ({out})")
+                continue
             temp = out.with_name(out.stem + ".optimization-tmp.webp")
             try:
                 im.save(temp, "WEBP", quality=90, method=6)
@@ -108,6 +115,8 @@ for file in ROOT.rglob("*"):
         continue
     text = original
     for old, new in sorted(replacements.items(), key=lambda kv: len(kv[0]), reverse=True):
+        # Rewrite literal and URL-encoded references before deleting the source.
+        text = text.replace(quote(old, safe="/"), quote(new, safe="/"))
         text = text.replace(old, new)
         if "/" in old:
             text = text.replace("/" + old, "/" + new)
