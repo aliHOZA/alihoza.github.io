@@ -1,9 +1,42 @@
+{{ define "title" }}{{ .Site.Title }}{{ end }}
 {{ define "main" }}
-<h2>آخرین نوشته‌ها</h2>
-{{ range first 20 .Site.RegularPages }}
-  <article>
-    <h3><a href="{{ .Permalink }}">{{ .Title }}</a></h3>
-    <div class="meta">{{ .Date.Format "2 January 2006" }}</div>
-  </article>
+<section class="home-intro">
+  <p class="home-eyebrow">یادداشت‌ها و تحلیل‌ها</p>
+  <h1 class="page-heading">اقتصاد، سیاست و تاریخ؛ با نگاهی مستقل</h1>
+  <p class="page-intro">نوشته‌ها و جستارهایی دربارهٔ ایران و جهان؛ از اقتصاد و انرژی تا تاریخ و سیاست.</p>
+</section>
+<div class="section-heading">
+  <h2>تازه‌ترین نوشته‌ها</h2>
+  <span>آخرین به‌روزرسانی‌ها</span>
+</div>
+{{ $paginator := .Paginate (where .Site.RegularPages "Section" "posts").ByDate.Reverse 12 }}
+<section class="post-list" aria-label="آخرین نوشته‌ها">
+  {{ range $index, $page := $paginator.Pages }}
+    <article class="post-card">
+      <div class="post-card-main">
+        <h3 class="post-title"><a href="{{ $page.RelPermalink }}">{{ $page.Title }}</a></h3>
+        <div class="post-meta">
+          <time datetime="{{ $page.Date.Format "2006-01-02" }}">{{ $page.Date.Format "2006/01/02" }}</time>
+          {{ with $page.ReadingTime }}<span>{{ . }} دقیقه مطالعه</span>{{ end }}
+        </div>
+        {{ with $page.Summary }}<p class="post-summary">{{ . | plainify | htmlUnescape | truncate 190 }}</p>{{ end }}
+        {{ with $page.Params.tags }}
+          <div class="tag-row">
+            {{ range first 3 . }}<a class="tag-chip" href="{{ printf "tags/%s/" (. | urlize) | relURL }}">{{ . }}</a>{{ end }}
+          </div>
+        {{ end }}
+      </div>
+      <span class="post-number" aria-hidden="true">{{ printf "%02d" (add $index 1) }}</span>
+    </article>
+  {{ else }}
+    <p class="empty-state">هنوز نوشته‌ای برای نمایش وجود ندارد.</p>
+  {{ end }}
+</section>
+{{ if gt $paginator.TotalPages 1 }}
+  <nav class="pagination" aria-label="صفحه‌بندی">
+    {{ if $paginator.HasPrev }}<a href="{{ $paginator.Prev.URL }}">← نوشته‌های جدیدتر</a>{{ else }}<span></span>{{ end }}
+    <span class="post-meta">صفحه {{ $paginator.PageNumber }} از {{ $paginator.TotalPages }}</span>
+    {{ if $paginator.HasNext }}<a href="{{ $paginator.Next.URL }}">نوشته‌های قدیمی‌تر →</a>{{ end }}
+  </nav>
 {{ end }}
 {{ end }}

@@ -1,27 +1,40 @@
-<!DOCTYPE html>
-<html lang="fa" dir="rtl">
+<!doctype html>
+<html lang="{{ .Site.LanguageCode | default "fa" }}" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="{{ .Description | default .Site.Params.description }}">
+  <meta name="color-scheme" content="light dark">
   <title>{{ block "title" . }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
-  <style>
-    body { font-family: Vazirmatn, Tahoma, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.8; direction: rtl; text-align: right; }
-    header { border-bottom: 1px solid #ddd; margin-bottom: 30px; padding-bottom: 15px; }
-    a { color: #0a7ea4; text-decoration: none; }
-    article { margin-bottom: 40px; }
-    .meta { color: #666; font-size: 0.9em; }
-  </style>
-  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet" type="text/css" />
+  <link rel="stylesheet" href="{{ "css/editorial.css" | relURL }}">
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
+  {{ block "head" . }}{{ end }}
 </head>
 <body>
-  <header>
-    <h1><a href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a></h1>
-  </header>
-  <main>
-    {{ block "main" . }}{{ end }}
-  </main>
-  <footer style="margin-top:50px; border-top:1px solid #ddd; padding-top:15px; font-size:0.85em; color:#666;">
-    &copy; {{ now.Year }} {{ .Site.Params.author }}
-  </footer>
+  <div class="site-shell">
+    <header class="site-header">
+      <div class="brand-group">
+        <a class="brand" href="{{ .Site.Home.RelPermalink }}">
+          <span class="brand-mark" aria-hidden="true">ع</span>
+          <span class="brand-name">{{ .Site.Title }}</span>
+        </a>
+        {{ with .Site.Params.description }}<p class="site-description">{{ . }}</p>{{ end }}
+      </div>
+      <nav class="site-nav" aria-label="ناوبری اصلی">
+        <a href="{{ .Site.Home.RelPermalink }}">خانه</a>
+        <a href="{{ "search/" | relURL }}">جستجو</a>
+        <a href="{{ "tags/" | relURL }}">برچسب‌ها</a>
+        <a href="{{ "categories/" | relURL }}">دسته‌بندی‌ها</a>
+      </nav>
+    </header>
+    <main class="site-main">
+      {{ block "main" . }}{{ end }}
+    </main>
+    <footer class="site-footer">
+      <span>© {{ now.Year }} {{ .Site.Params.author | default .Site.Title }}</span>
+      <span>· ساخته‌شده با Hugo</span>
+    </footer>
+  </div>
 </body>
 </html>

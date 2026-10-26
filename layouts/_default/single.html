@@ -1,10 +1,26 @@
 {{ define "title" }}{{ .Title }} | {{ .Site.Title }}{{ end }}
 {{ define "main" }}
 <article>
-  <h1>{{ .Title }}</h1>
-  <div class="meta">{{ .Date.Format "2 January 2006" }}</div>
-  <div class="content">
+  <div class="breadcrumbs"><a href="{{ .Site.Home.RelPermalink }}">خانه</a> / نوشته</div>
+  <header class="article-header">
+    <h1 class="article-title">{{ .Title }}</h1>
+    <div class="post-meta">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time>
+      {{ with .ReadingTime }}<span>{{ . }} دقیقه مطالعه</span>{{ end }}
+    </div>
+    {{ with .Params.categories }}
+      <div class="tag-row">{{ range . }}<a class="tag-chip" href="{{ printf "categories/%s/" (. | urlize) | relURL }}">{{ . }}</a>{{ end }}</div>
+    {{ end }}
+  </header>
+  <div class="article-content">
     {{ .Content }}
   </div>
+  {{ with .Params.tags }}
+    <div class="tag-row" aria-label="برچسب‌ها">{{ range . }}<a class="tag-chip" href="{{ printf "tags/%s/" (. | urlize) | relURL }}">{{ . }}</a>{{ end }}</div>
+  {{ end }}
+  <nav class="pagination" aria-label="نوشته‌های دیگر">
+    {{ with .PrevInSection }}<a href="{{ .RelPermalink }}">← {{ .Title }}</a>{{ else }}<span></span>{{ end }}
+    {{ with .NextInSection }}<a href="{{ .RelPermalink }}">{{ .Title }} →</a>{{ end }}
+  </nav>
 </article>
 {{ end }}
