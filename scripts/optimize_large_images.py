@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Safely convert eligible large repository images to WebP and rewrite references."""
+"""Safely convert eligible large raster images to lossy WebP and rewrite references."""
 from pathlib import Path
 from PIL import Image
 import json
@@ -7,43 +7,45 @@ import os
 from urllib.parse import quote
 
 ROOT = Path(".")
-LIMIT = 700 * 1024
-MIN_SAVING_RATIO = 0.10  # Require at least 10% smaller output.
+LIMIT = 500_000  # Decimal KB: only files strictly larger than 500 KB.
+MIN_SAVING_RATIO = 0.30  # Replace only if the WebP is at least 30% smaller.
+QUALITY = 90
 IMAGE_EXTS = {".jpg", ".jpeg", ".png", ".bmp", ".tif", ".tiff"}
-SKIP_PARTS = {"thumb", "thumbs", "thumbnail", "thumbnails", "generated-thumbnails", "post-thumbnails"}
+SKIP_PARTS = {
+    "thumb", "thumbs", "thumbnail", "thumbnails",
+    "generated-thumbnails", "post-thumbnails",
+}
 SKIP_DIRS = {".git", "node_modules", "vendor", "public", "resources", "resources_gen"}
-TEXT_EXTS = {".md", ".markdown", ".html", ".htm", ".xml", ".toml", ".yaml", ".yml", ".json", ".css", ".js"}
+TEXT_EXTS = {
+    ".md", ".markdown", ".html", ".htm", ".xml", ".toml",
+    ".yaml", ".yml", ".json", ".css", ".js",
+}
+REPORT_MD = Path(".github/image-optimization-report.md")
 REPORT_JSON = Path(".github/image-optimization-results.json")
+
 records = []
 rejected = []
 replacements = {}
-inventory = {"large_supported": 0, "excluded_large": 0, "animated_large": 0, "conversion_errors": 0, "output_collisions": 0}
+sources_to_remove = []
+inventory = {
+    "large_supported": 0,
+    "excluded_large": 0,
+    "animated_large": 0,
+    "conversion_errors": 0,
+    "output_collisions": 0,
+}
+
 
 def is_excluded(path):
-    parts = {p.lower() for p in path.parts}
+    parts = {part.lower() for part in path.parts}
     if parts & SKIP_PARTS or parts & SKIP_DIRS:
         return True
     name = path.stem.lower()
     return any(token in name for token in ("thumbnail", "thumb_", "_thumb", "-thumb", "thumb-"))
 
-# Read the previous report before replacing it. Undo the one previously reported
-# non-saving conversion, but only when the original is available in the checkout.
-previous_bad = []
-try:
-    previous = json.loads(REPORT_JSON.read_text(encoding="utf-8"))
-    for item in previous.get("files", []):
-        if item.get("after_bytes", 0) >= item.get("before_bytes", 0):
-            source = Path(item["source"])
-            webp = Path(item["webp"])
-            if source.exists() and webp.exists():
-                webp.unlink()
-                replacements[webp.as_posix()] = source.as_posix()
-                replacements[webp.name] = source.name
-                previous_bad.append({"source": source.as_posix(), "webp": webp.as_posix()})
-except (OSError, ValueError, KeyError, TypeError):
-    pass
 
-# First build an inventory, including excluded large files, so the run is auditable.
+# Inventory all eligible source formats above the new threshold. Existing WebP
+# files are already optimized and are not re-encoded.
 candidates = []
 for path in sorted(ROOT.rglob("*")):
     if not path.is_file() or path.suffix.lower() not in IMAGE_EXTS:
@@ -61,105 +63,155 @@ for path in sorted(ROOT.rglob("*")):
     candidates.append((path, before))
 
 for path, before in candidates:
+    temp = None
     try:
-        with Image.open(path) as im:
-            # Do not silently discard animation frames.
-            if getattr(im, "is_animated", False):
+        with Image.open(path) as opened:
+            # Never discard animation frames or silently change animated assets.
+            if getattr(opened, "is_animated", False):
                 inventory["animated_large"] += 1
                 continue
-            im.load()
-            has_alpha = im.mode in ("RGBA", "LA", "PA") or "transparency" in im.info
+            opened.load()
+            has_alpha = (
+                opened.mode in ("RGBA", "LA", "PA")
+                or "transparency" in opened.info
+            )
+            im = opened
             if im.mode not in ("RGB", "RGBA"):
                 im = im.convert("RGBA" if has_alpha else "RGB")
+
             out = path.with_suffix(".webp")
-            # Never overwrite an existing WebP; it may belong to another source with the same stem.
+            # Never overwrite a pre-existing file with the same stem.
             if out.exists():
                 inventory["output_collisions"] += 1
                 print(f"SKIP {path}: output already exists ({out})")
                 continue
-            temp = out.with_name(out.stem + ".optimization-tmp.webp")
-            try:
-                im.save(temp, "WEBP", quality=90, method=6)
-                after = temp.stat().st_size
-                saving_ratio = (before - after) / before if before else 0
-                if saving_ratio < MIN_SAVING_RATIO:
-                    temp.unlink(missing_ok=True)
-                    rejected.append({
-                        "source": path.as_posix(), "source_bytes": before,
-                        "candidate_bytes": after, "reason": "WebP is not at least 10% smaller"
-                    })
-                    # If this was previously referenced as WebP, restore references to the original.
-                    replacements[out.as_posix()] = path.as_posix()
-                    replacements[out.name] = path.name
-                    continue
-                os.replace(temp, out)
-            finally:
-                temp.unlink(missing_ok=True)
 
-        old_rel, new_rel = path.as_posix(), out.as_posix()
-        replacements[old_rel] = new_rel
-        replacements[path.name] = out.name
-        records.append((old_rel, before, new_rel, out.stat().st_size))
-        path.unlink()
+            temp = out.with_name(out.stem + ".optimization-tmp.webp")
+            im.save(temp, "WEBP", quality=QUALITY, method=6)
+            after = temp.stat().st_size
+            saving_ratio = (before - after) / before if before else 0
+
+            if saving_ratio < MIN_SAVING_RATIO:
+                rejected.append({
+                    "source": path.as_posix(),
+                    "source_bytes": before,
+                    "candidate_bytes": after,
+                    "saving_percent": round(saving_ratio * 100, 2),
+                    "reason": "WebP is not at least 30% smaller",
+                })
+                temp.unlink(missing_ok=True)
+                temp = None
+                # Older optimization passes may have rewritten references even
+                # when the original source remains; restore those references.
+                replacements[out.as_posix()] = path.as_posix()
+                replacements[out.name] = path.name
+                continue
+
+            # Complete the new file first. Keep the source until all text
+            # references have been rewritten successfully.
+            os.replace(temp, out)
+            temp = None
+            old_rel, new_rel = path.as_posix(), out.as_posix()
+            replacements[old_rel] = new_rel
+            replacements[path.name] = out.name
+            records.append({
+                "source": old_rel,
+                "before_bytes": before,
+                "webp": new_rel,
+                "after_bytes": out.stat().st_size,
+                "saving_percent": round(saving_ratio * 100, 2),
+            })
+            sources_to_remove.append(path)
     except Exception as exc:
         inventory["conversion_errors"] += 1
         print(f"SKIP {path}: {exc}")
+    finally:
+        if temp is not None:
+            temp.unlink(missing_ok=True)
 
-# Rewrite references only in text-based site files; binary files are never edited.
-for file in ROOT.rglob("*"):
+# Rewrite only text-based site files. Binary assets are never edited.
+# Longest paths first so full paths are handled before their basenames.
+for file in sorted(ROOT.rglob("*")):
     if not file.is_file() or file.suffix.lower() not in TEXT_EXTS or ".git" in file.parts:
         continue
     try:
         original = file.read_text(encoding="utf-8")
     except (UnicodeDecodeError, OSError):
         continue
-    text = original
-    for old, new in sorted(replacements.items(), key=lambda kv: len(kv[0]), reverse=True):
-        # Rewrite literal and URL-encoded references before deleting the source.
-        text = text.replace(quote(old, safe="/"), quote(new, safe="/"))
-        text = text.replace(old, new)
+    updated = original
+    for old, new in sorted(replacements.items(), key=lambda item: len(item[0]), reverse=True):
+        updated = updated.replace(quote(old, safe="/"), quote(new, safe="/"))
+        updated = updated.replace(old, new)
         if "/" in old:
-            text = text.replace("/" + old, "/" + new)
-    if text != original:
-        file.write_text(text, encoding="utf-8")
+            updated = updated.replace("/" + old, "/" + new)
+    if updated != original:
+        file.write_text(updated, encoding="utf-8")
 
-total_before = sum(r[1] for r in records)
-total_after = sum(r[3] for r in records)
+# Only now remove the sources for successfully converted images.
+for source in sources_to_remove:
+    source.unlink()
+
+total_before = sum(item["before_bytes"] for item in records)
+total_after = sum(item["after_bytes"] for item in records)
 saved = total_before - total_after
+saved_percent = (saved / total_before * 100) if total_before else 0
+
 report = [
-    "# گزارش بهینه‌سازی تصاویر بزرگ", "",
-    "- روش: تبدیل lossy به WebP با کیفیت ۹۰ و method=6",
-    "- آستانه: بیش از ۷۰۰ KiB (۷۱۶٬۸۰۰ بایت)",
-    "- شرط جایگزینی: فایل WebP باید دست‌کم ۱۰٪ کوچک‌تر باشد.",
-    "- تصاویر thumbnail و فایل‌های متحرک تبدیل نمی‌شوند.",
+    "# گزارش بهینه‌سازی تصاویر بزرگ",
+    "",
+    f"- روش: تبدیل lossy به WebP با کیفیت {QUALITY} و method=6",
+    f"- آستانه: بیش از ۵۰۰٬۰۰۰ بایت (۵۰۰ KB)",
+    "- شرط جایگزینی: فایل WebP باید دست‌کم ۳۰٪ کوچک‌تر باشد.",
+    "- تصاویر بندانگشتی و فایل‌های متحرک تبدیل نمی‌شوند؛ فایل WebP موجود نیز بازنویسی نمی‌شود.",
     f"- تصاویر بزرگِ قابل‌بررسی: {inventory['large_supported']}",
     f"- تصاویر بزرگِ مستثناشده به‌دلیل thumbnail: {inventory['excluded_large']}",
     f"- فایل‌های متحرکِ بزرگِ ردشده: {inventory['animated_large']}",
+    f"- برخورد با نام خروجی موجود: {inventory['output_collisions']}",
     f"- خطاهای تبدیل: {inventory['conversion_errors']}",
     f"- تعداد تبدیل و جایگزینی: {len(records)}",
-    f"- تعداد تبدیل‌های ردشده به‌دلیل صرفه‌جویی ناکافی: {len(rejected)}",
+    f"- تعداد تبدیل‌های ردشده به‌دلیل صرفه‌جویی کمتر از ۳۰٪: {len(rejected)}",
     f"- حجم تصاویر جایگزین‌شده پیش از تبدیل: {total_before / 1024 / 1024:.2f} MiB",
     f"- حجم WebPهای جایگزین‌شده: {total_after / 1024 / 1024:.2f} MiB",
-    f"- صرفه‌جویی خالص: {saved / 1024 / 1024:.2f} MiB ({(saved / total_before * 100) if total_before else 0:.1f}%)",
-    "", "| فایل اصلی | حجم اولیه (KiB) | فایل WebP | حجم WebP (KiB) | صرفه‌جویی (KiB) |",
+    f"- صرفه‌جویی خالص: {saved / 1024 / 1024:.2f} MiB ({saved_percent:.1f}%)",
+    "",
+    "| فایل اصلی | حجم اولیه (KiB) | فایل WebP | حجم WebP (KiB) | صرفه‌جویی (KiB) |",
     "|---|---:|---|---:|---:|",
 ]
-for old, before, new, after in records:
-    report.append(f"| `{old}` | {before/1024:.1f} | `{new}` | {after/1024:.1f} | {(before-after)/1024:.1f} |")
+for item in records:
+    report.append(
+        f"| `{item['source']}` | {item['before_bytes']/1024:.1f} "
+        f"| `{item['webp']}` | {item['after_bytes']/1024:.1f} "
+        f"| {(item['before_bytes']-item['after_bytes'])/1024:.1f} |"
+    )
 if rejected:
-    report += ["", "## تصاویر حفظ‌شده به‌صورت اصلی", "", "| فایل اصلی | حجم اصلی (KiB) | WebP آزمایشی (KiB) | دلیل |", "|---|---:|---:|---|"]
+    report += [
+        "", "## تصاویر حفظ‌شده به‌صورت اصلی", "",
+        "| فایل اصلی | حجم اصلی (KiB) | WebP آزمایشی (KiB) | صرفه‌جویی | دلیل |",
+        "|---|---:|---:|---:|---|",
+    ]
     for item in rejected:
-        report.append(f"| `{item['source']}` | {item['source_bytes']/1024:.1f} | {item['candidate_bytes']/1024:.1f} | صرفه‌جویی کمتر از ۱۰٪ |")
-if previous_bad:
-    report += ["", "## اصلاح تبدیل ناموفق قبلی", ""]
-    for item in previous_bad:
-        report.append(f"- فایل اصلی `{item['source']}` حفظ شد و خروجی نامناسب `{item['webp']}` حذف شد.")
-Path(".github/image-optimization-report.md").write_text("\n".join(report) + "\n", encoding="utf-8")
+        report.append(
+            f"| `{item['source']}` | {item['source_bytes']/1024:.1f} "
+            f"| {item['candidate_bytes']/1024:.1f} | {item['saving_percent']:.1f}% "
+            "| صرفه‌جویی کمتر از ۳۰٪ |"
+        )
+
+REPORT_MD.write_text("\n".join(report) + "\n", encoding="utf-8")
 REPORT_JSON.write_text(json.dumps({
-    "threshold_bytes": LIMIT, "quality": 90, "minimum_saving_ratio": MIN_SAVING_RATIO,
-    "inventory": inventory, "converted_count": len(records),
-    "before_bytes": total_before, "after_bytes": total_after, "saved_bytes": saved,
-    "rejected": rejected, "repaired_previous_non_saving": previous_bad,
-    "files": [{"source": a, "before_bytes": b, "webp": c, "after_bytes": d} for a,b,c,d in records]
+    "threshold_bytes": LIMIT,
+    "quality": QUALITY,
+    "minimum_saving_ratio": MIN_SAVING_RATIO,
+    "inventory": inventory,
+    "converted_count": len(records),
+    "before_bytes": total_before,
+    "after_bytes": total_after,
+    "saved_bytes": saved,
+    "saved_percent": round(saved_percent, 2),
+    "rejected": rejected,
+    "files": records,
 }, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
-print(f"Inventory: {inventory}; converted {len(records)}; rejected {len(rejected)}; net saved {saved} bytes.")
+
+print(
+    f"Inventory: {inventory}; converted {len(records)}; rejected {len(rejected)}; "
+    f"net saved {saved} bytes ({saved_percent:.1f}%)."
+)
