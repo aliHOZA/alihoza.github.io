@@ -5,7 +5,7 @@
   <header class="article-header">
     <h1 class="article-title">{{ .Title }}</h1>
     <div class="post-meta">
-      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time>
+      <time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time>
       {{ with .ReadingTime }}<span>{{ . }} دقیقه مطالعه</span>{{ end }}
     </div>
     {{ with .Params.categories }}
@@ -18,7 +18,7 @@
   {{ with .Params.tags }}
     <div class="tag-row" aria-label="برچسب‌ها">{{ range . }}<a class="tag-chip" href="{{ printf "tags/%s/" (. | urlize) | relURL }}">{{ . }}</a>{{ end }}</div>
   {{ end }}
-  <!-- CHATGPT: add the previous article, same-month articles from other years, and two distinct random recommendations. -->
+  <!-- CHATGPT: show chronological neighbors, same-month posts, keyword-similar posts, and three distinct random posts. -->
   {{ partial "related-posts.html" . }}
   <!-- CHATGPT: comments render after the article only after Giscus IDs are configured in hugo.toml. -->
   {{ partial "comments.html" . }}
