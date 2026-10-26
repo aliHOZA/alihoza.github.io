@@ -2,8 +2,7 @@ base_url = "https://aliHOZA.github.io"
 title = "وبلاگ علی حسین‌زاده | ali HOSSEINZADEH"
 description = "وبلاگ شخصی علی حسین‌زاده"
 
-# Language setting - critical for RTL
-default_language = "fa"
+default_language = "en"
 
 theme = "tabi"
 

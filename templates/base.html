@@ -1,0 +1,29 @@
+{%- set language_strings = load_data(path="i18n/" ~ lang ~ '.toml', required=false) -%}
+{%- if not language_strings -%}
+    {%- set language_strings = load_data(path="themes/tabi/i18n/" ~ lang ~ ".toml", required=false) -%}
+{%- endif -%}
+{%- if not language_strings -%}{%- set language_strings = {} -%}{%- endif -%}
+{%- if not page is defined -%}{%- set page = {} -%}{%- endif -%}
+{%- if not section is defined -%}{%- set section = {} -%}{%- endif -%}
+{%- if not term is defined -%}{%- set term = {} -%}{%- endif -%}
+{%- if not taxonomy is defined -%}{%- set taxonomy = {} -%}{%- endif -%}
+{%- if not paginator is defined -%}{%- set paginator = {} -%}{%- endif -%}
+
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+{% include "partials/header.html" %}
+
+<body dir="rtl">
+    <a href="#main-content" id="skip-link">Skip to content</a>
+    {% include "partials/nav.html" %}
+    <div class="content" id="main-content">
+        {% block main_content %}
+            Nothing here?!
+        {% endblock main_content %}
+    </div>
+    {% include "partials/footer.html" %}
+    {% include "tabi/extend_body.html" %}
+</body>
+
+</html>
