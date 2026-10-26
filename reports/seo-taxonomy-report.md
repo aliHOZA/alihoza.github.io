@@ -1,14 +1,14 @@
 # SEO taxonomy report
 
 - Markdown posts scanned: 310
-- Files updated with taxonomy: 21
+- Files updated with taxonomy: 1
 - Exactly five category labels are used; assignments are refreshed using weighted title, summary, and body matches.
 
 ## Category distribution
 
-- جامعه، فرهنگ و اندیشه: 168
+- جامعه، فرهنگ و اندیشه: 169
 - سیاست و روابط بین‌الملل: 88
-- اقتصاد، نفت و انرژی: 63
+- اقتصاد، نفت و انرژی: 62
 - سفر، فناوری و محیط‌زیست: 22
 - تاریخ ایران و جهان: 20
 
@@ -42,6 +42,7 @@
 
 ## Posts needing manual category review
 
+- 2018-08-03-jpghzhuim8p9.md: ایرانِ ما...
 - 2018-08-30-fqukrtpedbci.md: بحرانِ خطِ فارسی
 - 2019-05-21-d2l6tl8e1wuf.md: «صحرای تاتارها» برای منتظران معجزه
 - 2019-06-30-aopoe2iiu3us.md: اثبات سرقت علمی از مقاله من
