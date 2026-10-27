@@ -18,10 +18,8 @@
   <meta name="twitter:description" content="{{ $metaDescription }}">
   <meta name="color-scheme" content="light dark">
   <title>{{ block "title" . }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
-  <!-- Start the cross-origin font connection early; font requests use CORS. -->
-  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
-  <!-- Discover the Persian font stylesheet before the local stylesheets to reduce font-swap delay. -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
+  <!-- Preload the locally hosted Persian variable font. -->
+  <link rel="preload" href="{{ "fonts/vazirmatn-variable.woff2" | relURL }}" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="{{ "css/editorial.css" | relURL }}">
   <link rel="stylesheet" href="{{ "css/enhancements.css" | relURL }}">
   {{ block "head" . }}{{ end }}
