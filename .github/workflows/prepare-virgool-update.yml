@@ -2,9 +2,14 @@ name: Prepare Virgool Update for Review
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - virgool-oct-2026-review
+    paths:
+      - .github/workflows/prepare-virgool-update.yml
 
 permissions:
-  contents: read
+  contents: write
 
 concurrency:
   group: virgool-update-review
@@ -81,3 +86,18 @@ jobs:
           path: review-artifact/
           if-no-files-found: error
           retention-days: 14
+
+      - name: Commit validated content changes to the review branch
+        if: success() && github.ref == 'refs/heads/virgool-oct-2026-review'
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No content changes to commit."
+            exit 0
+          fi
+          git commit -m "[CHATGPT] Import and optimize new Virgool posts"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
