@@ -9,6 +9,7 @@
     "summary": {{ $page.Summary | plainify | htmlUnescape | truncate 190 | jsonify }},
     "readingTime": {{ $page.ReadingTime | jsonify }},
     "number": {{ sub (len $pages) $index | jsonify }},
+    "slug": {{ $page.File.ContentBaseName | jsonify }},
     "thumbnail": {{ fileExists (printf "static/images/thumbnails/%s.webp" $page.File.ContentBaseName) | jsonify }}
   }
 {{- end }}
