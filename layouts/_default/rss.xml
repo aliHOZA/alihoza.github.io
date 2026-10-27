@@ -1,24 +1,23 @@
+{{- /* Publish only post articles in the home feed; never include utility pages such as search/history/archive. */ -}}
 {{- $pages := where site.RegularPages "Section" "posts" -}}
 {{- $pages = $pages.ByDate.Reverse -}}
-{{- $pages = first 20 $pages -}}
-{{ printf "<?xml version=\"1.0\" encoding=\"utf-8\" standalone=\"yes\"?>" | safeHTML }}
+{{- $pages = first 50 $pages -}}
+{{ printf "<?xml version=\"1.0\" encoding=\"utf-8\"?>" | safeHTML }}
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
   <channel>
-    <title>{{ site.Title }}</title>
+    <title>{{ site.Title | htmlEscape }}</title>
     <link>{{ site.Home.Permalink }}</link>
-    <description>{{ site.Params.description }}</description>
+    <description>{{ site.Params.description | htmlEscape }}</description>
+    <language>{{ site.Language.LanguageCode | default site.Language.Lang }}</language>
     <generator>Hugo</generator>
-    <language>{{ site.Language.LanguageCode }}</language>
-    {{- with site.Home.OutputFormats.Get "RSS" }}
-    {{ printf "<atom:link href=%q rel=\"self\" type=%q />" .Permalink .MediaType | safeHTML }}
-    {{- end }}
+    <atom:link href="{{ "index.xml" | absURL }}" rel="self" type="application/rss+xml" />
     {{- range $pages }}
     <item>
-      <title>{{ .Title }}</title>
+      <title>{{ .Title | htmlEscape }}</title>
       <link>{{ .Permalink }}</link>
-      <guid>{{ .Permalink }}</guid>
-      <pubDate>{{ .PublishDate.Format "Mon, 02 Jan 2006 15:04:05 -0700" | safeHTML }}</pubDate>
-      <description>{{ .Summary | transform.XMLEscape | safeHTML }}</description>
+      <guid isPermaLink="true">{{ .Permalink }}</guid>
+      <pubDate>{{ .PublishDate.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</pubDate>
+      <description>{{ .Summary | plainify | htmlUnescape | transform.XMLEscape | safeHTML }}</description>
       <content:encoded>{{ .Content | transform.XMLEscape | safeHTML }}</content:encoded>
     </item>
     {{- end }}
