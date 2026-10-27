@@ -55,7 +55,7 @@
   {{ $randomPosts := first 4 (shuffle $randomCandidates) }}
   {{ if $randomPosts }}
     <div class="section-heading random-posts-heading"><h2>شاید برایتان جالب باشد</h2><span>۴ نوشته تصادفی</span></div>
-    <section class="post-list random-post-list" aria-label="نوشته‌های تصادفی">
+    <section class="post-list random-post-list" id="random-post-list" data-index-url="{{ "random-index.json" | relURL }}" aria-label="نوشته‌های تصادفی">
       {{ range $index, $page := $randomPosts }}
         <article class="post-card">
           {{- $thumbFile := printf "static/images/thumbnails/%s.webp" $page.File.ContentBaseName -}}
