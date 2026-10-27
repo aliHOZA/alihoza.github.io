@@ -1,5 +1,6 @@
 baseURL = 'https://aliHOZA.github.io/'
 languageCode = 'fa'
+timeZone = 'Asia/Tehran'
 defaultContentLanguage = 'fa'
 title = 'وبلاگ علی آقا'
 enableRobotsTXT = true
