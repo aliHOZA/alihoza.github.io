@@ -83,6 +83,7 @@ def main() -> None:
         body = HREF_RE.sub(rewrite_href, body)
         # Also localize raw Virgool URLs in imported embed blocks and standalone text.
         def rewrite_raw_url(match: re.Match[str]) -> str:
+            nonlocal links_rewritten, local_links_this_post
             original_url = match.group(0)
             suffix = ""
             while original_url and original_url[-1] in ".,;:!?،؛؟)]}":
@@ -98,6 +99,8 @@ def main() -> None:
                         post_id = known_id
                         break
             if post_id and post_id in id_to_url:
+                links_rewritten += 1
+                local_links_this_post += 1
                 rewritten_urls.add(original_url)
                 return id_to_url[post_id] + suffix
             return match.group(0)
