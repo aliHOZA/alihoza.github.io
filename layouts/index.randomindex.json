@@ -10,7 +10,8 @@
     "readingTime": {{ $page.ReadingTime | jsonify }},
     "number": {{ sub (len $pages) $index | jsonify }},
     "slug": {{ $page.File.ContentBaseName | jsonify }},
-    "thumbnail": {{ fileExists (printf "static/images/thumbnails/%s.webp" $page.File.ContentBaseName) | jsonify }}
+    "thumbnail": {{ fileExists (printf "static/images/thumbnails/%s.webp" $page.File.ContentBaseName) | jsonify }},
+    "thumbnailUrl": {{ if fileExists (printf "static/images/thumbnails/%s.webp" $page.File.ContentBaseName) }}{{ printf "/images/thumbnails/%s.webp" $page.File.ContentBaseName | relURL | jsonify }}{{ else }}""{{ end }}
   }
 {{- end }}
 ]
