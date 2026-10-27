@@ -1,0 +1,45 @@
+name: Clean post recommendations and localize internal links
+
+on:
+  push:
+    branches:
+      - cleanup-related-links-oct-2026
+    paths:
+      - '.github/workflows/cleanup-related-links.yml'
+      - 'scripts/cleanup_published_posts.py'
+
+permissions:
+  contents: write
+
+jobs:
+  cleanup:
+    if: github.ref == 'refs/heads/cleanup-related-links-oct-2026'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: false
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Clean recommendation blocks and rewrite internal links
+        run: python scripts/cleanup_published_posts.py
+      - uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.134.3'
+          extended: true
+      - name: Validate Hugo build
+        run: hugo --minify --baseURL "https://aliHOZA.github.io/"
+      - name: Commit cleanup
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add content/posts reports/post-cleanup-report.md
+          if git diff --cached --quiet; then
+            echo "No post changes required."
+            exit 0
+          fi
+          git commit -m "[CHATGPT] Remove Virgool recommendations and localize post links"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
