@@ -12,6 +12,8 @@ TAG_RE = re.compile(r"<[^>]+>")
 HEADING_RE = re.compile(r"(?is)<h([1-6])\b[^>]*>(.*?)</h\1\s*>")
 HREF_RE = re.compile(r"""(?is)(\bhref\s*=\s*)(["'])(.*?)\2""")
 VIRGOOL_RE = re.compile(r"(?:https?://)?(?:www\.)?virgool\.io/", re.I)
+RAW_URL_RE = re.compile(r"""https?://(?:www\.)?(?:virgool\.io|vrgl\.ir)/[^\s<>\\"']+""", re.I)
+SHORT_LINKS = {"https://vrgl.ir/qofQV": "ruqoesirf9vj"}
 
 def normalize_heading(value: str) -> str:
     value = html.unescape(TAG_RE.sub(" ", value))
@@ -79,6 +81,27 @@ def main() -> None:
                     return match.group(1) + match.group(2) + html.escape(replacement, quote=True) + match.group(2)
             return match.group(0)
         body = HREF_RE.sub(rewrite_href, body)
+        # Also localize raw Virgool URLs in imported embed blocks and standalone text.
+        def rewrite_raw_url(match: re.Match[str]) -> str:
+            original_url = match.group(0)
+            suffix = ""
+            while original_url and original_url[-1] in ".,;:!?،؛؟)]}":
+                suffix = original_url[-1] + suffix
+                original_url = original_url[:-1]
+            parsed = urlparse(original_url)
+            short_key = f"https://{parsed.netloc.lower()}{parsed.path}"
+            post_id = SHORT_LINKS.get(short_key)
+            if not post_id and re.search(r"virgool\.io", parsed.netloc, re.I):
+                decoded_path = unquote(parsed.path).rstrip("/")
+                for known_id in id_to_url:
+                    if re.search(rf"(?:/|-){re.escape(known_id)}$", decoded_path):
+                        post_id = known_id
+                        break
+            if post_id and post_id in id_to_url:
+                rewritten_urls.add(original_url)
+                return id_to_url[post_id] + suffix
+            return match.group(0)
+        body = RAW_URL_RE.sub(rewrite_raw_url, body)
         updated = front + body
         scanned += 1
         if updated != original:
