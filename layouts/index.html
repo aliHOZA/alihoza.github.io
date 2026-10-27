@@ -10,9 +10,10 @@
 {{ $paginator := .Paginate $allPosts 8 }}
 {{ $pageNumber := $paginator.PageNumber }}
 {{ $displayPosts := first 8 $allPosts }}
+{{ $globalOffset := 0 }}
 {{ if gt $pageNumber 1 }}
-  {{ $offset := add 8 (mul (sub $pageNumber 2) 12) }}
-  {{ $displayPosts = first 12 (after $offset $allPosts) }}
+  {{ $globalOffset = add 8 (mul (sub $pageNumber 2) 12) }}
+  {{ $displayPosts = first 12 (after $globalOffset $allPosts) }}
 {{ end }}
 {{ $totalPages := 1 }}
 {{ if gt (len $allPosts) 8 }}
@@ -38,7 +39,7 @@
         </div>
         {{ with $page.Summary }}<p class="post-summary">{{ . | plainify | htmlUnescape | truncate 190 }}</p>{{ end }}
       </div>
-      <span class="post-number" aria-hidden="true">{{ printf "%02d" (add $index 1) }}</span>
+      <span class="post-number" aria-hidden="true">{{ printf "%02d" (sub (len $allPosts) (add $globalOffset $index)) }}</span>
     </article>
   {{ else }}<p class="empty-state">هنوز نوشته‌ای برای نمایش وجود ندارد.</p>{{ end }}
 </section>
