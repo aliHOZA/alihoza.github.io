@@ -1,0 +1,83 @@
+name: Prepare Virgool Update for Review
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: virgool-update-review
+  cancel-in-progress: false
+
+jobs:
+  prepare:
+    if: github.ref != 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout selected review branch
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install image-processing dependency
+        run: python -m pip install --disable-pip-version-check Pillow
+
+      - name: Import new published posts
+        run: python scripts/import_virgool.py --archive virgool-export-2026-10-27--glK.zip
+
+      - name: Apply taxonomy to newly imported posts only
+        run: python scripts/prepare_new_post_taxonomy.py
+
+      - name: Optimize eligible large images
+        run: python scripts/optimize_large_images.py
+
+      - name: Generate post thumbnails
+        run: python scripts/generate_post_thumbnails.py
+
+      - name: Set up Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: "0.134.3"
+          extended: true
+
+      - name: Verify Hugo build
+        run: hugo --minify --baseURL "https://aliHOZA.github.io/"
+
+      - name: Prepare review artifact
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p review-artifact/reports
+
+          # Include new files in the review diff without staging or committing them.
+          git add -N -A
+          git diff --binary HEAD > review-artifact/proposed-changes.patch
+
+          for file in \
+            reports/virgool-import-report.md \
+            reports/new-post-taxonomy-report.md \
+            .github/image-optimization-report.md \
+            .github/image-optimization-results.json
+          do
+            if [ -f "$file" ]; then
+              cp --parents "$file" review-artifact/reports/
+            fi
+          done
+
+          git status --short > review-artifact/working-tree-status.txt
+
+      - name: Upload review artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: virgool-update-review
+          path: review-artifact/
+          if-no-files-found: error
+          retention-days: 14
