@@ -3,7 +3,7 @@ name: Clean post recommendations and localize internal links
 on:
   push:
     branches:
-      - cleanup-related-links-oct-2026
+      - normalize-internal-post-link-digits
     paths:
       - '.github/workflows/cleanup-related-links.yml'
       - 'scripts/cleanup_published_posts.py'
@@ -13,7 +13,7 @@ permissions:
 
 jobs:
   cleanup:
-    if: github.ref == 'refs/heads/cleanup-related-links-oct-2026'
+    if: github.ref == 'refs/heads/normalize-internal-post-link-digits'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
