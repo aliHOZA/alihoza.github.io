@@ -14,7 +14,7 @@ permissions:
 
 jobs:
   cleanup:
-    if: github.ref == 'refs/heads/cleanup-related-links-oct-2026'
+    if: contains(fromJSON('["refs/heads/cleanup-related-links-oct-2026","refs/heads/fix-virgool-outgoing-links"]'), github.ref)
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
