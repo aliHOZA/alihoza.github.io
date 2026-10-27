@@ -21,7 +21,7 @@
     const article = document.createElement("article");
     article.className = "post-card";
 
-    if (post.thumbnail && post.slug) {
+    if (post.thumbnailUrl) {
       const thumbnailLink = document.createElement("a");
       thumbnailLink.className = "post-thumbnail";
       thumbnailLink.href = post.url;
@@ -29,7 +29,7 @@
       thumbnailLink.tabIndex = -1;
 
       const image = document.createElement("img");
-      image.src = "/images/thumbnails/" + encodeURIComponent(post.slug) + ".webp";
+      image.src = post.thumbnailUrl;
       image.alt = "";
       image.loading = "lazy";
       image.decoding = "async";
