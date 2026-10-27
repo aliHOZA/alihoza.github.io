@@ -40,7 +40,7 @@
       let score = 0;
       for (const term of terms) {
         if (item.title.includes(term)) score += 12;
-        if (item.url.includes(term)) score += 10;
+        if (item.url.includes(term) || item.slug.includes(term) || item.virgoolId.includes(term) || item.originalUrl.includes(term)) score += 10;
         if (item.tags.includes(term)) score += 7;
         if (item.categories.includes(term)) score += 6;
         if (item.summary.includes(term)) score += 4;
@@ -48,7 +48,7 @@
       }
       return { page: item.page, score, item };
     }).filter(({ score, item }) => score > 0 && terms.every((term) =>
-      [item.title, item.url, item.summary, item.content, item.tags, item.categories].some((field) => field.includes(term))
+      [item.title, item.url, item.slug, item.virgoolId, item.originalUrl, item.summary, item.content, item.tags, item.categories].some((field) => field.includes(term))
     )).sort((a, b) => b.score - a.score || b.page.date.localeCompare(a.page.date));
 
     const shown = found.slice(0, 50);
@@ -100,6 +100,9 @@
         page,
         title: normalize(page.title),
         url: normalize(page.url),
+        slug: normalize(page.slug),
+        virgoolId: normalize(page.virgool_id),
+        originalUrl: normalize(page.original_url),
         summary: normalize(page.summary),
         content: normalize(page.content),
         tags: normalize((page.tags || []).join(" ")),
