@@ -70,7 +70,13 @@
             </div>
             {{ with $page.Summary }}<p class="post-summary">{{ . | plainify | htmlUnescape | truncate 190 }}</p>{{ end }}
           </div>
-          <span class="post-number" aria-hidden="true">{{ printf "%02d" (add $index 1) }}</span>
+          {{- $archiveIndex := 0 -}}
+          {{- range $i, $archivePage := $allPosts -}}
+            {{- if eq $archivePage.RelPermalink $page.RelPermalink -}}
+              {{- $archiveIndex = $i -}}
+            {{- end -}}
+          {{- end -}}
+          <span class="post-number" aria-hidden="true">{{ printf "%02d" (sub (len $allPosts) $archiveIndex) }}</span>
         </article>
       {{ end }}
     </section>
