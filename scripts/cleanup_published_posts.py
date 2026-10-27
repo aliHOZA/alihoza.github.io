@@ -12,8 +12,12 @@ TAG_RE = re.compile(r"<[^>]+>")
 HEADING_RE = re.compile(r"(?is)<h([1-6])\b[^>]*>(.*?)</h\1\s*>")
 HREF_RE = re.compile(r"""(?is)(\bhref\s*=\s*)(["'])(.*?)\2""")
 VIRGOOL_RE = re.compile(r"(?:https?://)?(?:www\.)?virgool\.io/", re.I)
-RAW_URL_RE = re.compile(r"""https?://(?:www\.)?(?:virgool\.io|vrgl\.ir)/[^\s<>\\"']+""", re.I)
+RAW_URL_RE = re.compile(r"""https?://(?:www\.)?(?:virgool\.io|vrgl\.ir|alihoza\.github\.io)/[^\s<>\\\"']+""", re.I)
 SHORT_LINKS = {"https://vrgl.ir/qofQV": "ruqoesirf9vj"}
+
+def normalize_url_digits(url: str) -> str:
+    """Convert Persian and Arabic-Indic digits in URLs to ASCII digits."""
+    return url.translate(str.maketrans("۰۱۲۳۴۵۶۷۸۹٠١٢٣٤٥٦٧٨٩", "01234567890123456789"))
 
 def normalize_heading(value: str) -> str:
     value = html.unescape(TAG_RE.sub(" ", value))
@@ -67,6 +71,12 @@ def main() -> None:
         def rewrite_href(match: re.Match[str]) -> str:
             nonlocal links_rewritten, local_links_this_post
             raw_url = html.unescape(match.group(3)).strip()
+            parsed_raw = urlparse(raw_url)
+            if parsed_raw.netloc.lower().removeprefix("www.") == "alihoza.github.io":
+                normalized_url = normalize_url_digits(raw_url)
+                if normalized_url != raw_url:
+                    raw_url = normalized_url
+                    return match.group(1) + match.group(2) + html.escape(raw_url, quote=True) + match.group(2)
             if not VIRGOOL_RE.search(raw_url):
                 return match.group(0)
             decoded = unquote(raw_url)
@@ -85,6 +95,14 @@ def main() -> None:
         def rewrite_raw_url(match: re.Match[str]) -> str:
             nonlocal links_rewritten, local_links_this_post
             original_url = match.group(0)
+            parsed_original = urlparse(original_url)
+            if parsed_original.netloc.lower().removeprefix("www.") == "alihoza.github.io":
+                normalized_url = normalize_url_digits(original_url)
+                if normalized_url != original_url:
+                    links_rewritten += 1
+                    local_links_this_post += 1
+                    rewritten_urls.add(original_url)
+                    return normalized_url
             suffix = ""
             while original_url and original_url[-1] in ".,;:!?،؛؟)]}":
                 suffix = original_url[-1] + suffix
