@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - cleanup-related-links-oct-2026
-      - fix-virgool-outgoing-links
     paths:
       - '.github/workflows/cleanup-related-links.yml'
       - 'scripts/cleanup_published_posts.py'
@@ -14,7 +13,7 @@ permissions:
 
 jobs:
   cleanup:
-    if: contains(fromJSON('["refs/heads/cleanup-related-links-oct-2026","refs/heads/fix-virgool-outgoing-links"]'), github.ref)
+    if: github.ref == 'refs/heads/cleanup-related-links-oct-2026'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
