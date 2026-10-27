@@ -19,6 +19,12 @@
     .replace(/\s+/g, " ")
     .trim();
 
+  // Match whole words or their prefixes in natural-language fields.
+  // This avoids matching "سلام" inside "اسلام", while "اسلا" matches "اسلام".
+  const wordStartsWith = (field, term) => normalize(field)
+    .split(/[^\p{L}\p{N}]+/u)
+    .some((word) => word.startsWith(term));
+
   const make = (tag, className, text) => {
     const node = document.createElement(tag);
     if (className) node.className = className;
@@ -39,17 +45,22 @@
     const found = indexedPages.map((item) => {
       let score = 0;
       for (const term of terms) {
-        if (item.title.includes(term)) score += 12;
-        if (item.url.includes(term) || item.slug.includes(term) || item.virgoolId.includes(term) || item.originalUrl.includes(term)) score += 10;
-        if (item.tags.includes(term)) score += 7;
-        if (item.categories.includes(term)) score += 6;
-        if (item.summary.includes(term)) score += 4;
-        if (item.content.includes(term)) score += 1;
+        if (wordStartsWith(item.title, term)) score += 12;
+        // URL/slug/legacy IDs deliberately support substring matching.
+        if ([item.url, item.slug, item.virgoolId, item.originalUrl].some((field) => field.includes(term))) score += 10;
+        if (wordStartsWith(item.tags, term)) score += 7;
+        if (wordStartsWith(item.categories, term)) score += 6;
+        if (wordStartsWith(item.summary, term)) score += 4;
+        if (wordStartsWith(item.content, term)) score += 1;
       }
-      return { page: item.page, score, item };
-    }).filter(({ score, item }) => score > 0 && terms.every((term) =>
-      [item.title, item.url, item.slug, item.virgoolId, item.originalUrl, item.summary, item.content, item.tags, item.categories].some((field) => field.includes(term))
-    )).sort((a, b) => b.score - a.score || b.page.date.localeCompare(a.page.date));
+      const matchesTerm = (term) =>
+        wordStartsWith(item.title, term) ||
+        [item.url, item.slug, item.virgoolId, item.originalUrl].some((field) => field.includes(term)) ||
+        [item.summary, item.content, item.tags, item.categories].some((field) => wordStartsWith(field, term));
+
+      return { page: item.page, score, item, matchesAllTerms: terms.every(matchesTerm) };
+    }).filter(({ score, matchesAllTerms }) => score > 0 && matchesAllTerms)
+      .sort((a, b) => b.score - a.score || b.page.date.localeCompare(a.page.date));
 
     const shown = found.slice(0, 50);
     status.textContent = found.length
