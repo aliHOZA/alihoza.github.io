@@ -1,7 +1,7 @@
 baseURL = 'https://aliHOZA.github.io/'
 languageCode = 'fa'
 defaultContentLanguage = 'fa'
-title = 'وبلاگ علی حسین‌زاده'
+title = 'وبلاگ علی آقا'
 enableRobotsTXT = true
 
 [params]
