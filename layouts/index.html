@@ -54,7 +54,7 @@
   {{ $randomCandidates := after 8 $allPosts }}
   {{ $randomPosts := first 4 (shuffle $randomCandidates) }}
   {{ if $randomPosts }}
-    <div class="section-heading random-posts-heading"><h2>شاید برایتان جالب باشد</h2><span>۴ نوشتهٔ منتخب به‌صورت تصادفی</span></div>
+    <div class="section-heading random-posts-heading"><h2>شاید برایتان جالب باشد</h2><span>۴ نوشته تصادفی</span></div>
     <section class="post-list random-post-list" aria-label="نوشته‌های تصادفی">
       {{ range $index, $page := $randomPosts }}
         <article class="post-card">
