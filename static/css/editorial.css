@@ -1,3 +1,12 @@
+/* Self-hosted Vazirmatn variable font (SIL Open Font License 1.1). */
+@font-face {
+  font-family: "Vazirmatn";
+  src: url("../fonts/vazirmatn-variable.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+}
+
 :root {
   color-scheme: light dark;
   --page: #f9f9f7;
