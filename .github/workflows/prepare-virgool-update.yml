@@ -62,10 +62,6 @@ jobs:
           set -euo pipefail
           mkdir -p review-artifact/reports
 
-          # Include new files in the review diff without staging or committing them.
-          git add -N -A
-          git diff --binary HEAD > review-artifact/proposed-changes.patch
-
           for file in \
             reports/virgool-import-report.md \
             reports/new-post-taxonomy-report.md \
@@ -77,7 +73,7 @@ jobs:
             fi
           done
 
-          git status --short > review-artifact/working-tree-status.txt
+          git status --short -- . ':!public' ':!review-artifact' ':!scripts/__pycache__' > review-artifact/working-tree-status.txt
 
       - name: Upload review artifact
         uses: actions/upload-artifact@v4
@@ -94,7 +90,8 @@ jobs:
           set -euo pipefail
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add -A
+          # Never commit Hugo's generated public/ output, the report artifact, or Python bytecode.
+          git add -A -- . ':!public' ':!review-artifact' ':!scripts/__pycache__'
           if git diff --cached --quiet; then
             echo "No content changes to commit."
             exit 0
