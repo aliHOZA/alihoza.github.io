@@ -4,6 +4,7 @@ on:
   push:
     branches:
       - cleanup-related-links-oct-2026
+      - fix-virgool-outgoing-links
     paths:
       - '.github/workflows/cleanup-related-links.yml'
       - 'scripts/cleanup_published_posts.py'
