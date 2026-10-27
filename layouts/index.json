@@ -5,6 +5,9 @@
   {
     "title": {{ $page.Title | jsonify }},
     "url": {{ $page.RelPermalink | jsonify }},
+    "slug": {{ $page.File.ContentBaseName | jsonify }},
+    "virgool_id": {{ $page.Params.virgool_id | default "" | jsonify }},
+    "original_url": {{ $page.Params.original_url | default "" | jsonify }},
     "date": {{ $page.Date.Format "2006-01-02" | jsonify }},
     "summary": {{ $page.Summary | plainify | htmlUnescape | jsonify }},
     "content": {{ $page.Plain | htmlUnescape | jsonify }},
