@@ -18,10 +18,12 @@
   <meta name="twitter:description" content="{{ $metaDescription }}">
   <meta name="color-scheme" content="light dark">
   <title>{{ block "title" . }}{{ .Title }} | {{ .Site.Title }}{{ end }}</title>
+  <!-- Start the cross-origin font connection early; font requests use CORS. -->
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+  <!-- Discover the Persian font stylesheet before the local stylesheets to reduce font-swap delay. -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css">
   <link rel="stylesheet" href="{{ "css/editorial.css" | relURL }}">
   <link rel="stylesheet" href="{{ "css/enhancements.css" | relURL }}">
-  <link rel="preconnect" href="https://cdn.jsdelivr.net">
-  <link href="https://cdn.jsdelivr.net/gh/rastikerdar/vazirmatn@v33.003/Vazirmatn-font-face.css" rel="stylesheet">
   {{ block "head" . }}{{ end }}
 </head>
 <body>
