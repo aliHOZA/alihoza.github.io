@@ -1,0 +1,23 @@
+{{- /* Home RSS feed: only published posts, newest first. */ -}}
+{{- $pages := where .Site.RegularPages "Section" "posts" -}}
+{{- $pages = $pages.ByDate.Reverse -}}
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>{{ .Site.Title | htmlEscape }}</title>
+    <link>{{ .Site.BaseURL }}</link>
+    <description>{{ .Site.Params.description | htmlEscape }}</description>
+    <language>{{ .Site.Language.LanguageCode | default .Site.Language.Lang }}</language>
+    <generator>Hugo</generator>
+    <atom:link href="{{ "index.xml" | absURL }}" rel="self" type="application/rss+xml" />
+    {{- range first 50 $pages }}
+    <item>
+      <title>{{ .Title | htmlEscape }}</title>
+      <link>{{ .Permalink }}</link>
+      <guid isPermaLink="true">{{ .Permalink }}</guid>
+      <pubDate>{{ .PublishDate.Format "Mon, 02 Jan 2006 15:04:05 -0700" }}</pubDate>
+      <description>{{ .Summary | plainify | htmlUnescape | htmlEscape }}</description>
+    </item>
+    {{- end }}
+  </channel>
+</rss>
