@@ -1,11 +1,12 @@
 #!/usr/bin/env python3
 """Generate SEO-aware short URL redirects for stable numbered posts.
 
-Numbers live in the committed data/post-numbers.json mapping. Do not derive
-numbers from article order at build time: that would change old short URLs.
+Numbers live in data/post-numbers.json. The --assign-new option appends
+numbers for newly added Markdown posts without changing existing assignments.
 """
 from __future__ import annotations
 
+import argparse
 import html
 import json
 import re
@@ -16,9 +17,18 @@ POSTS_DIR = ROOT / "content" / "posts"
 MAPPING_FILE = ROOT / "data" / "post-numbers.json"
 OUTPUT_DIR = ROOT / "static" / "posts"
 BASE_URL = "https://alihoza.github.io"
+PERSIAN_DIGITS = str.maketrans("0123456789", "۰۱۲۳۴۵۶۷۸۹")
 
 
 def main() -> None:
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--assign-new",
+        action="store_true",
+        help="append stable numbers for posts not yet present in the mapping",
+    )
+    args = parser.parse_args()
+
     mapping = json.loads(MAPPING_FILE.read_text(encoding="utf-8"))
     posts = {
         path.stem: path
@@ -27,13 +37,34 @@ def main() -> None:
     }
     missing = sorted(set(posts) - set(mapping))
     stale = sorted(set(mapping) - set(posts))
+
+    if missing and args.assign_new:
+        next_number = max(
+            (item.get("number", 0) for item in mapping.values()), default=0
+        ) + 1
+        for slug in missing:
+            mapping[slug] = {
+                "number": next_number,
+                "display": str(next_number).translate(PERSIAN_DIGITS),
+            }
+            next_number += 1
+        MAPPING_FILE.write_text(
+            json.dumps(mapping, ensure_ascii=False, indent=2) + "\n",
+            encoding="utf-8",
+        )
+        print(f"Assigned stable numbers to {len(missing)} new post(s).")
+        missing = []
+
     if missing or stale:
         details = []
         if missing:
             details.append("posts missing stable numbers: " + ", ".join(missing))
         if stale:
             details.append("number mappings without a post: " + ", ".join(stale))
-        raise SystemExit("Update data/post-numbers.json before building the site; " + "; ".join(details))
+        raise SystemExit(
+            "Update data/post-numbers.json before building the site; "
+            + "; ".join(details)
+        )
 
     numbers: dict[int, str] = {}
     for slug, item in mapping.items():
@@ -41,7 +72,9 @@ def main() -> None:
         if not isinstance(number, int) or number < 1:
             raise SystemExit(f"Invalid number for {slug}: {number!r}")
         if number in numbers:
-            raise SystemExit(f"Duplicate post number {number}: {numbers[number]} and {slug}")
+            raise SystemExit(
+                f"Duplicate post number {number}: {numbers[number]} and {slug}"
+            )
         if not re.fullmatch(r"[0-9]{4}-[0-9]{2}-[0-9]{2}-.+", slug):
             raise SystemExit(f"Unexpected post slug: {slug}")
         numbers[number] = slug
