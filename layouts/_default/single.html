@@ -1,12 +1,14 @@
 {{ define "title" }}{{ .Title }} | {{ .Site.Title }}{{ end }}
 {{ define "main" }}
+{{- $postNumber := index (index .Site.Data "post-numbers") .File.ContentBaseName -}}
 <article>
   <div class="breadcrumbs"><a href="{{ .Site.Home.RelPermalink }}">خانه</a> / نوشته</div>
   <header class="article-header" data-post-date="{{ .Date.Format "2006-01-02" }}">
     <h1 class="article-title">{{ .Title }}</h1>
     <div class="post-meta">
+      {{ with $postNumber }}<span>نوشته شماره: {{ .display }}</span><span class="meta-separator" aria-hidden="true">·</span>{{ end }}
       <time class="js-local-date" data-date="{{ .Date.Format "2006-01-02" }}" datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "2006/01/02" }}</time>
-      {{ with .ReadingTime }}<span>{{ . }} دقیقه مطالعه</span>{{ end }}
+      {{ with .ReadingTime }}<span class="meta-separator" aria-hidden="true">·</span><span>{{ . }} دقیقه مطالعه</span>{{ end }}
     </div>
     {{ with .Params.categories }}
       <div class="tag-row" aria-label="دسته‌بندی‌ها">{{ range . }}<a class="tag-chip" href="{{ printf "categories/%s/" (. | urlize) | relURL }}">{{ . }}</a>{{ end }}</div>
@@ -28,6 +30,9 @@
         <a class="tag-chip" href="{{ printf "tags/%s/" (. | urlize) | relURL }}">{{ . }}</a>
       {{- end }}
     </div>
+  {{- end }}
+  {{- with $postNumber }}
+    <p class="short-post-url">آدرس کوتاه مطلب: <a href="{{ printf "posts/%d/" .number | relURL }}">{{ printf "%sposts/%d/" $.Site.BaseURL .number }}</a></p>
   {{- end }}
   <!-- CHATGPT: show chronological neighbors, same-month posts, keyword-similar posts, and three distinct random posts. -->
   {{ partial "related-posts.html" . }}

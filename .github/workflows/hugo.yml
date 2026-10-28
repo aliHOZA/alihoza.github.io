@@ -38,6 +38,9 @@ jobs:
       - name: Enrich posts with shared topic tags
         run: python scripts/enrich_post_tags.py
 
+      - name: Generate stable numbered-post redirects
+        run: python scripts/generate_post_number_redirects.py
+
       # First build creates Hugo's canonical JSON index; the ranking script uses
       # its rendered content and permalinks, avoiding a separate Markdown parser.
       - name: Build source index
