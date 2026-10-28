@@ -4,7 +4,7 @@
 <section class="search-page">
   <h1 class="page-heading">{{ .Title }}</h1>
   <p class="page-intro">در عنوان، متن نوشته‌ها، برچسب‌ها و دسته‌بندی‌ها جستجو کنید؛ یا شمارهٔ ترتیبی مطلب را وارد کنید (از قدیمی‌ترین مطلب به جدیدترین).</p>
-  <form class="search-form" id="site-search" data-index-url="{{ "index.json" | relURL }}?v=20261028-1" role="search">
+  <form class="search-form" id="site-search" data-index-url="{{ "index.json" | relURL }}?v=20261028-3" role="search">
     <label class="search-label" for="search-query">عبارت موردنظر</label>
     <div class="search-controls">
       <input id="search-query" name="q" type="search" class="search-input" placeholder="مثلاً اقتصاد، نفت، تاریخ یا شمارهٔ ۳۲۰..." autocomplete="off" autofocus>
@@ -14,5 +14,5 @@
   <p id="search-status" class="search-status" role="status" aria-live="polite">برای شروع، عبارت موردنظر را وارد کنید.</p>
   <section id="search-results" class="search-results" aria-label="نتایج جستجو"></section>
 </section>
-<script src="{{ "js/search.js" | relURL }}?v=20261028-1" defer></script>
+<script src="{{ "js/search.js" | relURL }}?v=20261028-3" defer></script>
 {{ end }}

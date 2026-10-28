@@ -10,6 +10,7 @@
   const results = document.getElementById("search-results");
   let pages = [];
   let indexedPages = [];
+  let debounceTimer = 0;
 
   const normalize = (value) => String(value || "")
     .toLocaleLowerCase("fa")
@@ -23,11 +24,9 @@
     .replace(/\s+/g, " ")
     .trim();
 
-  // Match whole words or their prefixes in natural-language fields.
-  // This avoids matching "سلام" inside "اسلام", while "اسلا" matches "اسلام".
-  const wordStartsWith = (field, term) => normalize(field)
-    .split(/[^\p{L}\p{N}]+/u)
-    .some((word) => word.startsWith(term));
+  // Normalize and split fields once when the index loads, not on every keystroke.
+  const tokenize = (value) => normalize(value).split(/[^\p{L}\p{N}]+/u).filter(Boolean);
+  const hasPrefix = (words, term) => words.some((word) => word.startsWith(term));
 
   const make = (tag, className, text) => {
     const node = document.createElement(tag);
@@ -36,48 +35,13 @@
     return node;
   };
 
-  const runSearch = () => {
-    const query = normalize(input.value);
-    results.replaceChildren();
-
-    if (query.length < 2) {
-      status.textContent = "برای جستجو دست‌کم دو نویسه وارد کنید.";
-      return;
-    }
-
-    const terms = query.split(" ").filter(Boolean);
-    let found = indexedPages.map((item) => {
-      let score = 0;
-      for (const term of terms) {
-        if (wordStartsWith(item.title, term)) score += 12;
-        // URL/slug/legacy IDs deliberately support substring matching.
-        if ([item.url, item.slug, item.virgoolId, item.originalUrl].some((field) => field.includes(term))) score += 10;
-        if (wordStartsWith(item.tags, term)) score += 7;
-        if (wordStartsWith(item.categories, term)) score += 6;
-        if (wordStartsWith(item.summary, term)) score += 4;
-        if (wordStartsWith(item.content, term)) score += 1;
-      }
-      const matchesTerm = (term) =>
-        wordStartsWith(item.title, term) ||
-        [item.url, item.slug, item.virgoolId, item.originalUrl].some((field) => field.includes(term)) ||
-        [item.summary, item.content, item.tags, item.categories].some((field) => wordStartsWith(field, term));
-
-      return { page: item.page, score, item, matchesAllTerms: terms.every(matchesTerm) };
-    }).filter(({ score, matchesAllTerms }) => score > 0 && matchesAllTerms)
-      .sort((a, b) => b.score - a.score || b.page.date.localeCompare(a.page.date));
-
-    // Number posts by publication order, oldest first; exact numeric searches take precedence.
-    if (/^\d+$/.test(query)) {
-      const requestedNumber = Number(query);
-      const numberedPost = indexedPages.find((item) => item.postNumber === requestedNumber);
-      if (numberedPost) found = [{ page: numberedPost.page, score: 1000, item: numberedPost, matchesAllTerms: true }];
-    }
-
+  const renderResults = (found) => {
     const shown = found.slice(0, 50);
     status.textContent = found.length
       ? (found.length + " نتیجه پیدا شد" + (found.length > shown.length ? "؛ ۵۰ نتیجهٔ نخست نمایش داده شده‌اند." : ""))
       : "نتیجه‌ای پیدا نشد. عبارت دیگری را امتحان کنید.";
 
+    const fragment = document.createDocumentFragment();
     for (const { page } of shown) {
       const article = make("article", "search-result");
       const heading = make("h2", "search-result-title");
@@ -90,8 +54,7 @@
       const displayDate = date && !Number.isNaN(date.getTime())
         ? new Intl.DateTimeFormat("fa-IR-u-ca-persian", { year: "numeric", month: "long", day: "numeric", timeZone: "UTC" }).format(date)
         : (page.date || "");
-      const meta = make("div", "post-meta", displayDate);
-      article.append(meta);
+      article.append(make("div", "post-meta", displayDate));
 
       if (page.summary) article.append(make("p", "post-summary", page.summary));
 
@@ -101,15 +64,88 @@
         for (const label of labels) chips.append(make("span", "tag-chip", label));
         article.append(chips);
       }
-      results.append(article);
+      fragment.append(article);
     }
+    results.replaceChildren(fragment);
+  };
+
+  const runSearch = () => {
+    const query = normalize(input.value);
+    results.replaceChildren();
+
+    if (query.length < 2) {
+      status.textContent = "برای جستجو دست‌کم دو نویسه وارد کنید.";
+      return;
+    }
+
+    // Numeric post-number searches can bypass the full-text scan entirely.
+    if (/^\d+$/.test(query)) {
+      const requestedNumber = Number(query);
+      const numberedPost = indexedPages.find((item) => item.postNumber === requestedNumber);
+      if (numberedPost) {
+        renderResults([{ page: numberedPost.page, score: 1000, item: numberedPost }]);
+        return;
+      }
+    }
+
+    const terms = query.split(" ").filter(Boolean);
+    const found = [];
+    for (const item of indexedPages) {
+      let score = 0;
+      let matchesAllTerms = true;
+
+      for (const term of terms) {
+        const titleMatch = hasPrefix(item.titleWords, term);
+        const urlMatch = item.url.includes(term) || item.slug.includes(term) ||
+          item.virgoolId.includes(term) || item.originalUrl.includes(term);
+        const tagsMatch = hasPrefix(item.tagWords, term);
+        const categoriesMatch = hasPrefix(item.categoryWords, term);
+        const summaryMatch = hasPrefix(item.summaryWords, term);
+        const contentMatch = hasPrefix(item.contentWords, term);
+
+        if (!(titleMatch || urlMatch || tagsMatch || categoriesMatch || summaryMatch || contentMatch)) {
+          matchesAllTerms = false;
+          break;
+        }
+
+        if (titleMatch) score += 12;
+        if (urlMatch) score += 10;
+        if (tagsMatch) score += 7;
+        if (categoriesMatch) score += 6;
+        if (summaryMatch) score += 4;
+        if (contentMatch) score += 1;
+      }
+
+      if (matchesAllTerms && score > 0) found.push({ page: item.page, score });
+    }
+
+    found.sort((a, b) => b.score - a.score || b.page.date.localeCompare(a.page.date));
+    renderResults(found);
+  };
+
+  const scheduleSearch = () => {
+    window.clearTimeout(debounceTimer);
+    const query = normalize(input.value);
+
+    // Start live searching only after three normalized characters.
+    // Explicit form submission still supports short numeric post numbers.
+    if (query.length < 3) {
+      results.replaceChildren();
+      status.textContent = query.length
+        ? "برای جستجوی خودکار دست‌کم سه نویسه وارد کنید؛ برای شماره‌های کوتاه، دکمهٔ جستجو را بزنید."
+        : "برای شروع، عبارت موردنظر را وارد کنید.";
+      return;
+    }
+
+    debounceTimer = window.setTimeout(runSearch, 90);
   };
 
   form.addEventListener("submit", (event) => {
     event.preventDefault();
+    window.clearTimeout(debounceTimer);
     runSearch();
   });
-  input.addEventListener("input", runSearch);
+  input.addEventListener("input", scheduleSearch);
 
   fetch(form.dataset.indexUrl)
     .then((response) => {
@@ -125,15 +161,15 @@
       indexedPages = pages.map((page) => ({
         page,
         postNumber: postNumbers.get(page.url),
-        title: normalize(page.title),
+        titleWords: tokenize(page.title),
         url: normalize(page.url),
         slug: normalize(page.slug),
         virgoolId: normalize(page.virgool_id),
         originalUrl: normalize(page.original_url),
-        summary: normalize(page.summary),
-        content: normalize(page.content),
-        tags: normalize((page.tags || []).join(" ")),
-        categories: normalize((page.categories || []).join(" "))
+        summaryWords: tokenize(page.summary),
+        contentWords: tokenize(page.content),
+        tagWords: tokenize((page.tags || []).join(" ")),
+        categoryWords: tokenize((page.categories || []).join(" "))
       }));
       status.textContent = "جستجو در " + pages.length + " نوشته آماده است.";
       if (input.value.trim()) runSearch();
