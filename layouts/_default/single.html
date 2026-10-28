@@ -32,7 +32,9 @@
     </div>
   {{- end }}
   {{- with $postNumber }}
-    <p class="short-post-url">آدرس کوتاه مطلب: <a href="{{ printf "posts/%d/" .number | relURL }}">{{ printf "%sposts/%d/" (replaceRE "^https?://" "" $.Site.BaseURL) .number }}</a></p>
+    {{- $shortPath := printf "/posts/%v/" .number -}}
+    {{- $shortURL := printf "%sposts/%v/" $.Site.BaseURL .number -}}
+    <p class="short-post-url">آدرس کوتاه مطلب: <a href="{{ $shortURL }}">{{ replaceRE "^https?://" "" $shortURL }}</a></p>
   {{- end }}
   <!-- CHATGPT: show chronological neighbors, same-month posts, keyword-similar posts, and three distinct random posts. -->
   {{ partial "related-posts.html" . }}
