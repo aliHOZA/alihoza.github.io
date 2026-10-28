@@ -67,7 +67,7 @@
       .sort((a, b) => b.score - a.score || b.page.date.localeCompare(a.page.date));
 
     // Number posts by publication order, oldest first; exact numeric searches take precedence.
-    if (/^\\d+$/.test(query)) {
+    if (/^\d+$/.test(query)) {
       const requestedNumber = Number(query);
       const numberedPost = indexedPages.find((item) => item.postNumber === requestedNumber);
       if (numberedPost) found = [{ page: numberedPost.page, score: 1000, item: numberedPost, matchesAllTerms: true }];
