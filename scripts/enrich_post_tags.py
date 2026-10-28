@@ -55,17 +55,17 @@ TOPICS = [
     ("فناوری و اینترنت", r"فناوری|اینترنت|هوش مصنوعی|شبکه‌های اجتماعی|دیجیتال"),
 ]
 def normalize_text(value: str) -> str:
-    value = value.replace("\\u200c", " ").replace("\\u200d", " ")
+    value = value.replace("\u200c", " ").replace("\u200d", " ")
     value = value.replace("ي", "ی").replace("ى", "ی").replace("ك", "ک")
-    value = re.sub(r"[\\u064B-\\u065F\\u0670\\u0640]", "", value)
-    return re.sub(r"\\s+", " ", value).strip().lower()
+    value = re.sub(r"[\u064B-\u065F\u0670\u0640]", "", value)
+    return re.sub(r"\s+", " ", value).strip().lower()
 
 
 def compile_topic_pattern(pattern: str) -> re.Pattern[str]:
     # TOPICS uses pipe-separated literal phrases, not arbitrary regex fragments.
     alternatives = [normalize_text(part.strip()) for part in pattern.split("|") if part.strip()]
     escaped = "|".join(re.escape(part) for part in alternatives)
-    return re.compile(r"(?<![\\w])(?:" + escaped + r")(?![\\w])", re.I)
+    return re.compile(r"(?<![\w])(?:" + escaped + r")(?![\w])", re.I)
 
 
 COMPILED_TOPICS = [(label, compile_topic_pattern(pattern)) for label, pattern in TOPICS]
@@ -114,13 +114,13 @@ def main() -> None:
         existing_tags = get_frontmatter_value(front, TAG_LINE_RE)
         categories = get_frontmatter_value(front, CATEGORY_LINE_RE)
         text = re.sub(r"<[^>]+>", " ", body)
-        text = re.sub(r"https?://\\S+", " ", text)
-        text = re.sub(r"!?(?:\\[[^\\]]*\\])\\([^)]*\\)", " ", text)
+        text = re.sub(r"https?://\S+", " ", text)
+        text = re.sub(r"!?(?:\[[^\]]*\])\([^)]*\)", " ", text)
         text = normalize_text(text)
         title = normalize_text(title)
         categories = [normalize_text(item) for item in categories]
-        summary_match = re.search(r"(?m)^summary:\\s*(.*?)\\s*$", front)
-        summary = normalize_text(summary_match.group(1).strip("'\\\\"") if summary_match else "")
+        summary_match = re.search(r"(?m)^summary:\s*(.*?)\s*$", front)
+        summary = normalize_text(summary_match.group(1).strip("'\"") if summary_match else "")
         records.append({
             "path": path, "raw": raw, "front": front, "body": body,
             "title": title, "summary": summary, "tags": existing_tags, "categories": categories,
