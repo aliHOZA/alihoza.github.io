@@ -39,7 +39,7 @@
         </div>
         {{ with $page.Summary }}<p class="post-summary">{{ . | plainify | htmlUnescape | truncate 190 }}</p>{{ end }}
       </div>
-      <span class="post-number" aria-hidden="true">{{ printf "%02d" (sub (len $allPosts) (add $globalOffset $index)) }}</span>
+      <span class="post-number" aria-hidden="true">{{ index (index $.Site.Data "post-numbers") $page.File.ContentBaseName "display" }}</span>
     </article>
   {{ else }}<p class="empty-state">هنوز نوشته‌ای برای نمایش وجود ندارد.</p>{{ end }}
 </section>
@@ -70,13 +70,7 @@
             </div>
             {{ with $page.Summary }}<p class="post-summary">{{ . | plainify | htmlUnescape | truncate 190 }}</p>{{ end }}
           </div>
-          {{- $archiveIndex := 0 -}}
-          {{- range $i, $archivePage := $allPosts -}}
-            {{- if eq $archivePage.RelPermalink $page.RelPermalink -}}
-              {{- $archiveIndex = $i -}}
-            {{- end -}}
-          {{- end -}}
-          <span class="post-number" aria-hidden="true">{{ printf "%02d" (sub (len $allPosts) $archiveIndex) }}</span>
+          <span class="post-number" aria-hidden="true">{{ index (index $.Site.Data "post-numbers") $page.File.ContentBaseName "display" }}</span>
         </article>
       {{ end }}
     </section>
