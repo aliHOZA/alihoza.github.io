@@ -125,6 +125,18 @@
 
   const scheduleSearch = () => {
     window.clearTimeout(debounceTimer);
+    const query = normalize(input.value);
+
+    // Start live searching only after three normalized characters.
+    // Explicit form submission still supports short numeric post numbers.
+    if (query.length < 3) {
+      results.replaceChildren();
+      status.textContent = query.length
+        ? "برای جستجوی خودکار دست‌کم سه نویسه وارد کنید؛ برای شماره‌های کوتاه، دکمهٔ جستجو را بزنید."
+        : "برای شروع، عبارت موردنظر را وارد کنید.";
+      return;
+    }
+
     debounceTimer = window.setTimeout(runSearch, 90);
   };
 
