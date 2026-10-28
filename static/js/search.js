@@ -14,6 +14,8 @@
   const normalize = (value) => String(value || "")
     .toLocaleLowerCase("fa")
     .replace(/[يى]/g, "ی")
+    // Treat Persian and Arabic-Indic numerals the same as ASCII digits.
+    .replace(/[۰-۹٠-٩]/g, (digit) => String("۰۱۲۳۴۵۶۷۸۹٠١٢٣٤٥٦٧٨٩".indexOf(digit) % 10))
     .replace(/ك/g, "ک")
     // Normalize Persian half-space as a word boundary, so either spacing form matches.
     .replace(/[\u200c\u200d]/g, " ")
@@ -44,7 +46,7 @@
     }
 
     const terms = query.split(" ").filter(Boolean);
-    const found = indexedPages.map((item) => {
+    let found = indexedPages.map((item) => {
       let score = 0;
       for (const term of terms) {
         if (wordStartsWith(item.title, term)) score += 12;
@@ -63,6 +65,13 @@
       return { page: item.page, score, item, matchesAllTerms: terms.every(matchesTerm) };
     }).filter(({ score, matchesAllTerms }) => score > 0 && matchesAllTerms)
       .sort((a, b) => b.score - a.score || b.page.date.localeCompare(a.page.date));
+
+    // Number posts by publication order, oldest first; exact numeric searches take precedence.
+    if (/^\\d+$/.test(query)) {
+      const requestedNumber = Number(query);
+      const numberedPost = indexedPages.find((item) => item.postNumber === requestedNumber);
+      if (numberedPost) found = [{ page: numberedPost.page, score: 1000, item: numberedPost, matchesAllTerms: true }];
+    }
 
     const shown = found.slice(0, 50);
     status.textContent = found.length
@@ -109,8 +118,13 @@
     })
     .then((data) => {
       pages = Array.isArray(data) ? data : [];
+      const chronologicalPages = [...pages].sort((a, b) =>
+        String(a.date || "").localeCompare(String(b.date || "")) ||
+        String(a.slug || "").localeCompare(String(b.slug || "")));
+      const postNumbers = new Map(chronologicalPages.map((page, index) => [page.url, index + 1]));
       indexedPages = pages.map((page) => ({
         page,
+        postNumber: postNumbers.get(page.url),
         title: normalize(page.title),
         url: normalize(page.url),
         slug: normalize(page.slug),
