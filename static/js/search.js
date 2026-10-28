@@ -159,13 +159,9 @@
     })
     .then((data) => {
       pages = Array.isArray(data) ? data : [];
-      const chronologicalPages = [...pages].sort((a, b) =>
-        String(a.date || "").localeCompare(String(b.date || "")) ||
-        String(a.slug || "").localeCompare(String(b.slug || "")));
-      const postNumbers = new Map(chronologicalPages.map((page, index) => [page.url, index + 1]));
       indexedPages = pages.map((page) => ({
         page,
-        postNumber: postNumbers.get(page.url),
+        postNumber: Number(page.number),
         titleWords: tokenize(page.title),
         url: normalize(page.url),
         slug: normalize(page.slug),

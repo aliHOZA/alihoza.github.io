@@ -6,6 +6,7 @@
     "title": {{ $page.Title | jsonify }},
     "url": {{ $page.RelPermalink | jsonify }},
     "slug": {{ $page.File.ContentBaseName | jsonify }},
+    "number": {{ index (index $.Site.Data "post-numbers") $page.File.ContentBaseName "number" | jsonify }},
     "virgool_id": {{ $page.Params.virgool_id | default "" | jsonify }},
     "original_url": {{ $page.Params.original_url | default "" | jsonify }},
     "date": {{ $page.Date.Format "2006-01-02" | jsonify }},

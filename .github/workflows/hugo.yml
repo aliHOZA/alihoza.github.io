@@ -10,7 +10,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -37,6 +37,24 @@ jobs:
 
       - name: Enrich posts with shared topic tags
         run: python scripts/enrich_post_tags.py
+
+      - name: Assign stable numbers to newly added posts
+        run: python scripts/generate_post_number_redirects.py --assign-new
+
+      - name: Commit new post-number assignments
+        run: |
+          if git diff --quiet -- data/post-numbers.json; then
+            echo "No new post numbers to save."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/post-numbers.json
+          git commit -m "[bot] Assign stable post numbers [skip ci]"
+          git push
+
+      - name: Generate stable numbered-post redirects
+        run: python scripts/generate_post_number_redirects.py
 
       # First build creates Hugo's canonical JSON index; the ranking script uses
       # its rendered content and permalinks, avoiding a separate Markdown parser.
