@@ -54,7 +54,21 @@ TOPICS = [
     ("انتخابات", r"انتخابات|رأی‌دهندگان|رأی‌گیری|نامزد انتخاباتی"),
     ("فناوری و اینترنت", r"فناوری|اینترنت|هوش مصنوعی|شبکه‌های اجتماعی|دیجیتال"),
 ]
-COMPILED_TOPICS = [(label, re.compile(pattern, re.I)) for label, pattern in TOPICS]
+def normalize_text(value: str) -> str:
+    value = value.replace("\\u200c", " ").replace("\\u200d", " ")
+    value = value.replace("ي", "ی").replace("ى", "ی").replace("ك", "ک")
+    value = re.sub(r"[\\u064B-\\u065F\\u0670\\u0640]", "", value)
+    return re.sub(r"\\s+", " ", value).strip().lower()
+
+
+def compile_topic_pattern(pattern: str) -> re.Pattern[str]:
+    # TOPICS uses pipe-separated literal phrases, not arbitrary regex fragments.
+    alternatives = [normalize_text(part.strip()) for part in pattern.split("|") if part.strip()]
+    escaped = "|".join(re.escape(part) for part in alternatives)
+    return re.compile(r"(?<![\\w])(?:" + escaped + r")(?![\\w])", re.I)
+
+
+COMPILED_TOPICS = [(label, compile_topic_pattern(pattern)) for label, pattern in TOPICS]
 
 
 def parse_list(value: str | None) -> list[str]:
@@ -74,6 +88,17 @@ def get_frontmatter_value(front: str, pattern: re.Pattern[str]) -> list[str]:
     return parse_list(match.group(1)) if match else []
 
 
+def topic_is_relevant(record: dict, pattern: re.Pattern[str]) -> bool:
+    """Reject incidental mentions: title/category/summary evidence or repeated body evidence."""
+    if pattern.search(record["title"]):
+        return True
+    if pattern.search(" ".join(record["categories"])):
+        return True
+    if pattern.search(record["summary"]):
+        return True
+    return len(list(pattern.finditer(record["text"]))) >= 2
+
+
 def main() -> None:
     files = sorted(p for p in POSTS_DIR.glob("*.md") if p.name != "_index.md")
     records = []
@@ -89,11 +114,17 @@ def main() -> None:
         existing_tags = get_frontmatter_value(front, TAG_LINE_RE)
         categories = get_frontmatter_value(front, CATEGORY_LINE_RE)
         text = re.sub(r"<[^>]+>", " ", body)
-        text = re.sub(r"https?://\S+", " ", text)
+        text = re.sub(r"https?://\\S+", " ", text)
+        text = re.sub(r"!?(?:\\[[^\\]]*\\])\\([^)]*\\)", " ", text)
+        text = normalize_text(text)
+        title = normalize_text(title)
+        categories = [normalize_text(item) for item in categories]
+        summary_match = re.search(r"(?m)^summary:\\s*(.*?)\\s*$", front)
+        summary = normalize_text(summary_match.group(1).strip("'\\\\"") if summary_match else "")
         records.append({
             "path": path, "raw": raw, "front": front, "body": body,
-            "title": title, "tags": existing_tags, "categories": categories,
-            "text": text, "all_text": title + "\n" + " ".join(categories) + "\n" + text,
+            "title": title, "summary": summary, "tags": existing_tags, "categories": categories,
+            "text": text, "all_text": title + " " + summary + " " + " ".join(categories) + " " + text,
         })
 
     # A candidate must be relevant to at least five separate posts.
@@ -103,7 +134,7 @@ def main() -> None:
         for tag in set(record["tags"]):
             existing_tag_counts[tag] += 1
         for label, pattern in COMPILED_TOPICS:
-            if pattern.search(record["all_text"]):
+            if topic_is_relevant(record, pattern):
                 topic_counts[label] += 1
 
     updated = 0
@@ -119,12 +150,14 @@ def main() -> None:
                 candidates[tag] = 100 + existing_tag_counts[tag]
 
         for label, pattern in COMPILED_TOPICS:
-            if topic_counts[label] < 5 or not pattern.search(all_text):
+            if topic_counts[label] < 5 or not topic_is_relevant(record, pattern):
                 continue
             score = 1
             if pattern.search(title):
-                score += 20
+                score += 30
             if pattern.search(" ".join(record["categories"])):
+                score += 12
+            if pattern.search(record["summary"]):
                 score += 8
             if pattern.search(text[:3000]):
                 score += 4
