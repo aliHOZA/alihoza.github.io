@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
-"""Add a small, shared set of topic tags to Hugo posts before rendering.
+"""Rebuild tags for every Hugo post from the controlled topic vocabulary.
 
-This is a build-time enrichment step: it updates only the CI checkout, not the
-repository's Markdown files. Tags are chosen from a controlled topic vocabulary
-and only used when the topic matches at least five posts in the current corpus.
+Existing tags are intentionally discarded. Only relevant shared topics occurring
+in at least five posts in the current corpus can be assigned, with up to five tags
+per post. The script can run in CI or in a content-preparation workflow.
 """
 from __future__ import annotations
 
@@ -111,7 +111,7 @@ def main() -> None:
         body = raw[match.end():]
         title_match = TITLE_RE.search(front)
         title = title_match.group(1).strip().strip("'\"") if title_match else path.stem
-        existing_tags = get_frontmatter_value(front, TAG_LINE_RE)
+        # Existing tags are deliberately ignored so stale labels cannot survive.
         categories = get_frontmatter_value(front, CATEGORY_LINE_RE)
         text = re.sub(r"<[^>]+>", " ", body)
         text = re.sub(r"https?://\S+", " ", text)
@@ -123,16 +123,13 @@ def main() -> None:
         summary = normalize_text(summary_match.group(1).strip("'").strip('"') if summary_match else "")
         records.append({
             "path": path, "raw": raw, "front": front, "body": body,
-            "title": title, "summary": summary, "tags": existing_tags, "categories": categories,
-            "text": text, "all_text": title + " " + summary + " " + " ".join(categories) + " " + text,
+            "title": title, "summary": summary, "categories": categories,
+            "text": text,
         })
 
     # A candidate must be relevant to at least five separate posts.
     topic_counts = Counter()
-    existing_tag_counts = Counter()
     for record in records:
-        for tag in set(record["tags"]):
-            existing_tag_counts[tag] += 1
         for label, pattern in COMPILED_TOPICS:
             if topic_is_relevant(record, pattern):
                 topic_counts[label] += 1
@@ -142,12 +139,7 @@ def main() -> None:
     for record in records:
         title = record["title"]
         text = record["text"]
-        all_text = record["all_text"]
         candidates: dict[str, int] = {}
-
-        for tag in record["tags"]:
-            if existing_tag_counts[tag] >= 5:
-                candidates[tag] = 100 + existing_tag_counts[tag]
 
         for label, pattern in COMPILED_TOPICS:
             if topic_counts[label] < 5 or not topic_is_relevant(record, pattern):
@@ -163,30 +155,25 @@ def main() -> None:
                 score += 4
             candidates[label] = max(candidates.get(label, 0), score + topic_counts[label] / 1000)
 
-        # Keep existing order where possible; then choose strongest matching shared topics.
-        chosen = []
-        for tag in record["tags"]:
-            if tag in candidates and tag not in chosen:
-                chosen.append(tag)
-        for tag, _score in sorted(candidates.items(), key=lambda pair: (-pair[1], pair[0])):
-            if tag not in chosen and len(chosen) < 5:
-                chosen.append(tag)
-        chosen = chosen[:5]
+        # Rebuild tags from scratch; never carry forward existing labels.
+        chosen = [
+            tag for tag, _score in sorted(
+                candidates.items(), key=lambda pair: (-pair[1], pair[0])
+            )[:5]
+        ]
 
         if len(chosen) < 3:
             under_tagged.append((record["path"].name, len(chosen)))
-        if chosen == record["tags"]:
-            continue
-
         front = record["front"]
-        rendered_tags = "tags: [" + ", ".join(json.dumps(tag, ensure_ascii=False) for tag in chosen) + "]"
+        rendered_tags = "tags: " + json.dumps(chosen, ensure_ascii=False)
         if TAG_LINE_RE.search(front):
-            front = TAG_LINE_RE.sub(rendered_tags, front, count=1)
-        elif chosen:
+            front = TAG_LINE_RE.sub(lambda _: rendered_tags, front, count=1)
+        else:
             front += "\n" + rendered_tags
         new_raw = "---\n" + front + "\n---\n" + record["body"]
-        record["path"].write_text(new_raw, encoding="utf-8")
-        updated += 1
+        if new_raw != record["raw"]:
+            record["path"].write_text(new_raw, encoding="utf-8")
+            updated += 1
 
     print(f"Tag enrichment: scanned {len(records)} posts; updated {updated}; "
           f"{len(under_tagged)} post(s) have fewer than three valid shared tags.")
