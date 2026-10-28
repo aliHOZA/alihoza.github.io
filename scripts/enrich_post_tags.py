@@ -120,7 +120,7 @@ def main() -> None:
         title = normalize_text(title)
         categories = [normalize_text(item) for item in categories]
         summary_match = re.search(r"(?m)^summary:\s*(.*?)\s*$", front)
-        summary = normalize_text(summary_match.group(1).strip("'\"") if summary_match else "")
+        summary = normalize_text(summary_match.group(1).strip("'").strip('"') if summary_match else "")
         records.append({
             "path": path, "raw": raw, "front": front, "body": body,
             "title": title, "summary": summary, "tags": existing_tags, "categories": categories,
