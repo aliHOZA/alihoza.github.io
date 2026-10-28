@@ -35,6 +35,9 @@ jobs:
           hugo-version: '0.134.3'
           extended: true
 
+      - name: Enrich posts with shared topic tags
+        run: python scripts/enrich_post_tags.py
+
       # First build creates Hugo's canonical JSON index; the ranking script uses
       # its rendered content and permalinks, avoiding a separate Markdown parser.
       - name: Build source index
