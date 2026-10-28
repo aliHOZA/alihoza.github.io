@@ -38,8 +38,8 @@ jobs:
       - name: Import new published posts
         run: python scripts/import_virgool.py --archive virgool-export-2026-10-27--glK.zip
 
-      - name: Apply taxonomy to newly imported posts only
-        run: python scripts/prepare_new_post_taxonomy.py
+      - name: Rebuild tags for all posts using the current relevance rules
+        run: python scripts/enrich_post_tags.py
 
       - name: Optimize eligible large images
         run: python scripts/optimize_large_images.py
@@ -64,7 +64,6 @@ jobs:
 
           for file in \
             reports/virgool-import-report.md \
-            reports/new-post-taxonomy-report.md \
             .github/image-optimization-report.md \
             .github/image-optimization-results.json
           do
