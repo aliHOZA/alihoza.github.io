@@ -84,7 +84,7 @@ a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; border-
 .post-title a:hover { color: var(--accent); }
 .post-meta { display: flex; flex-wrap: wrap; gap: 4px 12px; color: var(--muted); font-size: .79rem; line-height: 1.8; }
 .post-meta .meta-separator { margin-inline: -7px; }
-.short-post-url { margin: 22px 0 30px; color: var(--muted); font-size: .84rem; overflow-wrap: anywhere; }
+.short-post-url { margin: 30px 0 30px; color: var(--muted); font-size: .84rem; overflow-wrap: anywhere; }
 .short-post-url a { direction: ltr; unicode-bidi: plaintext; }
 .post-summary { max-width: 790px; margin: 10px 0 0; color: var(--muted); font-size: .91rem; line-height: 1.95; }
 .post-number { color: #a4a89f; font-size: .78rem; font-variant-numeric: tabular-nums; padding-top: 7px; }
