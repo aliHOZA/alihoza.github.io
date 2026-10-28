@@ -15,7 +15,8 @@
     .toLocaleLowerCase("fa")
     .replace(/[يى]/g, "ی")
     .replace(/ك/g, "ک")
-    .replace(/[\u200c\u200d]/g, "")
+    // Normalize Persian half-space as a word boundary, so either spacing form matches.
+    .replace(/[\u200c\u200d]/g, " ")
     .replace(/[\u064B-\u065F\u0670\u0640]/g, "")
     .replace(/\s+/g, " ")
     .trim();
