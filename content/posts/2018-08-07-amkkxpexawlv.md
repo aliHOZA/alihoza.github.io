@@ -6,9 +6,8 @@ virgool_id: "amkkxpexawlv"
 original_url: "https://virgool.io/@mrali/%D8%AD%DA%A9%D9%88%D9%85%D8%AA-%D9%88-%D9%86%DB%8C%D8%A7%D8%B2-%D9%85%D8%B1%D8%AF%D9%85-amkkxpexawlv"
 draft: false
 categories: ["سیاست و روابط بین‌الملل"]
-tags: []
+tags: ["مردم"]
 ---
-
 <section class="e-content">
                 <figure class="md-block-image"><img src="/images/virgool/c8a53f6ad8880a5df0d3.png" alt="" /></img></figure><p class="md-block-unstyled"><strong class="md-inline-bold"><a class="md-inline-link" href="https://t.me/mmoeeni1" target="_blank" rel="noopener nofollow">شین:</a></strong> اتحاد جماهیر شوروی کمونیستی، قدرت نظامی فوق‌العاده زیادی داشت؛ رسما «ابرقدرت» صدایش می‌کردند؛ قدرتی که البته به کار ماندن‌اش نیامد؛ چون خود به کار نیاز مردمان‌اش نیامده بود. امام خمینی هم که برای آخرین رهبر شوروی نامه نوشت، نوشته بود: «برای همه روشن است که از این پس کمونیسم را باید در موزه‌های تاریخ سیاسی جهان جستجو کرد، چرا که مارکسیسم جوابگوی هیچ نیازی از نیازهای واقعی انسان نیست.»</p><p class="md-block-unstyled">مارکوس ولف، رئیس ضداطلاعات آلمان شرقی (سابق) در کتاب خاطراتش نوشته که به طور ناشناس بین مردم رفت و آمد می‌کرده. در صفحه ۱۸۱ کتاب خاطراتش آمده: </p><p class="md-block-unstyled">یک روز که از کنار صفی در بیرون فروشگاهی رد می‌شدم، شنیدم که پیرزنی به لهجه برلینی غلیظ نفرین می‌کند: <strong class="md-inline-bold">«می‌توانند سفینه اسپاتنیک را به فضا پرتاب کنند اما حالا در وسط تابستان یک ذره سبزی پیدا نمی‌شود».</strong></p>
             </section>
