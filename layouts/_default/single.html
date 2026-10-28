@@ -25,15 +25,15 @@
     {{- $postID := .File.ContentBaseName | replaceRE "^[0-9]{4}-[0-9]{2}-[0-9]{2}-" "" -}}
     <p class="source-post-link"><a href="https://virgool.io/@mrali/{{ $.Title | urlize }}-{{ $postID }}" target="_blank" rel="noopener noreferrer">مشاهدهٔ نسخهٔ اصلی در ویرگول ↗</a></p>
   {{- end -}}
-  {{- with .Params.keywords }}
-    <section class="post-keywords" aria-label="کلیدواژه‌های این یادداشت">
-      <h2 class="section-title">کلیدواژه‌های این یادداشت</h2>
-      <div class="tag-row">
-        {{- range . }}
-          <a class="tag-chip" href="{{ printf "search/?q=%s" (. | urlquery) | relURL }}">{{ . }}</a>
-        {{- end }}
       </div>
     </section>
+  {{- end }}
+  {{- with .Params.tags }}
+    <div class="tag-row article-tags" aria-label="برچسب‌ها">
+      {{- range . }}
+        <a class="tag-chip" href="{{ printf "tags/%s/" (. | urlize) | relURL }}">{{ . }}</a>
+      {{- end }}
+    </div>
   {{- end }}
   <!-- CHATGPT: show chronological neighbors, same-month posts, keyword-similar posts, and three distinct random posts. -->
   {{ partial "related-posts.html" . }}
