@@ -78,15 +78,12 @@
       return;
     }
 
-    // Numeric post-number searches can bypass the full-text scan entirely.
-    if (/^\d+$/.test(query)) {
-      const requestedNumber = Number(query);
-      const numberedPost = indexedPages.find((item) => item.postNumber === requestedNumber);
-      if (numberedPost) {
-        renderResults([{ page: numberedPost.page, score: 1000, item: numberedPost }]);
-        return;
-      }
-    }
+    // Exact post-number matches receive a ranking boost, but never suppress
+    // the full-text scan: other posts may contain the same number.
+    const requestedNumber = /^\d+$/.test(query) ? Number(query) : null;
+    const numberedPost = requestedNumber === null
+      ? null
+      : indexedPages.find((item) => item.postNumber === requestedNumber);
 
     const terms = query.split(" ").filter(Boolean);
     const found = [];
@@ -116,7 +113,15 @@
         if (contentMatch) score += 1;
       }
 
-      if (matchesAllTerms && score > 0) found.push({ page: item.page, score });
+      if (matchesAllTerms && score > 0) {
+        if (numberedPost && item.postNumber === requestedNumber) score += 1000;
+        found.push({ page: item.page, score });
+      }
+    }
+
+    // Include the exact numbered post even if its text does not contain that number.
+    if (numberedPost && !found.some((result) => result.page.url === numberedPost.page.url)) {
+      found.push({ page: numberedPost.page, score: 1000 });
     }
 
     found.sort((a, b) => b.score - a.score || b.page.date.localeCompare(a.page.date));
