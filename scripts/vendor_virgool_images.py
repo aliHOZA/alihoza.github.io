@@ -17,27 +17,20 @@ REPORT = ROOT / "reports" / "virgool-ir-image-recovery.md"
 MAX_IMAGE_BYTES = 20 * 1024 * 1024
 MAX_TOTAL_BYTES = 350 * 1024 * 1024
 TARGET_POST_IDS = {
-    "wwpwkvi04ldn",
-    "dftwyxbtorgy",
-    "us1qawarwyzm",
-    "rqur2zllwnwb",
-    "pjlio8j11s5r",
-    "y77hw2dw6u2m",
-    "jobe8xigrbdb",
-    "sopv4iukxnyc",
-    "bp7t76qarcqn",
-    "ylwd6jgwkugy",
+    "wwpwkvi04ldn", "dftwyxbtorgy", "us1qawarwyzm", "rqur2zllwnwb",
+    "pjlio8j11s5r", "y77hw2dw6u2m", "jobe8xigrbdb", "sopv4iukxnyc",
+    "bp7t76qarcqn", "ylwd6jgwkugy",
 }
-URL_RE = re.compile(r"https://files\\.virgool\\.(?:io|ir)/upload/[^\\\"'<>\\s)]+")
+URL_RE = re.compile(r"https://files\.virgool\.(?:io|ir)/upload/[^\"'<>\s)]+")
 MAGIC_EXTENSIONS = (
-    (b"\\x89PNG\\r\\n\\x1a\\n", ".png"),
-    (b"\\xff\\xd8\\xff", ".jpg"),
+    (b"\x89PNG\r\n\x1a\n", ".png"),
+    (b"\xff\xd8\xff", ".jpg"),
     (b"GIF87a", ".gif"),
     (b"GIF89a", ".gif"),
     (b"RIFF", ".webp"),
 )
 
-def image_extension(data: bytes, content_type: str, url: str) -> str:
+def image_extension(data: bytes, content_type: str) -> str:
     for signature, extension in MAGIC_EXTENSIONS:
         if data.startswith(signature):
             if extension == ".webp" and data[8:12] != b"WEBP":
@@ -45,8 +38,9 @@ def image_extension(data: bytes, content_type: str, url: str) -> str:
             return extension
     if len(data) >= 12 and data[4:8] == b"ftyp":
         return ".avif"
-    if data.lstrip().startswith(b"<svg") or (
-        data.lstrip().startswith(b"<?xml") and b"<svg" in data[:512]
+    stripped = data.lstrip()
+    if stripped.startswith(b"<svg") or (
+        stripped.startswith(b"<?xml") and b"<svg" in data[:512]
     ):
         return ".svg"
     mime = content_type.split(";", 1)[0].strip().lower()
@@ -60,10 +54,7 @@ def image_extension(data: bytes, content_type: str, url: str) -> str:
 
 def source_url(url: str) -> str:
     parsed = urllib.parse.urlsplit(url.rstrip(".,;"))
-    # Virgool's current image host is .ir. Drop x-img transformations so the
-    # downloaded bytes retain the original format and full source dimensions.
-    path = parsed.path
-    return urllib.parse.urlunsplit(("https", "files.virgool.ir", path, "", ""))
+    return urllib.parse.urlunsplit(("https", "files.virgool.ir", parsed.path, "", ""))
 
 def main() -> int:
     posts = []
@@ -86,9 +77,8 @@ def main() -> int:
     total_bytes = 0
 
     for index, url in enumerate(sorted(found), 1):
-        fetch_url = source_url(url)
         request = urllib.request.Request(
-            fetch_url,
+            source_url(url),
             headers={
                 "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 Chrome/130 Safari/537.36",
                 "Accept": "image/avif,image/webp,image/apng,image/svg+xml,image/*,*/*;q=0.8",
@@ -103,10 +93,9 @@ def main() -> int:
                 raise ValueError("image exceeds 20 MiB limit")
             if not content_type.lower().startswith("image/") and not data.lstrip().startswith((b"<svg", b"<?xml")):
                 raise ValueError(f"unexpected Content-Type: {content_type}")
-            ext = image_extension(data, content_type, fetch_url)
+            ext = image_extension(data, content_type)
             digest = hashlib.sha256(url.encode("utf-8")).hexdigest()[:20]
-            name = digest + ext
-            successful[url] = (name, data)
+            successful[url] = (digest + ext, data)
             total_bytes += len(data)
             if total_bytes > MAX_TOTAL_BYTES:
                 raise RuntimeError("batch exceeds 350 MiB safety limit; no post references have been changed")
@@ -116,7 +105,6 @@ def main() -> int:
             failures.append((url, str(exc)))
         print(f"[{index}/{len(found)}] {'OK' if url in successful else 'FAILED'} {url}")
 
-    # Save verified bytes first; only then rewrite references to files that exist.
     for name, data in successful.values():
         destination = IMAGE_DIR / name
         if destination.exists() and destination.read_bytes() != data:
@@ -150,8 +138,8 @@ def main() -> int:
     if failures:
         lines += ["", "## Failures", ""]
         lines.extend(f"- {url} — {reason.replace('|', chr(92) + '|')}" for url, reason in failures)
-    REPORT.write_text("\\n".join(lines) + "\\n", encoding="utf-8")
-    print("\\n" + "\\n".join(lines))
+    REPORT.write_text("\n".join(lines) + "\n", encoding="utf-8")
+    print("\n" + "\n".join(lines))
     return 0 if not failures else 1
 
 if __name__ == "__main__":
